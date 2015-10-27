@@ -113,22 +113,22 @@ class Hero_Archer:
         self.life_time = 0.0
         self.total_frames = 0.0
         self.dir = 0.8
-        self.state = self.WALK
+        self.state = self.ATTACK
         if Hero_Archer.h_image == None:
             Hero_Archer.h_image = load_image('Hero/Archer_sheet.png')
 
     def update(self, frame_time):
         distance = Hero_Archer.RUN_SPEED_PPS * frame_time
-        self.total_frames += Hero_Knight.FRAMES_PER_ACTION * Hero_Knight.ACTION_PER_TIME * frame_time
+        self.total_frames += Hero_Archer.FRAMES_PER_ACTION * Hero_Archer.ACTION_PER_TIME * frame_time
         if self.state == self.WALK:
             self.frame = int(self.total_frames) % 6
         elif self.state == self.ATTACK:
-            self.frame = int(self.total_frames) % 4
+            self.frame = int(self.total_frames) % 6
         self.x += (self.dir * distance)
 
-        if self.x > 950:
+        if self.x > 300:
             self.dir = 0
-            self.x = random.randint(1100, 1103)
+            self.x = random.randint(950, 953)
             self.state = self.ATTACK
         elif self.x < 100:
             self.dir = 0.8
@@ -138,6 +138,51 @@ class Hero_Archer:
 
     def draw(self):
         self.h_image.clip_draw(self.frame*100, self.state*100, 110, 100, self.x, self.y)
+
+class Monster_Skleton:
+    PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
+    RUN_SPEED_KMPH = 5.0                    # Km / Hour
+    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+
+    TIME_PER_ACTION = 0.5
+    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
+    FRAMES_PER_ACTION = 6
+    m_image = None
+    WALK, ATTACK, DAMAGE, DIE = 3,2,1,0
+
+    def __init__(self):
+        self.x, self.y = 1200, 300
+        self.frame = random.randint(0, 2)
+        self.life_time = 0.0
+        self.total_frames = 0.0
+        self.dir = -0.8
+        self.state = self.WALK
+        if Monster_Skleton.m_image == None:
+            Monster_Skleton.m_image = load_image('Monster/Skeleton_sheet.png')
+
+    def update(self, frame_time):
+        distance = Monster_Skleton.RUN_SPEED_PPS * frame_time
+        self.total_frames += Monster_Skleton.FRAMES_PER_ACTION * Monster_Skleton.ACTION_PER_TIME * frame_time
+        if self.state == self.WALK:
+            self.frame = int(self.total_frames) % 6
+        elif self.state == self.ATTACK:
+            self.frame = int(self.total_frames) % 4
+        self.x += (self.dir * distance)
+
+        if self.x > 1200:
+            self.dir = -0.8
+            self.x = random.randint(1100, 1103)
+            self.state = self.WALK
+        elif self.x < 100:
+            self.dir = 0
+            self.x = 100
+            self.state = self.ATTACK
+
+
+    def draw(self):
+        self.m_image.clip_draw(self.frame*100, self.state*100, 110, 100, self.x, self.y)
 
 class Magic_Meteor:
     TIME_PER_ACTION = 0.5
@@ -166,6 +211,7 @@ class Magic_Meteor:
 
 def enter():
     global h_Knight, h_Archer, font
+    global m_Skeleton
     global u_Magician
     global stage_background, gameUI, myCastle, enemyCastle, cloud, ui_button
     global my_team
@@ -178,8 +224,9 @@ def enter():
     u_Magician = User_Magician()
     h_Knight = Hero_Knight()
     h_Archer = Hero_Archer()
-    m_meteor = Magic_Meteor()
 
+    m_meteor = Magic_Meteor()
+    m_Skeleton = Monster_Skleton()
     ui_button = load_image('UI/UI_Button.png')
     gameUI = load_image('UI/GameUI.png')
     stage_background = load_image('Map/Stage2_bkg.png')
@@ -201,7 +248,7 @@ def exit():
     del(cloud)
     del(gameUI)
     del(m_meteor)
-
+    del(m_Skeleton)
 def pause():
     pass
 
@@ -265,6 +312,7 @@ def update(frame_time):
     h_Knight.update(frame_time)
     u_Magician.update(frame_time)
     m_meteor.update(frame_time)
+    m_Skeleton.update(frame_time)
     gold += (frame_time * 100)
     if timer == False:
         chk_time += frame_time
@@ -283,14 +331,15 @@ def draw(frame_time):
     enemyCastle.draw(1200, 355)
     ui_button.draw(1230, 690)
     u_Magician.draw()
+    m_Skeleton.draw()
     font.draw(551, 56, '%1.f' % gold)
     for m_meteor in my_magic:
         m_meteor.update(frame_time)
         m_meteor.draw()
 
-    for h_Archer in my_team:
-        h_Archer.update(frame_time)
-        h_Archer.draw()
+    for h_Knight in my_team:
+        h_Knight.update(frame_time)
+        h_Knight.draw()
 
     for h_Archer in my_team:
         h_Archer.update(frame_time)
