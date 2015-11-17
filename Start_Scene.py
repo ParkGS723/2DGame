@@ -1,7 +1,6 @@
 import game_framework
 from pico2d import *
 
-
 import Title_Scene
 
 name = "StartScene"

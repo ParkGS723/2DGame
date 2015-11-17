@@ -1,18 +1,21 @@
 import random
-import json
-import os
+
+
 import game_framework
 import Title_Scene
 from pico2d import *
 
+import json
+import os
+
 button_x, button_y = 0, 0
 name = "MainScene"
+background = None
 font = None
 gameUI = None
 timer = False
 chk_time = 0.0
 gold = 0
-
 
 class User_Valvatorez:
 
@@ -40,6 +43,12 @@ class User_Valvatorez:
 
     def draw(self):
         self.user_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 50, self.y - 70, self.x + 50, self.y + 70
 
 class Monster_Skleton:
     PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
@@ -124,10 +133,13 @@ class Hero_Adell:
     WALK, ATK, MTK, DIE = 3,2,1,0
 
     def __init__(self):
-        self.x, self.y = 0, 340
+        self.x, self.y = 0, 340 #object_data['Hero_Adell']['y'] #0, 340
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
         self.total_frames = 0.0
+        self.atk_time = 0.0
+        self.atk = 10 #object_data['Hero_Adell']['atk']
+        self.health = 50 #object_data['Hero_Adell']['health']
         self.dir = 0.5
         self.state = self.WALK
         if Hero_Adell.adell_image == None:
@@ -151,8 +163,25 @@ class Hero_Adell:
             self.x = 100
             self.state = self.WALK
 
+    def die(self, hero, frame_time):
+        self.atk_time += frame_time
+
+        if hero.frame == 0:
+            if self.atk_time > 0.05:
+                self.atk_time = 0
+                self.health -= hero.atk
+                if self.health <= 0:
+                    return True
+        return False
+
     def draw(self):
         self.adell_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 85, self.x + 40, self.y + 65
 
 class Hero_Archer:
     PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
@@ -198,6 +227,12 @@ class Hero_Archer:
     def draw(self):
         self.archer_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
 
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 85, self.x + 40, self.y + 65
+
 class Hero_Asuka:
     PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
     RUN_SPEED_KMPH = 3.0                    # Km / Hour
@@ -239,6 +274,11 @@ class Hero_Asuka:
             self.x = 100
             self.state = self.WALK
 
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 85, self.x + 40, self.y + 65
 
     def draw(self):
         self.asuka_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
@@ -284,9 +324,14 @@ class Hero_Axel:
             self.x = 100
             self.state = self.WALK
 
-
     def draw(self):
         self.axel_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 85, self.x + 40, self.y + 65
 
 class Hero_Gunner:
     PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
@@ -329,9 +374,14 @@ class Hero_Gunner:
             self.x = 100
             self.state = self.WALK
 
-
     def draw(self):
         self.gunner_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 85, self.x + 40, self.y + 65
 
 class Hero_Fenrich:
     PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
@@ -374,9 +424,14 @@ class Hero_Fenrich:
             self.x = 100
             self.state = self.WALK
 
-
     def draw(self):
         self.fenrich_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 85, self.x + 40, self.y + 65
 
 class Hero_Ninja:
     PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
@@ -419,9 +474,14 @@ class Hero_Ninja:
             self.x = 100
             self.state = self.WALK
 
-
     def draw(self):
         self.ninja_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 85, self.x + 40, self.y + 65
 
 class Hero_Pram:
     PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
@@ -464,9 +524,14 @@ class Hero_Pram:
             self.x = 100
             self.state = self.WALK
 
-
     def draw(self):
         self.pram_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 85, self.x + 40, self.y + 65
 
 class Hero_Prof:
     PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
@@ -513,6 +578,12 @@ class Hero_Prof:
     def draw(self):
         self.professor_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
 
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 85, self.x + 40, self.y + 65
+
 class User_Castle:
     castle_image = None
     def __init__(self):
@@ -539,11 +610,14 @@ class Enemy_Slime:
     WALK, ATK  = 3,2
 
     def __init__(self):
-        self.x, self.y = 1200, 330
+        self.x, self.y = 1200, 330#object_data['Enemy_Slime']['y']
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
         self.total_frames = 0.0
+        self.atk_time = 0.0
         self.dir = -0.5
+        self.atk = 2 #object_data['Enemy_Slime']['atk']
+        self.health = 50 #object_data['Enemy_Slime']['heath']
         self.state = self.WALK
         if Enemy_Slime.slime_image == None:
             Enemy_Slime.slime_image = load_image('Monster/Slime_Sheet.png')
@@ -565,8 +639,25 @@ class Enemy_Slime:
             self.dir = -0.5
             self.state = self.WALK
 
+    def die(self, enemy, frame_time):
+        self.atk_time += frame_time
+        if enemy.frame == 0:
+            if self.atk_time > 0.1:
+                self.atk_time = 0
+                self.health -= enemy.atk
+                if self.health <= 0:
+                    return True
+        return False
+
+
     def draw(self):
         self.slime_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 80, self.x + 40, self.y + 40
 
 class Enemy_Zombie:
     PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
@@ -611,6 +702,12 @@ class Enemy_Zombie:
     def draw(self):
         self.zombie_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
 
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 80, self.x + 40, self.y + 40
+
 class Enemy_Castle:
     castle_image = None
     def __init__(self):
@@ -622,6 +719,12 @@ class Enemy_Castle:
 
     def draw(self):
         self.castle_image.draw(1200, 355)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 80, self.x + 40, self.y + 40
 
 class Enemy_Golem:
     PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
@@ -666,6 +769,12 @@ class Enemy_Golem:
     def draw(self):
         self.golem_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
 
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 80, self.x + 40, self.y + 40
+
 class Enemy_Pringer:
     PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
     RUN_SPEED_KMPH = 10.0                    # Km / Hour
@@ -708,6 +817,12 @@ class Enemy_Pringer:
 
     def draw(self):
         self.pringer_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 80, self.x + 40, self.y + 15
 
 class Enemy_Demon:
     PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
@@ -752,6 +867,12 @@ class Enemy_Demon:
     def draw(self):
         self.demon_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
 
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 80, self.x + 40, self.y + 40
+
 class Enemy_Succubus:
     PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
     RUN_SPEED_KMPH = 10.0                    # Km / Hour
@@ -795,6 +916,11 @@ class Enemy_Succubus:
     def draw(self):
         self.succubus_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
 
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 40, self.y - 80, self.x + 40, self.y + 40
 
 
 def enter():
@@ -803,16 +929,28 @@ def enter():
     global user_valva, user_castle
     global stage_background, gameUI, cloud, ui_button, gold, font
     global my_team
+    global hero_group1, hero_group2
+    global enemy_group1, enemy_group2
     global my_magic
     global magic_meteor
 
+    #obj_data_txt = '                                   \
+    #{                                                  \
+    #    "Hero_Adell": {y":340, "atk":2, "health":50},  \
+    #    "Enemy_Slime": {"y":330, "atk":2, "health":50} \
+    #}                                                  \
+    #'
+    #object_data = json.load(obj_data_txt)
     gold = 10000
+    hero_group1 = []
+    hero_group2 = []
+    enemy_group1 = []
+    enemy_group2 = []
     my_team = []
-
     my_magic = []
+
     user_valva = User_Valvatorez()
     user_castle = User_Castle()
-
     hero_adell = Hero_Adell()
     hero_archer = Hero_Archer()
     hero_asuka = Hero_Asuka()
@@ -881,13 +1019,39 @@ def collide(a, b):
 
     return True
 
+def collide_enter(frame_time):
+    for enemy_slime in enemy_group1:
+        for hero_adell in my_team:
+            if collide(hero_adell, enemy_slime):
+                print("col")
+                enemy_slime.dir = 0
+                hero_adell.dir = 0
+                hero_adell.state = hero_adell.ATK
+                enemy_slime.state = enemy_slime.ATK
+
+                if hero_adell.die(enemy_slime, frame_time) == True:
+                    my_team.remove(hero_adell)
+                    enemy_slime.dir = -0.5
+                    enemy_slime.state = enemy_slime.WALK
+
+                elif enemy_slime.die(hero_adell, frame_time) == True:
+                    enemy_group1.remove(enemy_slime)
+                    hero_adell.dir = 0.5
+                    hero_adell.state = hero_adell.WALK
+
+
 def button_click():
     global hero_adell, hero_archer, hero_asuka, hero_axel, hero_fenrich, hero_gunner, hero_ninja, hero_pram, hero_prof, gold
+    global enemy_slime
     if 49 < button_x < 170 and 80 < button_y < 210:
         hero_adell = Hero_Adell()
+        enemy_slime = Enemy_Slime()
         gold = gold - 100
-        if len(my_team) < 50:
+        if len(my_team) < 10:
             my_team.append(hero_adell)
+
+        if len(enemy_group1) < 10:
+            enemy_group1.append(enemy_slime)
 
     if 179 < button_x < 310 and 85 < button_y < 210:
         hero_archer = Hero_Archer()
@@ -964,25 +1128,17 @@ def handle_events(frame_time):
 
 def update(frame_time):
     global timer, chk_time, gold
-    hero_adell.update(frame_time)
-    hero_archer.update(frame_time)
-    hero_asuka.update(frame_time)
-    hero_axel.update(frame_time)
-    hero_fenrich.update(frame_time)
-    hero_gunner.update(frame_time)
-    hero_ninja.update(frame_time)
-    hero_pram.update(frame_time)
-    hero_prof.update(frame_time)
 
     user_valva.update(frame_time)
     magic_meteor.update(frame_time)
     m_Skeleton.update(frame_time)
-    enemy_slime.update(frame_time)
-    enemy_zombie.update(frame_time)
-    enemy_golem.update(frame_time)
-    enemy_pringer.update(frame_time)
-    enemy_demon.update(frame_time)
-    enemy_succubus.update(frame_time)
+    #enemy_zombie.update(frame_time)
+    #enemy_golem.update(frame_time)
+    #enemy_pringer.update(frame_time)
+    #enemy_demon.update(frame_time)
+    #enemy_succubus.update(frame_time)
+
+    collide_enter(frame_time)
     gold += (frame_time * 100)
     if timer == False:
         chk_time += frame_time
@@ -990,6 +1146,8 @@ def update(frame_time):
         timer = True
         chk_time = 0.0
         user_valva.state = user_valva.IDLE
+
+
 
 def draw(frame_time):
     global gold
@@ -1003,12 +1161,22 @@ def draw(frame_time):
     user_valva.draw()
     enemy_castle.draw()
     m_Skeleton.draw()
-    enemy_slime.draw()
-    enemy_zombie.draw()
-    enemy_golem.draw()
-    enemy_pringer.draw()
-    enemy_demon.draw()
-    enemy_succubus.draw()
+
+    for enemy_slime in enemy_group1:
+        enemy_slime.update(frame_time)
+        enemy_slime.draw()
+        enemy_slime.draw_bb()
+
+    #enemy_zombie.draw()
+    #enemy_zombie.draw_bb()
+    #enemy_golem.draw()
+    #enemy_golem.draw_bb()
+    #enemy_pringer.draw()
+    #enemy_pringer.draw_bb()
+    #enemy_demon.draw()
+    #enemy_demon.draw_bb()
+    #enemy_succubus.draw()
+    #enemy_succubus.draw_bb()
     font.draw(360, 55, '%1.f' % score)
     font.draw(515, 55, '%1.f' % gold)
     for m_meteor in my_magic:
@@ -1018,14 +1186,17 @@ def draw(frame_time):
     for hero_adell in my_team:
         hero_adell.update(frame_time)
         hero_adell.draw()
+        hero_adell.draw_bb()
 
     for hero_archer in my_team:
         hero_archer.update(frame_time)
         hero_archer.draw()
+        hero_archer.draw_bb()
 
     for hero_asuka in my_team:
         hero_asuka.update(frame_time)
         hero_asuka.draw()
+        hero_asuka.draw_bb()
 
     for hero_axel in my_team:
         hero_axel.update(frame_time)
@@ -1050,6 +1221,10 @@ def draw(frame_time):
     for hero_prof in my_team:
         hero_prof.update(frame_time)
         hero_prof.draw()
+
+    #충돌체크
+
+    user_valva.draw_bb()
     update_canvas()
 
 
