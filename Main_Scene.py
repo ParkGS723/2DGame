@@ -1,12 +1,15 @@
 import random
-
-
-import game_framework
-import Title_Scene
-from pico2d import *
-
 import json
 import os
+import game_framework
+import Title_Scene
+import Object_Hero
+import Object_Enemy
+import Object_User
+import Object_Castle
+
+from pico2d import *
+
 
 button_x, button_y = 0, 0
 name = "MainScene"
@@ -15,84 +18,8 @@ font = None
 gameUI = None
 timer = False
 chk_time = 0.0
+load_time = 0.0
 gold = 0
-
-class User_Valvatorez:
-
-    TIME_PER_ACTION = 0.5
-    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 6
-
-    user_image = None
-    IDLE, ATK, MTK, DIE   = 3, 2, 1, 0
-
-    def __init__(self):
-        self.x, self.y = 85, 565
-        self.frame = 0
-        self.total_frames = 0.0
-        self.state = self.IDLE
-        if User_Valvatorez.user_image == None:
-            User_Valvatorez.user_image = load_image('Hero/Valvatorez_Sheet.png')
-
-    def update(self, frame_time):
-        self.total_frames += User_Valvatorez.FRAMES_PER_ACTION * User_Valvatorez.ACTION_PER_TIME * frame_time
-        if self.state == self.IDLE:
-            self.frame = int(self.total_frames) % 6
-        elif self.state == self.ATK:
-            self.frame = int(self.total_frames) % 4
-
-    def draw(self):
-        self.user_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
-
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return self.x - 50, self.y - 70, self.x + 50, self.y + 70
-
-class Monster_Skleton:
-    PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
-    RUN_SPEED_KMPH = 5.0                    # Km / Hour
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
-
-    TIME_PER_ACTION = 0.5
-    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 6
-    m_image = None
-    WALK, ATTACK, DAMAGE, DIE = 3,2,1,0
-
-    def __init__(self):
-        self.x, self.y = 1200, 300
-        self.frame = random.randint(0, 2)
-        self.life_time = 0.0
-        self.total_frames = 0.0
-        self.dir = -0.8
-        self.state = self.WALK
-        if Monster_Skleton.m_image == None:
-            Monster_Skleton.m_image = load_image('Monster/Skeleton_sheet.png')
-
-    def update(self, frame_time):
-        distance = Monster_Skleton.RUN_SPEED_PPS * frame_time
-        self.total_frames += Monster_Skleton.FRAMES_PER_ACTION * Monster_Skleton.ACTION_PER_TIME * frame_time
-        if self.state == self.WALK:
-            self.frame = int(self.total_frames) % 6
-        elif self.state == self.ATTACK:
-            self.frame = int(self.total_frames) % 4
-        self.x += (self.dir * distance)
-
-        if self.x > 1200:
-            self.dir = -0.8
-            self.x = random.randint(1100, 1103)
-            self.state = self.WALK
-        elif self.x < 100:
-            self.dir = 0
-            self.x = 100
-            self.state = self.ATTACK
-
-    def draw(self):
-        self.m_image.clip_draw(self.frame*100, self.state*100, 110, 100, self.x, self.y)
 
 class Magic_Meteor:
     TIME_PER_ACTION = 0.5
@@ -113,815 +40,9 @@ class Magic_Meteor:
         self.frame = int(self.total_frames) % 16
         if(self.y > 300):
             self.y -= 0.2
-        elif(self.y < 300):
-            self.y = -100
 
     def draw(self):
         self.magic_image.clip_draw(self.frame*70, self.state*100, 60, 80, self.x, self.y)
-
-class Hero_Adell:
-    PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
-    RUN_SPEED_KMPH = 3.0                    # Km / Hour
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
-
-    TIME_PER_ACTION = 0.5
-    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 1
-    adell_image = None
-    WALK, ATK, MTK, DIE = 3,2,1,0
-
-    def __init__(self):
-        self.x, self.y = 0, 340 #object_data['Hero_Adell']['y'] #0, 340
-        self.frame = random.randint(0, 2)
-        self.life_time = 0.0
-        self.total_frames = 0.0
-        self.atk_time = 0.0
-        self.atk = 10 #object_data['Hero_Adell']['atk']
-        self.health = 50 #object_data['Hero_Adell']['health']
-        self.dir = 0.5
-        self.state = self.WALK
-        if Hero_Adell.adell_image == None:
-            Hero_Adell.adell_image = load_image('Hero/Adell_Sheet.png')
-
-    def update(self, frame_time):
-        distance = Hero_Adell.RUN_SPEED_PPS * frame_time
-        self.total_frames += Hero_Adell.FRAMES_PER_ACTION * Hero_Adell.ACTION_PER_TIME * frame_time
-        if self.state == self.WALK:
-            self.frame = int(self.total_frames) % 6
-        elif self.state == self.ATK:
-            self.frame = int(self.total_frames) % 4
-        self.x += (self.dir * distance)
-
-        if self.x > 1100:
-            self.dir = 0
-            self.x = random.randint(1100, 1103)
-            self.state = self.ATK
-        elif self.x < 100:
-            self.dir = 0.5
-            self.x = 100
-            self.state = self.WALK
-
-    def die(self, hero, frame_time):
-        self.atk_time += frame_time
-
-        if hero.frame == 0:
-            if self.atk_time > 0.05:
-                self.atk_time = 0
-                self.health -= hero.atk
-                if self.health <= 0:
-                    return True
-        return False
-
-    def draw(self):
-        self.adell_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
-
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return self.x - 40, self.y - 85, self.x + 40, self.y + 65
-
-class Hero_Archer:
-    PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
-    RUN_SPEED_KMPH = 3.0                    # Km / Hour
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
-
-    TIME_PER_ACTION = 0.5
-    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 1
-    archer_image = None
-    WALK, ATK, MTK, DIE = 3,2,1,0
-
-    def __init__(self):
-        self.x, self.y = 0, 340
-        self.frame = random.randint(0, 2)
-        self.life_time = 0.0
-        self.total_frames = 0.0
-        self.dir = 0.5
-        self.state = self.ATK
-        if Hero_Archer.archer_image == None:
-            Hero_Archer.archer_image = load_image('Hero/Archer_sheet.png')
-
-    def update(self, frame_time):
-        distance = Hero_Archer.RUN_SPEED_PPS * frame_time
-        self.total_frames += Hero_Archer.FRAMES_PER_ACTION * Hero_Archer.ACTION_PER_TIME * frame_time
-        if self.state == self.WALK:
-            self.frame = int(self.total_frames) % 6
-        elif self.state == self.ATK:
-            self.frame = int(self.total_frames) % 4
-        self.x += (self.dir * distance)
-
-        if self.x > 1100:
-            self.dir = 0
-            self.x = random.randint(1100, 1103)
-            self.state = self.ATK
-        elif self.x < 100:
-            self.dir = 0.5
-            self.x = 100
-            self.state = self.WALK
-
-    def draw(self):
-        self.archer_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
-
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return self.x - 40, self.y - 85, self.x + 40, self.y + 65
-
-class Hero_Asuka:
-    PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
-    RUN_SPEED_KMPH = 3.0                    # Km / Hour
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
-
-    TIME_PER_ACTION = 0.5
-    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 1
-    asuka_image = None
-    WALK, ATK, MTK, DIE = 3,2,1,0
-
-    def __init__(self):
-        self.x, self.y = 0, 340
-        self.frame = random.randint(0, 2)
-        self.life_time = 0.0
-        self.total_frames = 0.0
-        self.dir = 0.5
-        self.state = self.WALK
-        if Hero_Asuka.asuka_image == None:
-            Hero_Asuka.asuka_image = load_image('Hero/Asuka_Sheet.png')
-
-    def update(self, frame_time):
-        distance = Hero_Asuka.RUN_SPEED_PPS * frame_time
-        self.total_frames += Hero_Asuka.FRAMES_PER_ACTION * Hero_Asuka.ACTION_PER_TIME * frame_time
-        if self.state == self.WALK:
-            self.frame = int(self.total_frames) % 6
-        elif self.state == self.ATK:
-            self.frame = int(self.total_frames) % 4
-        self.x += (self.dir * distance)
-
-        if self.x > 1100:
-            self.dir = 0
-            self.x = random.randint(1100, 1103)
-            self.state = self.ATK
-        elif self.x < 100:
-            self.dir = 0.5
-            self.x = 100
-            self.state = self.WALK
-
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return self.x - 40, self.y - 85, self.x + 40, self.y + 65
-
-    def draw(self):
-        self.asuka_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
-
-class Hero_Axel:
-    PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
-    RUN_SPEED_KMPH = 3.0                    # Km / Hour
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
-
-    TIME_PER_ACTION = 0.5
-    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 1
-    axel_image = None
-    WALK, ATK, MTK, DIE = 3,2,1,0
-
-    def __init__(self):
-        self.x, self.y = 0, 340
-        self.frame = random.randint(0, 2)
-        self.life_time = 0.0
-        self.total_frames = 0.0
-        self.dir = 0.5
-        self.state = self.WALK
-        if Hero_Axel.axel_image == None:
-            Hero_Axel.axel_image = load_image('Hero/Axel_Sheet.png')
-
-    def update(self, frame_time):
-        distance = Hero_Axel.RUN_SPEED_PPS * frame_time
-        self.total_frames += Hero_Axel.FRAMES_PER_ACTION * Hero_Axel.ACTION_PER_TIME * frame_time
-        if self.state == self.WALK:
-            self.frame = int(self.total_frames) % 6
-        elif self.state == self.ATK:
-            self.frame = int(self.total_frames) % 4
-        self.x += (self.dir * distance)
-
-        if self.x > 1100:
-            self.dir = 0
-            self.x = random.randint(1100, 1103)
-            self.state = self.ATK
-        elif self.x < 100:
-            self.dir = 0.5
-            self.x = 100
-            self.state = self.WALK
-
-    def draw(self):
-        self.axel_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
-
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return self.x - 40, self.y - 85, self.x + 40, self.y + 65
-
-class Hero_Gunner:
-    PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
-    RUN_SPEED_KMPH = 3.0                    # Km / Hour
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
-
-    TIME_PER_ACTION = 0.5
-    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 1
-    gunner_image = None
-    WALK, ATK, MTK, DIE = 3,2,1,0
-
-    def __init__(self):
-        self.x, self.y = 0, 340
-        self.frame = random.randint(0, 2)
-        self.life_time = 0.0
-        self.total_frames = 0.0
-        self.dir = 0.5
-        self.state = self.WALK
-        if Hero_Gunner.gunner_image == None:
-            Hero_Gunner.gunner_image = load_image('Hero/Gunner_Sheet.png')
-
-    def update(self, frame_time):
-        distance = Hero_Gunner.RUN_SPEED_PPS * frame_time
-        self.total_frames += Hero_Gunner.FRAMES_PER_ACTION * Hero_Gunner.ACTION_PER_TIME * frame_time
-        if self.state == self.WALK:
-            self.frame = int(self.total_frames) % 6
-        elif self.state == self.ATK:
-            self.frame = int(self.total_frames) % 4
-        self.x += (self.dir * distance)
-
-        if self.x > 1100:
-            self.dir = 0
-            self.x = random.randint(1100, 1103)
-            self.state = self.ATK
-        elif self.x < 100:
-            self.dir = 0.5
-            self.x = 100
-            self.state = self.WALK
-
-    def draw(self):
-        self.gunner_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
-
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return self.x - 40, self.y - 85, self.x + 40, self.y + 65
-
-class Hero_Fenrich:
-    PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
-    RUN_SPEED_KMPH = 3.0                    # Km / Hour
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
-
-    TIME_PER_ACTION = 0.5
-    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 1
-    fenrich_image = None
-    WALK, ATK, MTK, DIE = 3,2,1,0
-
-    def __init__(self):
-        self.x, self.y = 0, 340
-        self.frame = random.randint(0, 2)
-        self.life_time = 0.0
-        self.total_frames = 0.0
-        self.dir = 0.5
-        self.state = self.WALK
-        if Hero_Fenrich.fenrich_image == None:
-            Hero_Fenrich.fenrich_image = load_image('Hero/Fenrich_Sheet.png')
-
-    def update(self, frame_time):
-        distance = Hero_Fenrich.RUN_SPEED_PPS * frame_time
-        self.total_frames += Hero_Fenrich.FRAMES_PER_ACTION * Hero_Fenrich.ACTION_PER_TIME * frame_time
-        if self.state == self.WALK:
-            self.frame = int(self.total_frames) % 6
-        elif self.state == self.ATK:
-            self.frame = int(self.total_frames) % 4
-        self.x += (self.dir * distance)
-
-        if self.x > 1100:
-            self.dir = 0
-            self.x = random.randint(1100, 1103)
-            self.state = self.ATK
-        elif self.x < 100:
-            self.dir = 0.5
-            self.x = 100
-            self.state = self.WALK
-
-    def draw(self):
-        self.fenrich_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
-
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return self.x - 40, self.y - 85, self.x + 40, self.y + 65
-
-class Hero_Ninja:
-    PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
-    RUN_SPEED_KMPH = 3.0                    # Km / Hour
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
-
-    TIME_PER_ACTION = 0.5
-    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 1
-    ninja_image = None
-    WALK, ATK, MTK, DIE = 3,2,1,0
-
-    def __init__(self):
-        self.x, self.y = 0, 340
-        self.frame = random.randint(0, 2)
-        self.life_time = 0.0
-        self.total_frames = 0.0
-        self.dir = 0.5
-        self.state = self.WALK
-        if Hero_Ninja.ninja_image == None:
-            Hero_Ninja.ninja_image = load_image('Hero/Ninja_Sheet.png')
-
-    def update(self, frame_time):
-        distance = Hero_Ninja.RUN_SPEED_PPS * frame_time
-        self.total_frames += Hero_Ninja.FRAMES_PER_ACTION * Hero_Ninja.ACTION_PER_TIME * frame_time
-        if self.state == self.WALK:
-            self.frame = int(self.total_frames) % 6
-        elif self.state == self.ATK:
-            self.frame = int(self.total_frames) % 4
-        self.x += (self.dir * distance)
-
-        if self.x > 1100:
-            self.dir = 0
-            self.x = random.randint(1100, 1103)
-            self.state = self.ATK
-        elif self.x < 100:
-            self.dir = 0.5
-            self.x = 100
-            self.state = self.WALK
-
-    def draw(self):
-        self.ninja_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
-
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return self.x - 40, self.y - 85, self.x + 40, self.y + 65
-
-class Hero_Pram:
-    PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
-    RUN_SPEED_KMPH = 3.0                    # Km / Hour
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
-
-    TIME_PER_ACTION = 0.5
-    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 1
-    pram_image = None
-    WALK, ATK, MTK, DIE = 3,2,1,0
-
-    def __init__(self):
-        self.x, self.y = 0, 340
-        self.frame = random.randint(0, 2)
-        self.life_time = 0.0
-        self.total_frames = 0.0
-        self.dir = 0.5
-        self.state = self.WALK
-        if Hero_Pram.pram_image == None:
-            Hero_Pram.pram_image = load_image('Hero/Pram_Sheet.png')
-
-    def update(self, frame_time):
-        distance = Hero_Pram.RUN_SPEED_PPS * frame_time
-        self.total_frames += Hero_Pram.FRAMES_PER_ACTION * Hero_Pram.ACTION_PER_TIME * frame_time
-        if self.state == self.WALK:
-            self.frame = int(self.total_frames) % 6
-        elif self.state == self.ATK:
-            self.frame = int(self.total_frames) % 4
-        self.x += (self.dir * distance)
-
-        if self.x > 1100:
-            self.dir = 0
-            self.x = random.randint(1100, 1103)
-            self.state = self.ATK
-        elif self.x < 100:
-            self.dir = 0.5
-            self.x = 100
-            self.state = self.WALK
-
-    def draw(self):
-        self.pram_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
-
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return self.x - 40, self.y - 85, self.x + 40, self.y + 65
-
-class Hero_Prof:
-    PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
-    RUN_SPEED_KMPH = 3.0                    # Km / Hour
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
-
-    TIME_PER_ACTION = 0.5
-    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 1
-    professor_image = None
-    WALK, ATK, MTK, DIE = 3,2,1,0
-
-    def __init__(self):
-        self.x, self.y = 0, 340
-        self.frame = random.randint(0, 2)
-        self.life_time = 0.0
-        self.total_frames = 0.0
-        self.dir = 0.5
-        self.state = self.WALK
-        if Hero_Prof.professor_image == None:
-            Hero_Prof.professor_image = load_image('Hero/Professor_Sheet.png')
-
-    def update(self, frame_time):
-        distance = Hero_Prof.RUN_SPEED_PPS * frame_time
-        self.total_frames += Hero_Prof.FRAMES_PER_ACTION * Hero_Prof.ACTION_PER_TIME * frame_time
-        if self.state == self.WALK:
-            self.frame = int(self.total_frames) % 6
-        elif self.state == self.ATK:
-            self.frame = int(self.total_frames) % 4
-        self.x += (self.dir * distance)
-
-        if self.x > 1100:
-            self.dir = 0
-            self.x = random.randint(1100, 1103)
-            self.state = self.ATK
-        elif self.x < 100:
-            self.dir = 0.5
-            self.x = 100
-            self.state = self.WALK
-
-
-    def draw(self):
-        self.professor_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
-
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return self.x - 40, self.y - 85, self.x + 40, self.y + 65
-
-class User_Castle:
-    castle_image = None
-    def __init__(self):
-        if User_Castle.castle_image == None:
-            User_Castle.castle_image = load_image('Map/MyCastle.png')
-
-    def update(self, frame_time):
-        pass
-
-    def draw(self):
-        self.castle_image.draw(100, 355)
-
-class Enemy_Slime:
-    PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
-    RUN_SPEED_KMPH = 10.0                    # Km / Hour
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
-
-    TIME_PER_ACTION = 0.5
-    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 6
-    slime_image = None
-    WALK, ATK  = 3,2
-
-    def __init__(self):
-        self.x, self.y = 1200, 330#object_data['Enemy_Slime']['y']
-        self.frame = random.randint(0, 2)
-        self.life_time = 0.0
-        self.total_frames = 0.0
-        self.atk_time = 0.0
-        self.dir = -0.5
-        self.atk = 2 #object_data['Enemy_Slime']['atk']
-        self.health = 50 #object_data['Enemy_Slime']['heath']
-        self.state = self.WALK
-        if Enemy_Slime.slime_image == None:
-            Enemy_Slime.slime_image = load_image('Monster/Slime_Sheet.png')
-
-    def update(self, frame_time):
-        distance = Enemy_Slime.RUN_SPEED_PPS * frame_time
-        self.total_frames += Enemy_Slime.FRAMES_PER_ACTION * Enemy_Slime.ACTION_PER_TIME * frame_time
-        if self.state == self.WALK:
-            self.frame = int(self.total_frames) % 5
-        elif self.state == self.ATK:
-            self.frame = int(self.total_frames) % 5
-        self.x += (self.dir * distance)
-
-        if self.x < 200:
-            self.dir = 0
-            self.x = 200
-            self.state = self.ATK
-        elif self.x > 200:
-            self.dir = -0.5
-            self.state = self.WALK
-
-    def die(self, enemy, frame_time):
-        self.atk_time += frame_time
-        if enemy.frame == 0:
-            if self.atk_time > 0.1:
-                self.atk_time = 0
-                self.health -= enemy.atk
-                if self.health <= 0:
-                    return True
-        return False
-
-
-    def draw(self):
-        self.slime_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
-
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return self.x - 40, self.y - 80, self.x + 40, self.y + 40
-
-class Enemy_Zombie:
-    PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
-    RUN_SPEED_KMPH = 10.0                    # Km / Hour
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
-
-    TIME_PER_ACTION = 0.5
-    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 6
-    zombie_image = None
-    WALK, ATK  = 3,2
-
-    def __init__(self):
-        self.x, self.y = 1250, 330
-        self.frame = random.randint(0, 2)
-        self.life_time = 0.0
-        self.total_frames = 0.0
-        self.dir = -0.5
-        self.state = self.WALK
-        if Enemy_Zombie.zombie_image == None:
-            Enemy_Zombie.zombie_image = load_image('Monster/Zombie_Sheet.png')
-
-    def update(self, frame_time):
-        distance = Enemy_Zombie.RUN_SPEED_PPS * frame_time
-        self.total_frames += Enemy_Zombie.FRAMES_PER_ACTION * Enemy_Zombie.ACTION_PER_TIME * frame_time
-        if self.state == self.WALK:
-            self.frame = int(self.total_frames) % 5
-        elif self.state == self.ATK:
-            self.frame = int(self.total_frames) % 4
-        self.x += (self.dir * distance)
-
-        if self.x < 200:
-            self.dir = 0
-            self.x = 200
-            self.state = self.ATK
-        elif self.x > 200:
-            self.dir = -0.5
-            self.state = self.WALK
-
-    def draw(self):
-        self.zombie_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
-
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return self.x - 40, self.y - 80, self.x + 40, self.y + 40
-
-class Enemy_Castle:
-    castle_image = None
-    def __init__(self):
-        if Enemy_Castle.castle_image == None:
-            Enemy_Castle.castle_image = load_image('Map/EnemyCastle.png')
-
-    def update(self, frame_time):
-        pass
-
-    def draw(self):
-        self.castle_image.draw(1200, 355)
-
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return self.x - 40, self.y - 80, self.x + 40, self.y + 40
-
-class Enemy_Golem:
-    PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
-    RUN_SPEED_KMPH = 10.0                    # Km / Hour
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
-
-    TIME_PER_ACTION = 0.5
-    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 6
-    golem_image = None
-    WALK, ATK  = 3,2
-
-    def __init__(self):
-        self.x, self.y = 1300, 320
-        self.frame = random.randint(0, 2)
-        self.life_time = 0.0
-        self.total_frames = 0.0
-        self.dir = -0.5
-        self.state = self.WALK
-        if Enemy_Golem.golem_image == None:
-            Enemy_Golem.golem_image = load_image('Monster/WoodGolem_Sheet.png')
-
-    def update(self, frame_time):
-        distance = Enemy_Zombie.RUN_SPEED_PPS * frame_time
-        self.total_frames += Enemy_Zombie.FRAMES_PER_ACTION * Enemy_Zombie.ACTION_PER_TIME * frame_time
-        if self.state == self.WALK:
-            self.frame = int(self.total_frames) % 6
-        elif self.state == self.ATK:
-            self.frame = int(self.total_frames) % 5
-        self.x += (self.dir * distance)
-
-        if self.x < 200:
-            self.dir = 0
-            self.x = 200
-            self.state = self.ATK
-        elif self.x > 200:
-            self.dir = -0.5
-            self.state = self.WALK
-
-    def draw(self):
-        self.golem_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
-
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return self.x - 40, self.y - 80, self.x + 40, self.y + 40
-
-class Enemy_Pringer:
-    PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
-    RUN_SPEED_KMPH = 10.0                    # Km / Hour
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
-
-    TIME_PER_ACTION = 0.5
-    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 6
-    pringer_image = None
-    WALK, ATK  = 3,2
-
-    def __init__(self):
-        self.x, self.y = 1100, 340
-        self.frame = random.randint(0, 2)
-        self.life_time = 0.0
-        self.total_frames = 0.0
-        self.dir = -0.5
-        self.state = self.WALK
-        if Enemy_Pringer.pringer_image == None:
-            Enemy_Pringer.pringer_image = load_image('Monster/Pringer_Sheet.png')
-
-    def update(self, frame_time):
-        distance = Enemy_Pringer.RUN_SPEED_PPS * frame_time
-        self.total_frames += Enemy_Pringer.FRAMES_PER_ACTION * Enemy_Pringer.ACTION_PER_TIME * frame_time
-        if self.state == self.WALK:
-            self.frame = int(self.total_frames) % 2
-        elif self.state == self.ATK:
-            self.frame = int(self.total_frames) % 3
-        self.x += (self.dir * distance)
-
-        if self.x < 200:
-            self.dir = 0
-            self.x = 200
-            self.state = self.ATK
-        elif self.x > 200:
-            self.dir = -0.5
-            self.state = self.WALK
-
-    def draw(self):
-        self.pringer_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
-
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return self.x - 40, self.y - 80, self.x + 40, self.y + 15
-
-class Enemy_Demon:
-    PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
-    RUN_SPEED_KMPH = 10.0                    # Km / Hour
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
-
-    TIME_PER_ACTION = 0.5
-    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 6
-    demon_image = None
-    WALK, ATK  = 3,2
-
-    def __init__(self):
-        self.x, self.y = 1000, 340
-        self.frame = random.randint(0, 2)
-        self.life_time = 0.0
-        self.total_frames = 0.0
-        self.dir = -0.5
-        self.state = self.WALK
-        if Enemy_Demon.demon_image == None:
-            Enemy_Demon.demon_image = load_image('Monster/Demon_Sheet.png')
-
-    def update(self, frame_time):
-        distance = Enemy_Demon.RUN_SPEED_PPS * frame_time
-        self.total_frames += Enemy_Demon.FRAMES_PER_ACTION * Enemy_Demon.ACTION_PER_TIME * frame_time
-        if self.state == self.WALK:
-            self.frame = int(self.total_frames) % 6
-        elif self.state == self.ATK:
-            self.frame = int(self.total_frames) % 3
-        self.x += (self.dir * distance)
-
-        if self.x < 200:
-            self.dir = 0
-            self.x = 200
-            self.state = self.ATK
-        elif self.x > 200:
-            self.dir = -0.5
-            self.state = self.WALK
-
-    def draw(self):
-        self.demon_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
-
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return self.x - 40, self.y - 80, self.x + 40, self.y + 40
-
-class Enemy_Succubus:
-    PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
-    RUN_SPEED_KMPH = 10.0                    # Km / Hour
-    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
-
-    TIME_PER_ACTION = 0.5
-    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 6
-    succubus_image = None
-    WALK, ATK  = 3,2
-
-    def __init__(self):
-        self.x, self.y = 1300, 340
-        self.frame = random.randint(0, 2)
-        self.life_time = 0.0
-        self.total_frames = 0.0
-        self.dir = -0.5
-        self.state = self.WALK
-        if Enemy_Succubus.succubus_image == None:
-            Enemy_Succubus.succubus_image = load_image('Monster/Succubus_Sheet.png')
-
-    def update(self, frame_time):
-        distance = Enemy_Succubus.RUN_SPEED_PPS * frame_time
-        self.total_frames += Enemy_Succubus.FRAMES_PER_ACTION * Enemy_Succubus.ACTION_PER_TIME * frame_time
-        if self.state == self.WALK:
-            self.frame = int(self.total_frames) % 6
-        elif self.state == self.ATK:
-            self.frame = int(self.total_frames) % 5
-        self.x += (self.dir * distance)
-
-        if self.x < 200:
-            self.dir = 0
-            self.x = 200
-            self.state = self.ATK
-        elif self.x > 200:
-            self.dir = -0.5
-            self.state = self.WALK
-
-    def draw(self):
-        self.succubus_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
-
-    def draw_bb(self):
-        draw_rectangle(*self.get_bb())
-
-    def get_bb(self):
-        return self.x - 40, self.y - 80, self.x + 40, self.y + 40
-
 
 def enter():
     global hero_adell, hero_archer, hero_axel, hero_asuka, hero_fenrich, hero_gunner, hero_ninja, hero_pram, hero_prof
@@ -929,8 +50,8 @@ def enter():
     global user_valva, user_castle
     global stage_background, gameUI, cloud, ui_button, gold, font
     global my_team
-    global hero_group1, hero_group2
-    global enemy_group1, enemy_group2
+    global hero_group1, hero_group2, hero_group3, hero_group4, hero_group5, hero_group6, hero_group7, hero_group8, hero_group9
+    global enemy_group1, enemy_group2, enemy_group3, enemy_group4, enemy_group5
     global my_magic
     global magic_meteor
 
@@ -942,36 +63,48 @@ def enter():
     #'
     #object_data = json.load(obj_data_txt)
     gold = 10000
+
     hero_group1 = []
     hero_group2 = []
+    hero_group3 = []
+    hero_group4 = []
+    hero_group5 = []
+    hero_group6 = []
+    hero_group7 = []
+    hero_group8 = []
+    hero_group9 = []
+
     enemy_group1 = []
     enemy_group2 = []
+    enemy_group3 = []
+    enemy_group4 = []
     my_team = []
     my_magic = []
 
-    user_valva = User_Valvatorez()
-    user_castle = User_Castle()
-    hero_adell = Hero_Adell()
-    hero_archer = Hero_Archer()
-    hero_asuka = Hero_Asuka()
-    hero_axel = Hero_Axel()
-    hero_fenrich = Hero_Fenrich()
-    hero_gunner = Hero_Gunner()
-    hero_ninja = Hero_Ninja()
-    hero_pram = Hero_Pram()
-    hero_prof = Hero_Prof()
+    user_valva = Object_User.User_Valvatorez()
+
+    user_castle = Object_Castle.User_Castle()
+    enemy_castle = Object_Castle.Enemy_Castle()
+
+    hero_adell = Object_Hero.Hero_Adell()
+    hero_archer = Object_Hero.Hero_Archer()
+    hero_asuka = Object_Hero.Hero_Asuka()
+    hero_axel = Object_Hero.Hero_Axel()
+    hero_fenrich = Object_Hero.Hero_Fenrich()
+    hero_gunner = Object_Hero.Hero_Gunner()
+    hero_ninja = Object_Hero.Hero_Ninja()
+    hero_pram = Object_Hero.Hero_Pram()
+    hero_prof = Object_Hero.Hero_Prof()
 
     magic_meteor = Magic_Meteor()
 
-    enemy_castle = Enemy_Castle()
-    enemy_slime = Enemy_Slime()
-    enemy_zombie = Enemy_Zombie()
-    enemy_golem = Enemy_Golem()
-    enemy_pringer = Enemy_Pringer()
-    enemy_demon = Enemy_Demon()
-    enemy_succubus = Enemy_Succubus()
+    enemy_slime = Object_Enemy.Enemy_Slime()
+    enemy_zombie = Object_Enemy.Enemy_Zombie()
+    enemy_golem = Object_Enemy.Enemy_Golem()
+    enemy_pringer = Object_Enemy.Enemy_Pringer()
+    enemy_demon = Object_Enemy.Enemy_Demon()
+    enemy_succubus = Object_Enemy.Enemy_Succubus()
 
-    m_Skeleton = Monster_Skleton()
     ui_button = load_image('UI/UI_Button.png')
     gameUI = load_image('UI/GameUI.png')
     stage_background = load_image('Map/Stage2_bkg.png')
@@ -1008,6 +141,98 @@ def pause():
 def resume():
     pass
 
+def EnemyLevel_System(frame_time):
+    global load_time, summon_random
+    load_time += frame_time
+    if load_time > 0.7:
+        summon_random = random.randint(0, 100)
+        load_time = 0
+    print(summon_random)
+    if 0 < summon_random < 50 and len(enemy_group1) < 6:
+        enemy_slime = Object_Enemy.Enemy_Slime(x = 1200)
+        enemy_group1.append(enemy_slime)
+
+    if 0 < summon_random < 25 and len(enemy_group2) < 4:
+        enemy_zombie = Object_Enemy.Enemy_Zombie(x = 1250)
+        enemy_group2.append(enemy_zombie)
+
+    if 0 < summon_random < 15 and len(enemy_group3) < 2:
+        enemy_golem = Object_Enemy.Enemy_Golem(x = 1250)
+        enemy_group3.append(enemy_golem)
+
+def object_state(frame_time):
+    for hero_adell in hero_group1:
+        if hero_adell.col > 0:
+            hero_adell.state = 2
+        elif hero_adell.col <= 0:
+            hero_adell.state = 3
+
+    for hero_archer in hero_group2:
+        if hero_archer.col > 0:
+            hero_archer.state = hero_archer.ATK
+        elif hero_archer.col <= 0:
+            hero_archer.state = hero_archer.WALK
+
+    for hero_asuka in hero_group3:
+        if hero_asuka.col > 0:
+            hero_asuka.state = hero_asuka.ATK
+        elif hero_asuka.col <= 0:
+            hero_asuka.state = hero_asuka.WALK
+
+    for hero_axel in hero_group4:
+        if hero_axel.col > 0:
+            hero_axel.state = hero_axel.ATK
+        elif hero_axel.col <= 0:
+            hero_axel.state = hero_axel.WALK
+
+    for hero_gunner in hero_group5:
+        if hero_gunner.col > 0:
+            hero_gunner.state = hero_gunner.ATK
+        elif hero_gunner.col <= 0:
+            hero_gunner.state = hero_gunner.WALK
+
+    for hero_fenrich in hero_group6:
+        if hero_fenrich.col > 0:
+            hero_fenrich.state = hero_fenrich.ATK
+        elif hero_fenrich.col <= 0:
+            hero_fenrich.state = hero_fenrich.WALK
+
+    for hero_ninja in hero_group7:
+        if hero_ninja.col > 0:
+            hero_ninja.state = hero_ninja.ATK
+        elif hero_ninja.col <= 0:
+            hero_ninja.state = hero_ninja.WALK
+
+    for hero_pram in hero_group8:
+        if hero_pram.col > 0:
+            hero_pram.state = hero_pram.ATK
+        elif hero_pram.col <= 0:
+            hero_pram.state = hero_pram.WALK
+
+    for hero_prof in hero_group9:
+        if hero_prof.col > 0:
+            hero_prof.state = hero_prof.ATK
+        elif hero_prof.col <= 0:
+            hero_prof.state = hero_prof.WALK
+
+    for enemy_slime in enemy_group1:
+        if enemy_slime.col > 0:
+            enemy_slime.state = enemy_slime.ATK
+        elif enemy_slime.col <= 0:
+            enemy_slime.state = enemy_slime.WALK
+
+    for enemy_zombie in enemy_group2:
+        if enemy_zombie.col > 0:
+            enemy_zombie.state = enemy_zombie.ATK
+        elif enemy_zombie.col <= 0:
+            enemy_zombie.state = enemy_zombie.WALK
+
+    for enemy_golem in enemy_group3:
+        if enemy_golem.col > 0:
+            enemy_golem.state = enemy_golem.ATK
+        elif enemy_golem.col <= 0:
+            enemy_golem.state = enemy_golem.WALK
+
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
     left_b, bottom_b, right_b, top_b = b.get_bb()
@@ -1021,85 +246,415 @@ def collide(a, b):
 
 def collide_enter(frame_time):
     for enemy_slime in enemy_group1:
-        for hero_adell in my_team:
-            if collide(hero_adell, enemy_slime):
-                print("col")
-                enemy_slime.dir = 0
-                hero_adell.dir = 0
-                hero_adell.state = hero_adell.ATK
-                enemy_slime.state = enemy_slime.ATK
+        for hero_adell in hero_group1:
+            if collide(hero_adell, enemy_slime) == True:
+                enemy_slime.col += 1
+                hero_adell.col += 1
 
                 if hero_adell.die(enemy_slime, frame_time) == True:
-                    my_team.remove(hero_adell)
-                    enemy_slime.dir = -0.5
-                    enemy_slime.state = enemy_slime.WALK
+                    hero_group1.remove(hero_adell)
+                    enemy_slime.col = 0
 
                 elif enemy_slime.die(hero_adell, frame_time) == True:
                     enemy_group1.remove(enemy_slime)
-                    hero_adell.dir = 0.5
-                    hero_adell.state = hero_adell.WALK
+                    hero_adell.col = 0
 
+        for hero_archer in hero_group2:
+            if collide(hero_archer, enemy_slime) == True:
+                enemy_slime.col += 1
+                hero_archer.col += 1
 
+                if hero_archer.die(enemy_slime, frame_time) == True:
+                    hero_group2.remove(hero_archer)
+                    enemy_slime.col = 0
+
+                elif enemy_slime.die(hero_archer, frame_time) == True:
+                    enemy_group1.remove(enemy_slime)
+                    hero_archer.col = 0
+
+        for hero_asuka in hero_group3:
+            if collide(hero_asuka, enemy_slime) == True:
+                enemy_slime.col += 1
+                hero_asuka.col += 1
+
+                if hero_asuka.die(enemy_slime, frame_time) == True:
+                    hero_group3.remove(hero_asuka)
+                    enemy_slime.col = 0
+
+                elif enemy_slime.die(hero_asuka, frame_time) == True:
+                    enemy_group1.remove(enemy_slime)
+                    hero_asuka.col = 0
+
+        for hero_axel in hero_group4:
+            if collide(hero_axel, enemy_slime) == True:
+                enemy_slime.col += 1
+                hero_axel.col += 1
+
+                if hero_axel.die(enemy_slime, frame_time) == True:
+                    hero_group4.remove(hero_axel)
+                    enemy_slime.col = 0
+
+                elif enemy_slime.die(hero_axel, frame_time) == True:
+                    enemy_group1.remove(enemy_slime)
+                    hero_axel.col = 0
+
+        for hero_gunner in hero_group5:
+            if collide(hero_gunner, enemy_slime) == True:
+                enemy_slime.col += 1
+                hero_gunner.col += 1
+
+                if hero_gunner.die(enemy_slime, frame_time) == True:
+                    hero_group5.remove(hero_gunner)
+                    enemy_slime.col = 0
+
+                elif enemy_slime.die(hero_gunner, frame_time) == True:
+                    enemy_group1.remove(enemy_slime)
+                    hero_gunner.col = 0
+
+        for hero_fenrich in hero_group6:
+            if collide(hero_fenrich, enemy_slime) == True:
+                enemy_slime.col += 1
+                hero_fenrich.col += 1
+
+                if hero_fenrich.die(enemy_slime, frame_time) == True:
+                    hero_group6.remove(hero_fenrich)
+                    enemy_slime.col = 0
+
+                elif enemy_slime.die(hero_fenrich, frame_time) == True:
+                    enemy_group1.remove(enemy_slime)
+                    hero_fenrich.col = 0
+
+        for hero_ninja in hero_group7:
+            if collide(hero_ninja, enemy_slime) == True:
+                enemy_slime.col += 1
+                hero_ninja.col += 1
+
+                if hero_ninja.die(enemy_slime, frame_time) == True:
+                    hero_group7.remove(hero_ninja)
+                    enemy_slime.col = 0
+
+                elif enemy_slime.die(hero_ninja, frame_time) == True:
+                    enemy_group1.remove(enemy_slime)
+                    hero_ninja.col = 0
+
+        for hero_pram in hero_group8:
+            if collide(hero_pram, enemy_slime) == True:
+                enemy_slime.col += 1
+                hero_pram.col += 1
+
+                if hero_pram.die(enemy_slime, frame_time) == True:
+                    hero_group8.remove(hero_pram)
+                    enemy_slime.col = 0
+
+                elif enemy_slime.die(hero_pram, frame_time) == True:
+                    enemy_group1.remove(enemy_slime)
+                    hero_pram.col = 0
+
+        for hero_prof in hero_group9:
+            if collide(hero_prof, enemy_slime) == True:
+                enemy_slime.col += 1
+                hero_prof.col += 1
+
+                if hero_prof.die(enemy_slime, frame_time) == True:
+                    hero_group9.remove(hero_prof)
+                    enemy_slime.col = 0
+
+                elif enemy_slime.die(hero_prof, frame_time) == True:
+                    enemy_group1.remove(enemy_slime)
+                    hero_prof.col = 0
+
+    for enemy_zombie in enemy_group2:
+        for hero_adell in hero_group1:
+            if collide(hero_adell, enemy_zombie) == True:
+                enemy_zombie.col += 1
+                hero_adell.col += 1
+
+                if hero_adell.die(enemy_zombie, frame_time) == True:
+                    hero_group1.remove(hero_adell)
+                    enemy_zombie.col = 0
+
+                elif enemy_zombie.die(hero_adell, frame_time) == True:
+                    enemy_group2.remove(enemy_zombie)
+                    hero_adell.col = 0
+
+        for hero_archer in hero_group2:
+            if collide(hero_archer, enemy_zombie) == True:
+                enemy_zombie.col += 1
+                hero_archer.col += 1
+
+                if hero_archer.die(enemy_zombie, frame_time) == True:
+                    hero_group2.remove(hero_archer)
+                    enemy_zombie.col = 0
+
+                elif enemy_zombie.die(hero_archer, frame_time) == True:
+                    enemy_group2.remove(enemy_zombie)
+                    hero_archer.col = 0
+
+        for hero_asuka in hero_group3:
+            if collide(hero_asuka, enemy_zombie) == True:
+                enemy_zombie.col += 1
+                hero_asuka.col += 1
+
+                if hero_asuka.die(enemy_zombie, frame_time) == True:
+                    hero_group3.remove(hero_asuka)
+                    enemy_zombie.col = 0
+
+                elif enemy_zombie.die(hero_asuka, frame_time) == True:
+                    enemy_group2.remove(enemy_zombie)
+                    hero_asuka.col = 0
+
+        for hero_axel in hero_group4:
+            if collide(hero_axel, enemy_zombie) == True:
+                enemy_zombie.col += 1
+                hero_axel.col += 1
+
+                if hero_axel.die(enemy_zombie, frame_time) == True:
+                    hero_group4.remove(hero_axel)
+                    enemy_zombie.col = 0
+
+                elif enemy_zombie.die(hero_axel, frame_time) == True:
+                    enemy_group2.remove(enemy_zombie)
+                    hero_axel.col = 0
+
+        for hero_gunner in hero_group5:
+            if collide(hero_gunner, enemy_zombie) == True:
+                enemy_zombie.col += 1
+                hero_gunner.col += 1
+
+                if hero_gunner.die(enemy_zombie, frame_time) == True:
+                    hero_group5.remove(hero_gunner)
+                    enemy_zombie.col = 0
+
+                elif enemy_zombie.die(hero_gunner, frame_time) == True:
+                    enemy_group2.remove(enemy_zombie)
+                    hero_gunner.col = 0
+
+        for hero_fenrich in hero_group6:
+            if collide(hero_fenrich, enemy_zombie) == True:
+                enemy_zombie.col += 1
+                hero_fenrich.col += 1
+
+                if hero_fenrich.die(enemy_zombie, frame_time) == True:
+                    hero_group6.remove(hero_fenrich)
+                    enemy_zombie.col = 0
+
+                elif enemy_zombie.die(hero_fenrich, frame_time) == True:
+                    enemy_group2.remove(enemy_zombie)
+                    hero_fenrich.col = 0
+
+        for hero_ninja in hero_group7:
+            if collide(hero_ninja, enemy_zombie) == True:
+                enemy_zombie.col += 1
+                hero_ninja.col += 1
+
+                if hero_ninja.die(enemy_zombie, frame_time) == True:
+                    hero_group7.remove(hero_ninja)
+                    enemy_zombie.col = 0
+
+                elif enemy_zombie.die(hero_ninja, frame_time) == True:
+                    enemy_group2.remove(enemy_zombie)
+                    hero_ninja.col = 0
+
+        for hero_pram in hero_group8:
+            if collide(hero_pram, enemy_zombie) == True:
+                enemy_zombie.col += 1
+                hero_pram.col += 1
+
+                if hero_pram.die(enemy_zombie, frame_time) == True:
+                    hero_group8.remove(hero_pram)
+                    enemy_zombie.col = 0
+
+                elif enemy_zombie.die(hero_pram, frame_time) == True:
+                    enemy_group2.remove(enemy_zombie)
+                    hero_pram.col = 0
+
+        for hero_prof in hero_group9:
+            if collide(hero_prof, enemy_zombie) == True:
+                enemy_zombie.col += 1
+                hero_prof.col += 1
+
+                if hero_prof.die(enemy_zombie, frame_time) == True:
+                    hero_group9.remove(hero_prof)
+                    enemy_zombie.col = 0
+
+                elif enemy_zombie.die(hero_prof, frame_time) == True:
+                    enemy_group2.remove(enemy_zombie)
+                    hero_prof.col = 0
+
+    for enemy_golem in enemy_group3:
+        for hero_adell in hero_group1:
+            if collide(hero_adell, enemy_golem) == True:
+                enemy_golem.col += 1
+                hero_adell.col += 1
+
+                if hero_adell.die(enemy_golem, frame_time) == True:
+                    hero_group1.remove(hero_adell)
+                    enemy_golem.col = 0
+
+                elif enemy_golem.die(hero_adell, frame_time) == True:
+                    enemy_group3.remove(enemy_golem)
+                    hero_adell.col = 0
+
+        for hero_archer in hero_group2:
+            if collide(hero_archer, enemy_golem) == True:
+                enemy_golem.col += 1
+                hero_archer.col += 1
+
+                if hero_archer.die(enemy_golem, frame_time) == True:
+                    hero_group2.remove(hero_archer)
+                    enemy_golem.col = 0
+
+                elif enemy_golem.die(hero_archer, frame_time) == True:
+                    enemy_group3.remove(enemy_golem)
+                    hero_archer.col = 0
+
+        for hero_asuka in hero_group3:
+            if collide(hero_asuka, enemy_golem) == True:
+                enemy_golem.col += 1
+                hero_asuka.col += 1
+
+                if hero_asuka.die(enemy_golem, frame_time) == True:
+                    hero_group3.remove(hero_asuka)
+                    enemy_golem.col = 0
+
+                elif enemy_golem.die(hero_asuka, frame_time) == True:
+                    enemy_group3.remove(enemy_golem)
+                    hero_asuka.col = 0
+
+        for hero_axel in hero_group4:
+            if collide(hero_axel, enemy_golem) == True:
+                enemy_golem.col += 1
+                hero_axel.col += 1
+
+                if hero_axel.die(enemy_golem, frame_time) == True:
+                    hero_group4.remove(hero_axel)
+                    enemy_golem.col = 0
+
+                elif enemy_golem.die(hero_axel, frame_time) == True:
+                    enemy_group3.remove(enemy_golem)
+                    hero_axel.col = 0
+
+        for hero_gunner in hero_group5:
+            if collide(hero_gunner, enemy_golem) == True:
+                enemy_golem.col += 1
+                hero_gunner.col += 1
+
+                if hero_gunner.die(enemy_golem, frame_time) == True:
+                    hero_group5.remove(hero_gunner)
+                    enemy_golem.col = 0
+
+                elif enemy_golem.die(hero_gunner, frame_time) == True:
+                    enemy_group3.remove(enemy_golem)
+                    hero_gunner.col = 0
+
+        for hero_fenrich in hero_group6:
+            if collide(hero_fenrich, enemy_golem) == True:
+                enemy_golem.col += 1
+                hero_fenrich.col += 1
+
+                if hero_fenrich.die(enemy_golem, frame_time) == True:
+                    hero_group6.remove(hero_fenrich)
+                    enemy_golem.col = 0
+
+                elif enemy_golem.die(hero_fenrich, frame_time) == True:
+                    enemy_group3.remove(enemy_golem)
+                    hero_fenrich.col = 0
+
+        for hero_ninja in hero_group7:
+            if collide(hero_ninja, enemy_golem) == True:
+                enemy_golem.col += 1
+                hero_ninja.col += 1
+
+                if hero_ninja.die(enemy_golem, frame_time) == True:
+                    hero_group7.remove(hero_ninja)
+                    enemy_golem.col = 0
+
+                elif enemy_golem.die(hero_ninja, frame_time) == True:
+                    enemy_group3.remove(enemy_golem)
+                    hero_ninja.col = 0
+
+        for hero_pram in hero_group8:
+            if collide(hero_pram, enemy_golem) == True:
+                enemy_golem.col += 1
+                hero_pram.col += 1
+
+                if hero_pram.die(enemy_golem, frame_time) == True:
+                    hero_group8.remove(hero_pram)
+                    enemy_golem.col = 0
+
+                elif enemy_golem.die(hero_pram, frame_time) == True:
+                    enemy_group3.remove(enemy_golem)
+                    hero_pram.col = 0
+
+        for hero_prof in hero_group9:
+            if collide(hero_prof, enemy_golem) == True:
+                enemy_golem.col += 1
+                hero_prof.col += 1
+
+                if hero_prof.die(enemy_golem, frame_time) == True:
+                    hero_group9.remove(hero_prof)
+                    enemy_golem.col = 0
+
+                elif enemy_golem.die(hero_prof, frame_time) == True:
+                    enemy_group3.remove(enemy_golem)
+                    hero_prof.col = 0
 def button_click():
     global hero_adell, hero_archer, hero_asuka, hero_axel, hero_fenrich, hero_gunner, hero_ninja, hero_pram, hero_prof, gold
-    global enemy_slime
-    if 49 < button_x < 170 and 80 < button_y < 210:
-        hero_adell = Hero_Adell()
-        enemy_slime = Enemy_Slime()
-        gold = gold - 100
-        if len(my_team) < 10:
-            my_team.append(hero_adell)
 
-        if len(enemy_group1) < 10:
-            enemy_group1.append(enemy_slime)
+    if 49 < button_x < 170 and 80 < button_y < 210:
+        hero_adell = Object_Hero.Hero_Adell(x = 0)
+        gold = gold - 100
+        if len(hero_group1) < 10:
+            hero_adell.draw()
+            hero_group1.append(hero_adell)
 
     if 179 < button_x < 310 and 85 < button_y < 210:
-        hero_archer = Hero_Archer()
+        hero_archer = Object_Hero.Hero_Archer(x = 0)
         gold = gold - 300
-        if len(my_team) < 50:
-            my_team.append(hero_archer)
+        if len(hero_group2) < 50:
+            hero_group2.append(hero_archer)
 
     if 309 < button_x < 440 and 85 < button_y < 210:
-        hero_asuka = Hero_Asuka()
+        hero_asuka = Object_Hero.Hero_Asuka(x = 0)
         gold = gold - 500
-        if len(my_team) < 50:
-            my_team.append(hero_asuka)
+        if len(hero_group3) < 50:
+            hero_group3.append(hero_asuka)
 
     if 439 < button_x < 560 and 85 < button_y < 210:
-        hero_axel = Hero_Axel()
+        hero_axel = Object_Hero.Hero_Axel(x = 0)
         gold = gold - 1000
-        if len(my_team) < 50:
-            my_team.append(hero_axel)
+        if len(hero_group4) < 50:
+            hero_group4.append(hero_axel)
 
     if 569 < button_x < 690 and 85 < button_y < 210:
-        hero_gunner = Hero_Gunner()
         gold = gold - 1500
-        if len(my_team) < 50:
-            my_team.append(hero_gunner)
+        hero_gunner = Object_Hero.Hero_Gunner(x = 0)
+        if len(hero_group5) < 50:
+            hero_group5.append(hero_gunner)
 
     if 699 < button_x < 820 and 85 < button_y < 210:
-        hero_fenrich = Hero_Fenrich()
         gold = gold - 2000
-        if len(my_team) < 50:
-            my_team.append(hero_fenrich)
+        hero_fenrich = Object_Hero.Hero_Fenrich(x = 0)
+        if len(hero_group6) < 50:
+            hero_group6.append(hero_fenrich)
 
     if 829 < button_x < 950 and 85 < button_y < 210:
-        hero_ninja = Hero_Ninja()
         gold = gold - 3000
-        if len(my_team) < 50:
-            my_team.append(hero_ninja)
+        hero_ninja = Object_Hero.Hero_Ninja(x = 0)
+        if len(hero_group7) < 50:
+            hero_group7.append(hero_ninja)
 
     if 959 < button_x < 1080 and 85 < button_y < 210:
-        hero_pram = Hero_Pram()
         gold = gold - 5000
-        if len(my_team) < 50:
-            my_team.append(hero_pram)
+        hero_pram = Object_Hero.Hero_Pram(x = 0)
+        if len(hero_group8) < 50:
+            hero_group8.append(hero_pram)
 
     if 1089 < button_x < 1209 and 85 < button_y < 210:
-        hero_prof = Hero_Prof()
         gold = gold - 7000
-        if len(my_team) < 50:
-            my_team.append(hero_prof)
+        hero_prof = Object_Hero.Hero_Prof(x = 0)
+        if len(hero_group9) < 50:
+            hero_group9.append(hero_prof)
 
     if 100 < button_x < 700 and 300 < button_y < 768:
          m_meteor = Magic_Meteor()
@@ -1122,22 +677,20 @@ def handle_events(frame_time):
             print(button_x, button_y)
             button_click()
             if 100 < button_x < 700 and 300 < button_y < 768:
-                user_valva = User_Valvatorez()
                 user_valva.state = user_valva.ATK
                 timer = False
 
 def update(frame_time):
-    global timer, chk_time, gold
+    global chk_time, load_time, gold, timer
+    load_time += frame_time
+
+    if load_time > 0.7:
+        EnemyLevel_System(frame_time)
+        load_time = 0
 
     user_valva.update(frame_time)
     magic_meteor.update(frame_time)
-    m_Skeleton.update(frame_time)
-    #enemy_zombie.update(frame_time)
-    #enemy_golem.update(frame_time)
-    #enemy_pringer.update(frame_time)
-    #enemy_demon.update(frame_time)
-    #enemy_succubus.update(frame_time)
-
+    object_state(frame_time)
     collide_enter(frame_time)
     gold += (frame_time * 100)
     if timer == False:
@@ -1146,8 +699,6 @@ def update(frame_time):
         timer = True
         chk_time = 0.0
         user_valva.state = user_valva.IDLE
-
-
 
 def draw(frame_time):
     global gold
@@ -1160,72 +711,77 @@ def draw(frame_time):
     user_castle.draw()
     user_valva.draw()
     enemy_castle.draw()
-    m_Skeleton.draw()
 
     for enemy_slime in enemy_group1:
         enemy_slime.update(frame_time)
         enemy_slime.draw()
         enemy_slime.draw_bb()
 
-    #enemy_zombie.draw()
-    #enemy_zombie.draw_bb()
-    #enemy_golem.draw()
-    #enemy_golem.draw_bb()
-    #enemy_pringer.draw()
-    #enemy_pringer.draw_bb()
-    #enemy_demon.draw()
-    #enemy_demon.draw_bb()
-    #enemy_succubus.draw()
-    #enemy_succubus.draw_bb()
+    for enemy_zombie in enemy_group2:
+        enemy_zombie.update(frame_time)
+        enemy_zombie.draw()
+        enemy_zombie.draw_bb()
+
+    for enemy_golem in enemy_group3:
+        enemy_golem.update(frame_time)
+        enemy_golem.draw()
+        enemy_golem.draw_bb()
+
+
     font.draw(360, 55, '%1.f' % score)
     font.draw(515, 55, '%1.f' % gold)
     for m_meteor in my_magic:
         m_meteor.update(frame_time)
         m_meteor.draw()
 
-    for hero_adell in my_team:
+    for hero_adell in hero_group1:
         hero_adell.update(frame_time)
         hero_adell.draw()
         hero_adell.draw_bb()
 
-    for hero_archer in my_team:
+    for hero_archer in hero_group2:
         hero_archer.update(frame_time)
         hero_archer.draw()
         hero_archer.draw_bb()
 
-    for hero_asuka in my_team:
+    for hero_asuka in hero_group3:
         hero_asuka.update(frame_time)
         hero_asuka.draw()
         hero_asuka.draw_bb()
 
-    for hero_axel in my_team:
+    for hero_axel in hero_group4:
         hero_axel.update(frame_time)
         hero_axel.draw()
+        hero_axel.draw_bb()
 
-    for hero_fenrich in my_team:
+    for hero_fenrich in hero_group5:
         hero_fenrich.update(frame_time)
         hero_fenrich.draw()
+        hero_fenrich.draw_bb()
 
-    for hero_gunner in my_team:
+    for hero_gunner in hero_group6:
         hero_gunner.update(frame_time)
         hero_gunner.draw()
+        hero_gunner.draw_bb()
 
-    for hero_ninja in my_team:
+    for hero_ninja in hero_group7:
         hero_ninja.update(frame_time)
         hero_ninja.draw()
+        hero_ninja.draw_bb()
 
-    for hero_pram in my_team:
+    for hero_pram in hero_group8:
         hero_pram.update(frame_time)
         hero_pram.draw()
+        hero_pram.draw_bb()
 
-    for hero_prof in my_team:
+    for hero_prof in hero_group9:
         hero_prof.update(frame_time)
         hero_prof.draw()
-
-    #충돌체크
+        hero_prof.draw_bb()
 
     user_valva.draw_bb()
     update_canvas()
+
 
 
 
