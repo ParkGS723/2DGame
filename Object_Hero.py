@@ -30,7 +30,7 @@ class Hero_Adell:
         self.atk = 10 #object_data['Hero_Adell']['atk']
         self.health = 100 #object_data['Hero_Adell']['health']
         self.dir = 2.5
-        self.col = 0
+        self.check = 0
         self.state = self.WALK
         if Hero_Adell.adell_image == None:
             Hero_Adell.adell_image = load_image('Hero/Adell_Sheet.png')
@@ -46,7 +46,7 @@ class Hero_Adell:
             self.frame = int(self.total_frames) % 4
             self.dir = 0
             if self.frame == 3:
-                self.col = 0
+                self.check = 0
 
         if self.x > 1100:
             self.health = 0
@@ -97,7 +97,7 @@ class Hero_Archer:
         self.dir = 10
         self.atk_time = 0.0
         self.atk = 20
-        self.col = 0
+        self.check = 0
         self.health = 200
         self.state = self.ATK
         if Hero_Archer.archer_image == None:
@@ -115,7 +115,7 @@ class Hero_Archer:
             self.dir = 0
             self.x += (self.dir * distance)
             if self.frame == 3:
-                self.col = 0
+                self.check = 0
 
         if self.x > 1100:
             self.health = 0
@@ -167,7 +167,7 @@ class Hero_Asuka:
         self.dir = 2.0
         self.atk_time = 0.0
         self.atk = 25
-        self.col = 0
+        self.check = 0
         self.health = 500
         self.state = self.WALK
         if Hero_Asuka.asuka_image == None:
@@ -184,7 +184,7 @@ class Hero_Asuka:
             self.frame = int(self.total_frames) % 4
             self.dir = 0
             if self.frame == 3:
-                self.col = 0
+                self.check = 0
 
 
 
@@ -238,7 +238,7 @@ class Hero_Axel:
         self.dir = 2.0
         self.atk_time = 0.0
         self.atk = 35
-        self.col = 0
+        self.check = 0
         self.health = 800
         self.state = self.WALK
         if Hero_Axel.axel_image == None:
@@ -255,7 +255,7 @@ class Hero_Axel:
             self.frame = int(self.total_frames) % 4
             self.dir = 0
             if self.frame == 3:
-                self.col = 0
+                self.check = 0
 
         if self.x > 1100:
             self.health = 0
@@ -307,7 +307,7 @@ class Hero_Gunner:
         self.dir = 2.0
         self.atk_time = 0.0
         self.atk = 55
-        self.col = 0
+        self.check = 0
         self.health = 1000
         self.state = self.WALK
         if Hero_Gunner.gunner_image == None:
@@ -324,7 +324,7 @@ class Hero_Gunner:
             self.frame = int(self.total_frames) % 4
             self.dir = 0.0
             if self.frame == 3:
-                self.col = 0
+                self.check = 0
 
         if self.x > 1100:
             self.health = 0
@@ -376,7 +376,7 @@ class Hero_Fenrich:
         self.dir = 2.0
         self.atk_time = 0.0
         self.atk = 65
-        self.col = 0
+        self.check = 0
         self.health = 1500
         self.state = self.WALK
         if Hero_Fenrich.fenrich_image == None:
@@ -393,7 +393,7 @@ class Hero_Fenrich:
             self.frame = int(self.total_frames) % 4
             self.dir = 0.0
             if self.frame == 3:
-                self.col = 0
+                self.check = 0
 
         if self.x > 1100:
             self.health = 0
@@ -445,7 +445,7 @@ class Hero_Ninja:
         self.dir = 2.0
         self.atk_time = 0.0
         self.atk = 100
-        self.col = 0
+        self.check = 0
         self.health = 2000
         self.state = self.WALK
         if Hero_Ninja.ninja_image == None:
@@ -462,7 +462,7 @@ class Hero_Ninja:
             self.frame = int(self.total_frames) % 4
             self.dir = 0.0
             if self.frame == 3:
-                self.col = 0
+                self.check = 0
 
         if self.x > 1100:
             self.health = 0
@@ -514,7 +514,7 @@ class Hero_Pram:
         self.dir = 2.0
         self.atk_time = 0.0
         self.atk = 200
-        self.col = 0
+        self.check = 0
         self.health = 2500
         self.state = self.WALK
         if Hero_Pram.pram_image == None:
@@ -531,7 +531,7 @@ class Hero_Pram:
             self.frame = int(self.total_frames) % 4
             self.dir = 0.0
             if self.frame == 3:
-                self.col = 0
+                self.check = 0
 
         if self.x > 1100:
             self.health = 0
@@ -583,7 +583,7 @@ class Hero_Prof:
         self.dir = 2.0
         self.atk_time = 0.0
         self.atk = 500
-        self.col = 0
+        self.check = 0
         self.health = 5000
         self.state = self.WALK
         if Hero_Prof.professor_image == None:
@@ -600,7 +600,7 @@ class Hero_Prof:
             self.frame = int(self.total_frames) % 4
             self.dir = 0.0
             if self.frame == 3:
-                self.col = 0
+                self.check = 0
 
         if self.x > 1100:
             self.health = 0

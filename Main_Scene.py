@@ -229,94 +229,94 @@ def Level_Design(frame_time):
 
 def Gameobj_state(frame_time):
     for hero_adell in hero_group1:
-        if hero_adell.col > 0:
+        if hero_adell.check > 0:
             hero_adell.state = hero_adell.ATK
-        elif hero_adell.col <= 0:
+        elif hero_adell.check <= 0:
             hero_adell.state = hero_adell.WALK
 
 
     for hero_archer in hero_group2:
-        if hero_archer.col > 0:
+        if hero_archer.check > 0:
             hero_archer.state = hero_archer.ATK
-        elif hero_archer.col <= 0:
+        elif hero_archer.check <= 0:
             hero_archer.state = hero_archer.WALK
 
     for hero_asuka in hero_group3:
-        if hero_asuka.col > 0:
+        if hero_asuka.check > 0:
             hero_asuka.state = hero_asuka.ATK
-        elif hero_asuka.col <= 0:
+        elif hero_asuka.check <= 0:
             hero_asuka.state = hero_asuka.WALK
 
     for hero_axel in hero_group4:
-        if hero_axel.col > 0:
+        if hero_axel.check > 0:
             hero_axel.state = hero_axel.ATK
-        elif hero_axel.col <= 0:
+        elif hero_axel.check <= 0:
             hero_axel.state = hero_axel.WALK
 
     for hero_gunner in hero_group5:
-        if hero_gunner.col > 0:
+        if hero_gunner.check > 0:
             hero_gunner.state = hero_gunner.ATK
-        elif hero_gunner.col <= 0:
+        elif hero_gunner.check <= 0:
             hero_gunner.state = hero_gunner.WALK
 
     for hero_fenrich in hero_group6:
-        if hero_fenrich.col > 0:
+        if hero_fenrich.check > 0:
             hero_fenrich.state = hero_fenrich.ATK
-        elif hero_fenrich.col <= 0:
+        elif hero_fenrich.check <= 0:
             hero_fenrich.state = hero_fenrich.WALK
 
     for hero_ninja in hero_group7:
-        if hero_ninja.col > 0:
+        if hero_ninja.check > 0:
             hero_ninja.state = hero_ninja.ATK
-        elif hero_ninja.col <= 0:
+        elif hero_ninja.check <= 0:
             hero_ninja.state = hero_ninja.WALK
 
     for hero_pram in hero_group8:
-        if hero_pram.col > 0:
+        if hero_pram.check > 0:
             hero_pram.state = hero_pram.ATK
-        elif hero_pram.col <= 0:
+        elif hero_pram.check <= 0:
             hero_pram.state = hero_pram.WALK
 
     for hero_prof in hero_group9:
-        if hero_prof.col > 0:
+        if hero_prof.check > 0:
             hero_prof.state = hero_prof.ATK
-        elif hero_prof.col <= 0:
+        elif hero_prof.check <= 0:
             hero_prof.state = hero_prof.WALK
 
     for enemy_slime in enemy_group1:
-        if enemy_slime.col > 0:
+        if enemy_slime.check > 0:
             enemy_slime.state = enemy_slime.ATK
-        elif enemy_slime.col <= 0:
+        elif enemy_slime.check <= 0:
             enemy_slime.state = enemy_slime.WALK
 
     for enemy_zombie in enemy_group2:
-        if enemy_zombie.col > 0:
+        if enemy_zombie.check > 0:
             enemy_zombie.state = enemy_zombie.ATK
-        elif enemy_zombie.col <= 0:
+        elif enemy_zombie.check <= 0:
             enemy_zombie.state = enemy_zombie.WALK
 
     for enemy_golem in enemy_group3:
-        if enemy_golem.col > 0:
+        if enemy_golem.check > 0:
             enemy_golem.state = enemy_golem.ATK
-        elif enemy_golem.col <= 0:
+        elif enemy_golem.check <= 0:
             enemy_golem.state = enemy_golem.WALK
 
     for enemy_pringer in enemy_group4:
-        if enemy_pringer.col > 0:
+        if enemy_pringer.check > 0:
             enemy_pringer.state = enemy_pringer.ATK
-        elif enemy_pringer.col <= 0:
+        elif enemy_pringer.check <= 0:
             enemy_pringer.state = enemy_pringer.WALK
 
     for enemy_demon in enemy_group5:
-        if enemy_demon.col > 0:
+        if enemy_demon.check > 0:
             enemy_demon.state = enemy_demon.ATK
-        elif enemy_demon.col <= 0:
+        elif enemy_demon.check <= 0:
             enemy_demon.state = enemy_demon.WALK
 
     for enemy_succbus in enemy_group6:
-        if enemy_succbus.col > 0:
+        if enemy_succbus.check > 0:
             enemy_succbus.state = enemy_succbus.ATK
-        elif enemy_succbus.col <= 0:
+        elif enemy_succbus.check <= 0:
             enemy_succbus.state = enemy_succbus.WALK
 
 def collide(a, b):
@@ -336,766 +336,766 @@ def collide_enter(frame_time):
     for enemy_slime in enemy_group1:
         for hero_adell in hero_group1:
             if collide(hero_adell, enemy_slime) == True:
-                enemy_slime.col += 1
-                hero_adell.col += 1
+                enemy_slime.check = 1
+                hero_adell.check = 1
 
                 if hero_adell.die(enemy_slime, frame_time) == True:
                     hero_group1.remove(hero_adell)
-                    enemy_slime.col = 0
+                    enemy_slime.check = 0
 
                 elif enemy_slime.die(hero_adell, frame_time) == True:
                     score += 100
                     enemy_group1.remove(enemy_slime)
-                    hero_adell.col = 0
+                    hero_adell.check = 0
 
         for hero_archer in hero_group2:
             if collide(hero_archer, enemy_slime) == True:
-                enemy_slime.col += 1
-                hero_archer.col += 1
+                enemy_slime.check += 1
+                hero_archer.check += 1
 
                 if hero_archer.die(enemy_slime, frame_time) == True:
                     hero_group2.remove(hero_archer)
-                    enemy_slime.col = 0
+                    enemy_slime.check = 0
 
                 elif enemy_slime.die(hero_archer, frame_time) == True:
                     score += 100
                     enemy_group1.remove(enemy_slime)
-                    hero_archer.col = 0
+                    hero_archer.check = 0
 
         for hero_asuka in hero_group3:
             if collide(hero_asuka, enemy_slime) == True:
-                enemy_slime.col += 1
-                hero_asuka.col += 1
+                enemy_slime.check += 1
+                hero_asuka.check += 1
 
                 if hero_asuka.die(enemy_slime, frame_time) == True:
                     hero_group3.remove(hero_asuka)
-                    enemy_slime.col = 0
+                    enemy_slime.check = 0
 
                 elif enemy_slime.die(hero_asuka, frame_time) == True:
                     score += 100
                     enemy_group1.remove(enemy_slime)
-                    hero_asuka.col = 0
+                    hero_asuka.check = 0
 
         for hero_axel in hero_group4:
             if collide(hero_axel, enemy_slime) == True:
-                enemy_slime.col += 1
-                hero_axel.col += 1
+                enemy_slime.check += 1
+                hero_axel.check += 1
 
                 if hero_axel.die(enemy_slime, frame_time) == True:
                     hero_group4.remove(hero_axel)
-                    enemy_slime.col = 0
+                    enemy_slime.check = 0
 
                 elif enemy_slime.die(hero_axel, frame_time) == True:
                     score += 100
                     enemy_group1.remove(enemy_slime)
-                    hero_axel.col = 0
+                    hero_axel.check = 0
 
         for hero_gunner in hero_group5:
             if collide(hero_gunner, enemy_slime) == True:
-                enemy_slime.col += 1
-                hero_gunner.col += 1
+                enemy_slime.check += 1
+                hero_gunner.check += 1
 
                 if hero_gunner.die(enemy_slime, frame_time) == True:
                     hero_group5.remove(hero_gunner)
-                    enemy_slime.col = 0
+                    enemy_slime.check = 0
 
                 elif enemy_slime.die(hero_gunner, frame_time) == True:
                     score += 100
                     enemy_group1.remove(enemy_slime)
-                    hero_gunner.col = 0
+                    hero_gunner.check = 0
 
         for hero_fenrich in hero_group6:
             if collide(hero_fenrich, enemy_slime) == True:
-                enemy_slime.col += 1
-                hero_fenrich.col += 1
+                enemy_slime.check += 1
+                hero_fenrich.check += 1
 
                 if hero_fenrich.die(enemy_slime, frame_time) == True:
                     hero_group6.remove(hero_fenrich)
-                    enemy_slime.col = 0
+                    enemy_slime.check = 0
 
                 elif enemy_slime.die(hero_fenrich, frame_time) == True:
                     score += 100
                     enemy_group1.remove(enemy_slime)
-                    hero_fenrich.col = 0
+                    hero_fenrich.check = 0
 
         for hero_ninja in hero_group7:
             if collide(hero_ninja, enemy_slime) == True:
-                enemy_slime.col += 1
-                hero_ninja.col += 1
+                enemy_slime.check += 1
+                hero_ninja.check += 1
 
                 if hero_ninja.die(enemy_slime, frame_time) == True:
                     hero_group7.remove(hero_ninja)
-                    enemy_slime.col = 0
+                    enemy_slime.check = 0
 
                 elif enemy_slime.die(hero_ninja, frame_time) == True:
                     score += 100
                     enemy_group1.remove(enemy_slime)
-                    hero_ninja.col = 0
+                    hero_ninja.check = 0
 
         for hero_pram in hero_group8:
             if collide(hero_pram, enemy_slime) == True:
-                enemy_slime.col += 1
-                hero_pram.col += 1
+                enemy_slime.check += 1
+                hero_pram.check += 1
 
                 if hero_pram.die(enemy_slime, frame_time) == True:
                     hero_group8.remove(hero_pram)
-                    enemy_slime.col = 0
+                    enemy_slime.check = 0
 
                 elif enemy_slime.die(hero_pram, frame_time) == True:
                     score += 100
                     enemy_group1.remove(enemy_slime)
-                    hero_pram.col = 0
+                    hero_pram.check = 0
 
         for hero_prof in hero_group9:
             if collide(hero_prof, enemy_slime) == True:
-                enemy_slime.col += 1
-                hero_prof.col += 1
+                enemy_slime.check += 1
+                hero_prof.check += 1
 
                 if hero_prof.die(enemy_slime, frame_time) == True:
                     hero_group9.remove(hero_prof)
-                    enemy_slime.col = 0
+                    enemy_slime.check = 0
 
                 elif enemy_slime.die(hero_prof, frame_time) == True:
                     score += 300
                     enemy_group1.remove(enemy_slime)
-                    hero_prof.col = 0
+                    hero_prof.check = 0
 
     for enemy_zombie in enemy_group2:
         for hero_adell in hero_group1:
             if collide(hero_adell, enemy_zombie) == True:
-                enemy_zombie.col += 1
-                hero_adell.col += 1
+                enemy_zombie.check += 1
+                hero_adell.check += 1
 
                 if hero_adell.die(enemy_zombie, frame_time) == True:
                     hero_group1.remove(hero_adell)
-                    enemy_zombie.col = 0
+                    enemy_zombie.check = 0
 
                 elif enemy_zombie.die(hero_adell, frame_time) == True:
                     score += 300
                     enemy_group2.remove(enemy_zombie)
-                    hero_adell.col = 0
+                    hero_adell.check = 0
 
         for hero_archer in hero_group2:
             if collide(hero_archer, enemy_zombie) == True:
-                enemy_zombie.col += 1
-                hero_archer.col += 1
+                enemy_zombie.check += 1
+                hero_archer.check += 1
 
                 if hero_archer.die(enemy_zombie, frame_time) == True:
                     hero_group2.remove(hero_archer)
-                    enemy_zombie.col = 0
+                    enemy_zombie.check = 0
 
                 elif enemy_zombie.die(hero_archer, frame_time) == True:
                     score += 300
                     enemy_group2.remove(enemy_zombie)
-                    hero_archer.col = 0
+                    hero_archer.check = 0
 
         for hero_asuka in hero_group3:
             if collide(hero_asuka, enemy_zombie) == True:
-                enemy_zombie.col += 1
-                hero_asuka.col += 1
+                enemy_zombie.check += 1
+                hero_asuka.check += 1
 
                 if hero_asuka.die(enemy_zombie, frame_time) == True:
                     hero_group3.remove(hero_asuka)
-                    enemy_zombie.col = 0
+                    enemy_zombie.check = 0
 
                 elif enemy_zombie.die(hero_asuka, frame_time) == True:
                     score += 300
                     enemy_group2.remove(enemy_zombie)
-                    hero_asuka.col = 0
+                    hero_asuka.check = 0
 
         for hero_axel in hero_group4:
             if collide(hero_axel, enemy_zombie) == True:
-                enemy_zombie.col += 1
-                hero_axel.col += 1
+                enemy_zombie.check += 1
+                hero_axel.check += 1
 
                 if hero_axel.die(enemy_zombie, frame_time) == True:
                     hero_group4.remove(hero_axel)
-                    enemy_zombie.col = 0
+                    enemy_zombie.check = 0
 
                 elif enemy_zombie.die(hero_axel, frame_time) == True:
                     score += 300
                     enemy_group2.remove(enemy_zombie)
-                    hero_axel.col = 0
+                    hero_axel.check = 0
 
         for hero_gunner in hero_group5:
             if collide(hero_gunner, enemy_zombie) == True:
-                enemy_zombie.col += 1
-                hero_gunner.col += 1
+                enemy_zombie.check += 1
+                hero_gunner.check += 1
 
                 if hero_gunner.die(enemy_zombie, frame_time) == True:
                     hero_group5.remove(hero_gunner)
-                    enemy_zombie.col = 0
+                    enemy_zombie.check = 0
 
                 elif enemy_zombie.die(hero_gunner, frame_time) == True:
                     score += 300
                     enemy_group2.remove(enemy_zombie)
-                    hero_gunner.col = 0
+                    hero_gunner.check = 0
 
         for hero_fenrich in hero_group6:
             if collide(hero_fenrich, enemy_zombie) == True:
-                enemy_zombie.col += 1
-                hero_fenrich.col += 1
+                enemy_zombie.check += 1
+                hero_fenrich.check += 1
 
                 if hero_fenrich.die(enemy_zombie, frame_time) == True:
                     hero_group6.remove(hero_fenrich)
-                    enemy_zombie.col = 0
+                    enemy_zombie.check = 0
 
                 elif enemy_zombie.die(hero_fenrich, frame_time) == True:
                     score += 300
                     enemy_group2.remove(enemy_zombie)
-                    hero_fenrich.col = 0
+                    hero_fenrich.check = 0
 
         for hero_ninja in hero_group7:
             if collide(hero_ninja, enemy_zombie) == True:
-                enemy_zombie.col += 1
-                hero_ninja.col += 1
+                enemy_zombie.check += 1
+                hero_ninja.check += 1
 
                 if hero_ninja.die(enemy_zombie, frame_time) == True:
                     hero_group7.remove(hero_ninja)
-                    enemy_zombie.col = 0
+                    enemy_zombie.check = 0
 
                 elif enemy_zombie.die(hero_ninja, frame_time) == True:
                     score += 300
                     enemy_group2.remove(enemy_zombie)
-                    hero_ninja.col = 0
+                    hero_ninja.check = 0
 
         for hero_pram in hero_group8:
             if collide(hero_pram, enemy_zombie) == True:
-                enemy_zombie.col += 1
-                hero_pram.col += 1
+                enemy_zombie.check += 1
+                hero_pram.check += 1
 
                 if hero_pram.die(enemy_zombie, frame_time) == True:
                     hero_group8.remove(hero_pram)
-                    enemy_zombie.col = 0
+                    enemy_zombie.check = 0
 
                 elif enemy_zombie.die(hero_pram, frame_time) == True:
                     score += 300
                     enemy_group2.remove(enemy_zombie)
-                    hero_pram.col = 0
+                    hero_pram.check = 0
 
         for hero_prof in hero_group9:
             if collide(hero_prof, enemy_zombie) == True:
-                enemy_zombie.col += 1
-                hero_prof.col += 1
+                enemy_zombie.check += 1
+                hero_prof.check += 1
 
                 if hero_prof.die(enemy_zombie, frame_time) == True:
                     hero_group9.remove(hero_prof)
-                    enemy_zombie.col = 0
+                    enemy_zombie.check = 0
 
                 elif enemy_zombie.die(hero_prof, frame_time) == True:
                     score += 300
                     enemy_group2.remove(enemy_zombie)
-                    hero_prof.col = 0
+                    hero_prof.check = 0
 
     for enemy_golem in enemy_group3:
         for hero_adell in hero_group1:
             if collide(hero_adell, enemy_golem) == True:
-                enemy_golem.col += 1
-                hero_adell.col += 1
+                enemy_golem.check += 1
+                hero_adell.check += 1
 
                 if hero_adell.die(enemy_golem, frame_time) == True:
                     hero_group1.remove(hero_adell)
-                    enemy_golem.col = 0
+                    enemy_golem.check = 0
 
 
                 elif enemy_golem.die(hero_adell, frame_time) == True:
                     score += 500
                     enemy_group3.remove(enemy_golem)
-                    hero_adell.col = 0
+                    hero_adell.check = 0
 
         for hero_archer in hero_group2:
             if collide(hero_archer, enemy_golem) == True:
-                enemy_golem.col += 1
-                hero_archer.col += 1
+                enemy_golem.check += 1
+                hero_archer.check += 1
 
                 if hero_archer.die(enemy_golem, frame_time) == True:
                     hero_group2.remove(hero_archer)
-                    enemy_golem.col = 0
+                    enemy_golem.check = 0
 
                 elif enemy_golem.die(hero_archer, frame_time) == True:
                     score += 500
                     enemy_group3.remove(enemy_golem)
-                    hero_archer.col = 0
+                    hero_archer.check = 0
 
         for hero_asuka in hero_group3:
             if collide(hero_asuka, enemy_golem) == True:
-                enemy_golem.col += 1
-                hero_asuka.col += 1
+                enemy_golem.check += 1
+                hero_asuka.check += 1
 
                 if hero_asuka.die(enemy_golem, frame_time) == True:
                     hero_group3.remove(hero_asuka)
-                    enemy_golem.col = 0
+                    enemy_golem.check = 0
 
                 elif enemy_golem.die(hero_asuka, frame_time) == True:
                     score += 500
                     enemy_group3.remove(enemy_golem)
-                    hero_asuka.col = 0
+                    hero_asuka.check = 0
 
         for hero_axel in hero_group4:
             if collide(hero_axel, enemy_golem) == True:
-                enemy_golem.col += 1
-                hero_axel.col += 1
+                enemy_golem.check += 1
+                hero_axel.check += 1
 
                 if hero_axel.die(enemy_golem, frame_time) == True:
                     hero_group4.remove(hero_axel)
-                    enemy_golem.col = 0
+                    enemy_golem.check = 0
 
                 elif enemy_golem.die(hero_axel, frame_time) == True:
                     score += 500
                     enemy_group3.remove(enemy_golem)
-                    hero_axel.col = 0
+                    hero_axel.check = 0
 
         for hero_gunner in hero_group5:
             if collide(hero_gunner, enemy_golem) == True:
-                enemy_golem.col += 1
-                hero_gunner.col += 1
+                enemy_golem.check += 1
+                hero_gunner.check += 1
 
                 if hero_gunner.die(enemy_golem, frame_time) == True:
                     hero_group5.remove(hero_gunner)
-                    enemy_golem.col = 0
+                    enemy_golem.check = 0
 
                 elif enemy_golem.die(hero_gunner, frame_time) == True:
                     score += 500
                     enemy_group3.remove(enemy_golem)
-                    hero_gunner.col = 0
+                    hero_gunner.check = 0
 
         for hero_fenrich in hero_group6:
             if collide(hero_fenrich, enemy_golem) == True:
-                enemy_golem.col += 1
-                hero_fenrich.col += 1
+                enemy_golem.check += 1
+                hero_fenrich.check += 1
 
                 if hero_fenrich.die(enemy_golem, frame_time) == True:
                     hero_group6.remove(hero_fenrich)
-                    enemy_golem.col = 0
+                    enemy_golem.check = 0
 
                 elif enemy_golem.die(hero_fenrich, frame_time) == True:
                     score += 500
                     enemy_group3.remove(enemy_golem)
-                    hero_fenrich.col = 0
+                    hero_fenrich.check = 0
 
         for hero_ninja in hero_group7:
             if collide(hero_ninja, enemy_golem) == True:
-                enemy_golem.col += 1
-                hero_ninja.col += 1
+                enemy_golem.check += 1
+                hero_ninja.check += 1
 
                 if hero_ninja.die(enemy_golem, frame_time) == True:
                     hero_group7.remove(hero_ninja)
-                    enemy_golem.col = 0
+                    enemy_golem.check = 0
 
                 elif enemy_golem.die(hero_ninja, frame_time) == True:
                     score += 500
                     enemy_group3.remove(enemy_golem)
-                    hero_ninja.col = 0
+                    hero_ninja.check = 0
 
         for hero_pram in hero_group8:
             if collide(hero_pram, enemy_golem) == True:
-                enemy_golem.col += 1
-                hero_pram.col += 1
+                enemy_golem.check += 1
+                hero_pram.check += 1
 
                 if hero_pram.die(enemy_golem, frame_time) == True:
                     hero_group8.remove(hero_pram)
-                    enemy_golem.col = 0
+                    enemy_golem.check = 0
 
                 elif enemy_golem.die(hero_pram, frame_time) == True:
                     score += 500
                     enemy_group3.remove(enemy_golem)
-                    hero_pram.col = 0
+                    hero_pram.check = 0
 
         for hero_prof in hero_group9:
             if collide(hero_prof, enemy_golem) == True:
-                enemy_golem.col += 1
-                hero_prof.col += 1
+                enemy_golem.check += 1
+                hero_prof.check += 1
 
                 if hero_prof.die(enemy_golem, frame_time) == True:
                     hero_group9.remove(hero_prof)
-                    enemy_golem.col = 0
+                    enemy_golem.check = 0
 
                 elif enemy_golem.die(hero_prof, frame_time) == True:
                     score += 500
                     enemy_group3.remove(enemy_golem)
-                    hero_prof.col = 0
+                    hero_prof.check = 0
 
     for enemy_pringer in enemy_group4:
         for hero_adell in hero_group1:
             if collide(hero_adell, enemy_pringer) == True:
-                enemy_pringer.col += 1
-                hero_adell.col += 1
+                enemy_pringer.check += 1
+                hero_adell.check += 1
 
                 if hero_adell.die(enemy_pringer, frame_time) == True:
                     hero_group1.remove(hero_adell)
-                    enemy_pringer.col = 0
+                    enemy_pringer.check = 0
 
 
                 elif enemy_pringer.die(hero_adell, frame_time) == True:
                     score += 200
                     enemy_group4.remove(enemy_pringer)
-                    hero_adell.col = 0
+                    hero_adell.check = 0
 
         for hero_archer in hero_group2:
             if collide(hero_archer, enemy_pringer) == True:
-                enemy_pringer.col += 1
-                hero_archer.col += 1
+                enemy_pringer.check += 1
+                hero_archer.check += 1
 
                 if hero_archer.die(enemy_pringer, frame_time) == True:
                     hero_group2.remove(hero_archer)
-                    enemy_pringer.col = 0
+                    enemy_pringer.check = 0
 
                 elif enemy_pringer.die(hero_archer, frame_time) == True:
                     score += 200
                     enemy_group4.remove(enemy_pringer)
-                    hero_archer.col = 0
+                    hero_archer.check = 0
 
         for hero_asuka in hero_group3:
             if collide(hero_asuka, enemy_pringer) == True:
-                enemy_pringer.col += 1
-                hero_asuka.col += 1
+                enemy_pringer.check += 1
+                hero_asuka.check += 1
 
                 if hero_asuka.die(enemy_pringer, frame_time) == True:
                     hero_group3.remove(hero_asuka)
-                    enemy_pringer.col = 0
+                    enemy_pringer.check = 0
 
                 elif enemy_pringer.die(hero_asuka, frame_time) == True:
                     score += 200
                     enemy_group4.remove(enemy_pringer)
-                    hero_asuka.col = 0
+                    hero_asuka.check = 0
 
         for hero_axel in hero_group4:
             if collide(hero_axel, enemy_pringer) == True:
-                enemy_pringer.col += 1
-                hero_axel.col += 1
+                enemy_pringer.check += 1
+                hero_axel.check += 1
 
                 if hero_axel.die(enemy_pringer, frame_time) == True:
                     hero_group4.remove(hero_axel)
-                    enemy_pringer.col = 0
+                    enemy_pringer.check = 0
 
                 elif enemy_pringer.die(hero_axel, frame_time) == True:
                     score += 200
                     enemy_group4.remove(enemy_pringer)
-                    hero_axel.col = 0
+                    hero_axel.check = 0
 
         for hero_gunner in hero_group5:
             if collide(hero_gunner, enemy_pringer) == True:
-                enemy_pringer.col += 1
-                hero_gunner.col += 1
+                enemy_pringer.check += 1
+                hero_gunner.check += 1
 
                 if hero_gunner.die(enemy_pringer, frame_time) == True:
                     hero_group5.remove(hero_gunner)
-                    enemy_pringer.col = 0
+                    enemy_pringer.check = 0
 
                 elif enemy_pringer.die(hero_gunner, frame_time) == True:
                     score += 200
                     enemy_group4.remove(enemy_pringer)
-                    hero_gunner.col = 0
+                    hero_gunner.check = 0
 
         for hero_fenrich in hero_group6:
             if collide(hero_fenrich, enemy_pringer) == True:
-                enemy_pringer.col += 1
-                hero_fenrich.col += 1
+                enemy_pringer.check += 1
+                hero_fenrich.check += 1
 
                 if hero_fenrich.die(enemy_pringer, frame_time) == True:
                     hero_group6.remove(hero_fenrich)
-                    enemy_pringer.col = 0
+                    enemy_pringer.check = 0
 
                 elif enemy_pringer.die(hero_fenrich, frame_time) == True:
                     score += 200
                     enemy_group4.remove(enemy_pringer)
-                    hero_fenrich.col = 0
+                    hero_fenrich.check = 0
 
         for hero_ninja in hero_group7:
             if collide(hero_ninja, enemy_pringer) == True:
-                enemy_pringer.col += 1
-                hero_ninja.col += 1
+                enemy_pringer.check += 1
+                hero_ninja.check += 1
 
                 if hero_ninja.die(enemy_pringer, frame_time) == True:
                     hero_group7.remove(hero_ninja)
-                    enemy_pringer.col = 0
+                    enemy_pringer.check = 0
 
                 elif enemy_pringer.die(hero_ninja, frame_time) == True:
                     score += 200
                     enemy_group4.remove(enemy_pringer)
-                    hero_ninja.col = 0
+                    hero_ninja.check = 0
 
         for hero_pram in hero_group8:
             if collide(hero_pram, enemy_pringer) == True:
-                enemy_pringer.col += 1
-                hero_pram.col += 1
+                enemy_pringer.check += 1
+                hero_pram.check += 1
 
                 if hero_pram.die(enemy_pringer, frame_time) == True:
                     hero_group8.remove(hero_pram)
-                    enemy_pringer.col = 0
+                    enemy_pringer.check = 0
 
                 elif enemy_pringer.die(hero_pram, frame_time) == True:
                     score += 200
                     enemy_group4.remove(enemy_pringer)
-                    hero_pram.col = 0
+                    hero_pram.check = 0
 
         for hero_prof in hero_group9:
             if collide(hero_prof, enemy_pringer) == True:
-                enemy_pringer.col += 1
-                hero_prof.col += 1
+                enemy_pringer.check += 1
+                hero_prof.check += 1
 
                 if hero_prof.die(enemy_pringer, frame_time) == True:
                     hero_group9.remove(hero_prof)
-                    enemy_pringer.col = 0
+                    enemy_pringer.check = 0
 
                 elif enemy_pringer.die(hero_prof, frame_time) == True:
                     score += 200
                     enemy_group4.remove(enemy_pringer)
-                    hero_prof.col = 0
+                    hero_prof.check = 0
 
     for enemy_demon in enemy_group5:
         for hero_adell in hero_group1:
             if collide(hero_adell, enemy_demon) == True:
-                enemy_demon.col += 1
-                hero_adell.col += 1
+                enemy_demon.check += 1
+                hero_adell.check += 1
 
                 if hero_adell.die(enemy_demon, frame_time) == True:
                     hero_group1.remove(hero_adell)
-                    enemy_demon.col = 0
+                    enemy_demon.check = 0
 
                 elif enemy_demon.die(hero_adell, frame_time) == True:
                     score += 1000
                     enemy_group5.remove(enemy_demon)
-                    hero_adell.col = 0
+                    hero_adell.check = 0
 
         for hero_archer in hero_group2:
             if collide(hero_archer, enemy_demon) == True:
-                enemy_demon.col += 1
-                hero_archer.col += 1
+                enemy_demon.check += 1
+                hero_archer.check += 1
 
                 if hero_archer.die(enemy_demon, frame_time) == True:
                     hero_group2.remove(hero_archer)
-                    enemy_demon.col = 0
+                    enemy_demon.check = 0
 
                 elif enemy_demon.die(hero_archer, frame_time) == True:
                     score += 1000
                     enemy_group5.remove(enemy_demon)
-                    hero_archer.col = 0
+                    hero_archer.check = 0
 
         for hero_asuka in hero_group3:
             if collide(hero_asuka, enemy_demon) == True:
-                enemy_demon.col += 1
-                hero_asuka.col += 1
+                enemy_demon.check += 1
+                hero_asuka.check += 1
 
                 if hero_asuka.die(enemy_demon, frame_time) == True:
                     hero_group3.remove(hero_asuka)
-                    enemy_demon.col = 0
+                    enemy_demon.check = 0
 
                 elif enemy_demon.die(hero_asuka, frame_time) == True:
                     score += 1000
                     enemy_group5.remove(enemy_demon)
-                    hero_asuka.col = 0
+                    hero_asuka.check = 0
 
         for hero_axel in hero_group4:
             if collide(hero_axel, enemy_demon) == True:
-                enemy_demon.col += 1
-                hero_axel.col += 1
+                enemy_demon.check += 1
+                hero_axel.check += 1
 
                 if hero_axel.die(enemy_demon, frame_time) == True:
                     hero_group4.remove(hero_axel)
-                    enemy_demon.col = 0
+                    enemy_demon.check = 0
 
                 elif enemy_demon.die(hero_axel, frame_time) == True:
                     score += 1000
                     enemy_group5.remove(enemy_demon)
-                    hero_axel.col = 0
+                    hero_axel.check = 0
 
         for hero_gunner in hero_group5:
             if collide(hero_gunner, enemy_demon) == True:
-                enemy_demon.col += 1
-                hero_gunner.col += 1
+                enemy_demon.check += 1
+                hero_gunner.check += 1
 
                 if hero_gunner.die(enemy_demon, frame_time) == True:
                     hero_group5.remove(hero_gunner)
-                    enemy_demon.col = 0
+                    enemy_demon.check = 0
 
                 elif enemy_demon.die(hero_gunner, frame_time) == True:
                     score += 1000
                     enemy_group5.remove(enemy_demon)
-                    hero_gunner.col = 0
+                    hero_gunner.check = 0
 
         for hero_fenrich in hero_group6:
             if collide(hero_fenrich, enemy_demon) == True:
-                enemy_demon.col += 1
-                hero_fenrich.col += 1
+                enemy_demon.check += 1
+                hero_fenrich.check += 1
 
                 if hero_fenrich.die(enemy_demon, frame_time) == True:
                     hero_group6.remove(hero_fenrich)
-                    enemy_demon.col = 0
+                    enemy_demon.check = 0
 
                 elif enemy_demon.die(hero_fenrich, frame_time) == True:
                     score += 1000
                     enemy_group5.remove(enemy_demon)
-                    hero_fenrich.col = 0
+                    hero_fenrich.check = 0
 
         for hero_ninja in hero_group7:
             if collide(hero_ninja, enemy_demon) == True:
-                enemy_demon.col += 1
-                hero_ninja.col += 1
+                enemy_demon.check += 1
+                hero_ninja.check += 1
 
                 if hero_ninja.die(enemy_demon, frame_time) == True:
                     hero_group7.remove(hero_ninja)
-                    enemy_demon.col = 0
+                    enemy_demon.check = 0
 
                 elif enemy_demon.die(hero_ninja, frame_time) == True:
                     score += 1000
                     enemy_group5.remove(enemy_demon)
-                    hero_ninja.col = 0
+                    hero_ninja.check = 0
 
         for hero_pram in hero_group8:
             if collide(hero_pram, enemy_demon) == True:
-                enemy_demon.col += 1
-                hero_pram.col += 1
+                enemy_demon.check += 1
+                hero_pram.check += 1
 
                 if hero_pram.die(enemy_demon, frame_time) == True:
                     hero_group8.remove(hero_pram)
-                    enemy_demon.col = 0
+                    enemy_demon.check = 0
 
                 elif enemy_demon.die(hero_pram, frame_time) == True:
                     score += 1000
                     enemy_group5.remove(enemy_demon)
-                    hero_pram.col = 0
+                    hero_pram.check = 0
 
         for hero_prof in hero_group9:
             if collide(hero_prof, enemy_demon) == True:
-                enemy_demon.col += 1
-                hero_prof.col += 1
+                enemy_demon.check += 1
+                hero_prof.check += 1
 
                 if hero_prof.die(enemy_demon, frame_time) == True:
                     hero_group9.remove(hero_prof)
-                    enemy_demon.col = 0
+                    enemy_demon.check = 0
 
                 elif enemy_demon.die(hero_prof, frame_time) == True:
                     score += 1000
                     enemy_group5.remove(enemy_demon)
-                    hero_prof.col = 0
+                    hero_prof.check = 0
 
     for enemy_succubus in enemy_group6:
         for hero_adell in hero_group1:
             if collide(hero_adell, enemy_succubus) == True:
-                enemy_succubus.col += 1
-                hero_adell.col += 1
+                enemy_succubus.check += 1
+                hero_adell.check += 1
 
                 if hero_adell.die(enemy_succubus, frame_time) == True:
                     hero_group1.remove(hero_adell)
-                    enemy_succubus.col = 0
+                    enemy_succubus.check = 0
 
                 elif enemy_succubus.die(hero_adell, frame_time) == True:
                     score += 1000
                     enemy_group6.remove(enemy_succubus)
-                    hero_adell.col = 0
+                    hero_adell.check = 0
 
         for hero_archer in hero_group2:
             if collide(hero_archer, enemy_succubus) == True:
-                enemy_succubus.col += 1
-                hero_archer.col += 1
+                enemy_succubus.check += 1
+                hero_archer.check += 1
 
                 if hero_archer.die(enemy_succubus, frame_time) == True:
                     hero_group2.remove(hero_archer)
-                    enemy_succubus.col = 0
+                    enemy_succubus.check = 0
 
                 elif enemy_succubus.die(hero_archer, frame_time) == True:
                     score += 1000
                     enemy_group6.remove(enemy_succubus)
-                    hero_archer.col = 0
+                    hero_archer.check = 0
 
         for hero_asuka in hero_group3:
             if collide(hero_asuka, enemy_succubus) == True:
-                enemy_succubus.col += 1
-                hero_asuka.col += 1
+                enemy_succubus.check += 1
+                hero_asuka.check += 1
 
                 if hero_asuka.die(enemy_succubus, frame_time) == True:
                     hero_group3.remove(hero_asuka)
-                    enemy_succubus.col = 0
+                    enemy_succubus.check = 0
 
                 elif enemy_succubus.die(hero_asuka, frame_time) == True:
                     score += 1000
                     enemy_group6.remove(enemy_succubus)
-                    hero_asuka.col = 0
+                    hero_asuka.check = 0
 
         for hero_axel in hero_group4:
             if collide(hero_axel, enemy_succubus) == True:
-                enemy_succubus.col += 1
-                hero_axel.col += 1
+                enemy_succubus.check += 1
+                hero_axel.check += 1
 
                 if hero_axel.die(enemy_succubus, frame_time) == True:
                     hero_group4.remove(hero_axel)
-                    enemy_succubus.col = 0
+                    enemy_succubus.check = 0
 
                 elif enemy_succubus.die(hero_axel, frame_time) == True:
                     score += 1000
                     enemy_group6.remove(enemy_succubus)
-                    hero_axel.col = 0
+                    hero_axel.check = 0
 
         for hero_gunner in hero_group5:
             if collide(hero_gunner, enemy_succubus) == True:
-                enemy_succubus.col += 1
-                hero_gunner.col += 1
+                enemy_succubus.check += 1
+                hero_gunner.check += 1
 
                 if hero_gunner.die(enemy_succubus, frame_time) == True:
                     hero_group5.remove(hero_gunner)
-                    enemy_succubus.col = 0
+                    enemy_succubus.check = 0
 
                 elif enemy_succubus.die(hero_gunner, frame_time) == True:
                     score += 1000
                     enemy_group6.remove(enemy_succubus)
-                    hero_gunner.col = 0
+                    hero_gunner.check = 0
 
         for hero_fenrich in hero_group6:
             if collide(hero_fenrich, enemy_succubus) == True:
-                enemy_succubus.col += 1
-                hero_fenrich.col += 1
+                enemy_succubus.check += 1
+                hero_fenrich.check += 1
 
                 if hero_fenrich.die(enemy_succubus, frame_time) == True:
                     hero_group6.remove(hero_fenrich)
-                    enemy_succubus.col = 0
+                    enemy_succubus.check = 0
 
                 elif enemy_succubus.die(hero_fenrich, frame_time) == True:
                     score += 1000
                     enemy_group6.remove(enemy_succubus)
-                    hero_fenrich.col = 0
+                    hero_fenrich.check = 0
 
         for hero_ninja in hero_group7:
             if collide(hero_ninja, enemy_succubus) == True:
-                enemy_succubus.col += 1
-                hero_ninja.col += 1
+                enemy_succubus.check += 1
+                hero_ninja.check += 1
 
                 if hero_ninja.die(enemy_succubus, frame_time) == True:
                     hero_group7.remove(hero_ninja)
-                    enemy_succubus.col = 0
+                    enemy_succubus.check = 0
 
                 elif enemy_succubus.die(hero_ninja, frame_time) == True:
                     score += 1000
                     enemy_group6.remove(enemy_succubus)
-                    hero_ninja.col = 0
+                    hero_ninja.check = 0
 
         for hero_pram in hero_group8:
             if collide(hero_pram, enemy_succubus) == True:
-                enemy_succubus.col += 1
-                hero_pram.col += 1
+                enemy_succubus.check += 1
+                hero_pram.check += 1
 
                 if hero_pram.die(enemy_succubus, frame_time) == True:
                     hero_group8.remove(hero_pram)
-                    enemy_succubus.col = 0
+                    enemy_succubus.check = 0
 
                 elif enemy_succubus.die(hero_pram, frame_time) == True:
                     score += 1000
                     enemy_group6.remove(enemy_succubus)
-                    hero_pram.col = 0
+                    hero_pram.check = 0
 
         for hero_prof in hero_group9:
             if collide(hero_prof, enemy_succubus) == True:
-                enemy_succubus.col += 1
-                hero_prof.col += 1
+                enemy_succubus.check += 1
+                hero_prof.check += 1
 
                 if hero_prof.die(enemy_succubus, frame_time) == True:
                     hero_group9.remove(hero_prof)
-                    enemy_succubus.col = 0
+                    enemy_succubus.check = 0
 
                 elif enemy_succubus.die(hero_prof, frame_time) == True:
                     score += 1000
                     enemy_group6.remove(enemy_succubus)
-                    hero_prof.col = 0
+                    hero_prof.check = 0
 
 def button_click():
     global hero_adell, hero_archer, hero_asuka, hero_axel, hero_fenrich, hero_gunner, hero_ninja, hero_pram, hero_prof, gold

@@ -28,7 +28,7 @@ class Enemy_Slime:
         self.total_frames = 0.0
         self.atk_time = 0.0
         self.dir = -1.0
-        self.col = 0
+        self.check = 0
         self.atk = 10 #object_data['Enemy_Slime']['atk']
         self.health = 100 #object_data['Enemy_Slime']['heath']
         self.state = self.WALK
@@ -46,7 +46,7 @@ class Enemy_Slime:
             self.frame = int(self.total_frames) % 5
             self.dir = 0
             if self.frame == 4:
-                self.col = 0
+                self.check = 0
 
         if self.x < 200:
             self.health = 0
@@ -98,7 +98,7 @@ class Enemy_Zombie:
         self.dir = -0.5
         self.atk = 20
         self.health = 300
-        self.col = 0
+        self.check = 0
         self.state = self.WALK
         if Enemy_Zombie.zombie_image == None:
             Enemy_Zombie.zombie_image = load_image('Monster/Zombie_Sheet.png')
@@ -114,7 +114,7 @@ class Enemy_Zombie:
             self.frame = int(self.total_frames) % 4
             self.dir = 0.0
             if self.frame == 3:
-                self.col = 0
+                self.check = 0
 
         if self.x < 200:
             self.health = 0
@@ -165,7 +165,7 @@ class Enemy_Golem:
         self.dir = -0.5
         self.atk = 40
         self.health = 500
-        self.col = 0
+        self.check = 0
         self.state = self.WALK
         if Enemy_Golem.golem_image == None:
             Enemy_Golem.golem_image = load_image('Monster/WoodGolem_Sheet.png')
@@ -181,7 +181,7 @@ class Enemy_Golem:
             self.frame = int(self.total_frames) % 5
             self.dir = 0.0
             if self.frame == 4:
-                self.col = 0
+                self.check = 0
 
         if self.x < 200:
             self.health = 0
@@ -232,7 +232,7 @@ class Enemy_Pringer:
         self.dir = -1.3
         self.atk = 10
         self.health = 1000
-        self.col = 0
+        self.check = 0
         self.state = self.WALK
         if Enemy_Pringer.pringer_image == None:
             Enemy_Pringer.pringer_image = load_image('Monster/Pringer_Sheet.png')
@@ -248,7 +248,7 @@ class Enemy_Pringer:
             self.frame = int(self.total_frames) % 3
             self.dir = 0.0
             if self.frame == 2:
-                self.col = 0
+                self.check = 0
 
         if self.x < 200:
             self.health = 0
@@ -299,7 +299,7 @@ class Enemy_Demon:
         self.dir = -0.5
         self.atk = 100
         self.health = 1500
-        self.col = 0
+        self.check = 0
         self.state = self.WALK
         if Enemy_Demon.demon_image == None:
             Enemy_Demon.demon_image = load_image('Monster/Demon_Sheet.png')
@@ -315,7 +315,7 @@ class Enemy_Demon:
             self.frame = int(self.total_frames) % 3
             self.dir = 0.0
             if self.frame == 2:
-                self.col = 0
+                self.check = 0
 
         if self.x < 200:
             self.health = 0
@@ -366,7 +366,7 @@ class Enemy_Succubus:
         self.dir = -1.2
         self.atk = 200
         self.health = 2500
-        self.col = 0
+        self.check = 0
         self.state = self.WALK
         if Enemy_Succubus.succubus_image == None:
             Enemy_Succubus.succubus_image = load_image('Monster/Succubus_Sheet.png')
@@ -382,7 +382,7 @@ class Enemy_Succubus:
             self.frame = int(self.total_frames) % 5
             self.dir = 0.0
             if self.frame == 4:
-                self.col = 0
+                self.check = 0
 
         if self.x < 200:
             self.health = 0
