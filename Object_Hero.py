@@ -28,7 +28,7 @@ class Hero_Adell:
         self.total_frames = 0.0
         self.atk_time = 0.0
         self.atk = 10 #object_data['Hero_Adell']['atk']
-        self.health = 50 #object_data['Hero_Adell']['health']
+        self.health = 100 #object_data['Hero_Adell']['health']
         self.dir = 2.5
         self.col = 0
         self.state = self.WALK
@@ -41,29 +41,28 @@ class Hero_Adell:
         if self.state == self.WALK:
             self.frame = int(self.total_frames) % 6
             self.dir = 2.5
+            self.x += (self.dir * distance)
         elif self.state == self.ATK:
             self.frame = int(self.total_frames) % 4
-            self.dir = 0.0
-            if self.frame == 1:
+            self.dir = 0
+            if self.frame == 3:
                 self.col = 0
 
-        self.x += (self.dir * distance)
-
         if self.x > 1100:
-            self.dir = 0.0
-            self.x = random.randint(1100, 1103)
-            self.state = self.ATK
+            self.health = 0
+            self.x = 1400
+
         elif self.x < 100:
             self.dir = 2.5
             self.x = 100
             self.state = self.WALK
 
-    def die(self, hero, frame_time):
+    def die(self, enemy, frame_time):
         self.atk_time += frame_time
-        if hero.frame == 0:
-            if self.atk_time > 0.07:
+        if enemy.frame == 0:
+            if self.atk_time > 0.1:
                 self.atk_time = 0
-                self.health -= self.atk
+                self.health -= enemy.atk
                 if self.health <= 0:
                     return True
         return False
@@ -95,11 +94,11 @@ class Hero_Archer:
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
         self.total_frames = 0.0
-        self.dir = 2
+        self.dir = 10
         self.atk_time = 0.0
-        self.atk = 10
+        self.atk = 20
         self.col = 0
-        self.health = 50
+        self.health = 200
         self.state = self.ATK
         if Hero_Archer.archer_image == None:
             Hero_Archer.archer_image = load_image('Hero/Archer_sheet.png')
@@ -110,29 +109,30 @@ class Hero_Archer:
         if self.state == self.WALK:
             self.frame = int(self.total_frames) % 6
             self.dir = 2
+            self.x += (self.dir * distance)
         elif self.state == self.ATK:
             self.frame = int(self.total_frames) % 4
             self.dir = 0
-            if self.frame == 1:
+            self.x += (self.dir * distance)
+            if self.frame == 3:
                 self.col = 0
-        self.x += (self.dir * distance)
 
         if self.x > 1100:
-            self.dir = 0
-            self.x = random.randint(1100, 1103)
-            self.state = self.ATK
+            self.health = 0
+            self.x = 1400
+
         elif self.x < 100:
             self.dir = 2
             self.x = 100
             self.state = self.WALK
 
-    def die(self, hero, frame_time):
+    def die(self, enemy, frame_time):
         self.atk_time += frame_time
 
-        if hero.frame == 0:
-            if self.atk_time > 0.05:
+        if enemy.frame == 0:
+            if self.atk_time > 0.1:
                 self.atk_time = 0
-                self.health -= self.atk
+                self.health -= enemy.atk
                 if self.health <= 0:
                     return True
         return False
@@ -166,9 +166,9 @@ class Hero_Asuka:
         self.total_frames = 0.0
         self.dir = 2.0
         self.atk_time = 0.0
-        self.atk = 10
+        self.atk = 25
         self.col = 0
-        self.health = 50
+        self.health = 500
         self.state = self.WALK
         if Hero_Asuka.asuka_image == None:
             Hero_Asuka.asuka_image = load_image('Hero/Asuka_Sheet.png')
@@ -179,29 +179,31 @@ class Hero_Asuka:
         if self.state == self.WALK:
             self.frame = int(self.total_frames) % 6
             self.dir = 2.0
+            self.x += (self.dir * distance)
         elif self.state == self.ATK:
             self.frame = int(self.total_frames) % 4
-            self.dir = 0.0
-            if self.frame == 1:
+            self.dir = 0
+            if self.frame == 3:
                 self.col = 0
-        self.x += (self.dir * distance)
+
+
 
         if self.x > 1100:
-            self.dir = 0
-            self.x = random.randint(1100, 1103)
-            self.state = self.ATK
+            self.health = 0
+            self.x = 1400
+
         elif self.x < 100:
             self.dir = 2.0
             self.x = 100
             self.state = self.WALK
 
-    def die(self, hero, frame_time):
+    def die(self, enemy, frame_time):
         self.atk_time += frame_time
 
-        if hero.frame == 0:
-            if self.atk_time > 0.05:
+        if enemy.frame == 0:
+            if self.atk_time > 0.1:
                 self.atk_time = 0
-                self.health -= self.atk
+                self.health -= enemy.atk
                 if self.health <= 0:
                     return True
         return False
@@ -235,9 +237,9 @@ class Hero_Axel:
         self.total_frames = 0.0
         self.dir = 2.0
         self.atk_time = 0.0
-        self.atk = 10
+        self.atk = 35
         self.col = 0
-        self.health = 50
+        self.health = 800
         self.state = self.WALK
         if Hero_Axel.axel_image == None:
             Hero_Axel.axel_image = load_image('Hero/Axel_Sheet.png')
@@ -248,29 +250,29 @@ class Hero_Axel:
         if self.state == self.WALK:
             self.frame = int(self.total_frames) % 6
             self.dir = 2.0
+            self.x += (self.dir * distance)
         elif self.state == self.ATK:
             self.frame = int(self.total_frames) % 4
             self.dir = 0
-            if self.frame == 1:
+            if self.frame == 3:
                 self.col = 0
-        self.x += (self.dir * distance)
 
         if self.x > 1100:
-            self.dir = 0
-            self.x = random.randint(1100, 1103)
-            self.state = self.ATK
+            self.health = 0
+            self.x = 1400
+
         elif self.x < 100:
             self.dir = 2.0
             self.x = 100
             self.state = self.WALK
 
-    def die(self, hero, frame_time):
+    def die(self, enemy, frame_time):
         self.atk_time += frame_time
 
-        if hero.frame == 0:
-            if self.atk_time > 0.05:
+        if enemy.frame == 0:
+            if self.atk_time > 0.1:
                 self.atk_time = 0
-                self.health -= self.atk
+                self.health -= enemy.atk
                 if self.health <= 0:
                     return True
         return False
@@ -304,9 +306,9 @@ class Hero_Gunner:
         self.total_frames = 0.0
         self.dir = 2.0
         self.atk_time = 0.0
-        self.atk = 10
+        self.atk = 55
         self.col = 0
-        self.health = 50
+        self.health = 1000
         self.state = self.WALK
         if Hero_Gunner.gunner_image == None:
             Hero_Gunner.gunner_image = load_image('Hero/Gunner_Sheet.png')
@@ -317,29 +319,29 @@ class Hero_Gunner:
         if self.state == self.WALK:
             self.frame = int(self.total_frames) % 6
             self.dir = 2.0
+            self.x += (self.dir * distance)
         elif self.state == self.ATK:
             self.frame = int(self.total_frames) % 4
             self.dir = 0.0
-            if self.frame == 1:
+            if self.frame == 3:
                 self.col = 0
-        self.x += (self.dir * distance)
 
         if self.x > 1100:
-            self.dir = 0
-            self.x = random.randint(1100, 1103)
-            self.state = self.ATK
+            self.health = 0
+            self.x = 1400
+
         elif self.x < 100:
             self.dir = 2.0
             self.x = 100
             self.state = self.WALK
 
-    def die(self, hero, frame_time):
+    def die(self, enemy, frame_time):
         self.atk_time += frame_time
 
-        if hero.frame == 0:
-            if self.atk_time > 0.05:
+        if enemy.frame == 0:
+            if self.atk_time > 0.1:
                 self.atk_time = 0
-                self.health -= self.atk
+                self.health -= enemy.atk
                 if self.health <= 0:
                     return True
         return False
@@ -373,9 +375,9 @@ class Hero_Fenrich:
         self.total_frames = 0.0
         self.dir = 2.0
         self.atk_time = 0.0
-        self.atk = 10
+        self.atk = 65
         self.col = 0
-        self.health = 50
+        self.health = 1500
         self.state = self.WALK
         if Hero_Fenrich.fenrich_image == None:
             Hero_Fenrich.fenrich_image = load_image('Hero/Fenrich_Sheet.png')
@@ -386,29 +388,29 @@ class Hero_Fenrich:
         if self.state == self.WALK:
             self.frame = int(self.total_frames) % 6
             self.dir = 2.0
+            self.x += (self.dir * distance)
         elif self.state == self.ATK:
             self.frame = int(self.total_frames) % 4
             self.dir = 0.0
-            if self.frame == 1:
+            if self.frame == 3:
                 self.col = 0
-        self.x += (self.dir * distance)
 
         if self.x > 1100:
-            self.dir = 0.0
-            self.x = random.randint(1100, 1103)
-            self.state = self.ATK
+            self.health = 0
+            self.x = 1400
+
         elif self.x < 100:
             self.dir = 2.0
             self.x = 100
             self.state = self.WALK
 
-    def die(self, hero, frame_time):
+    def die(self, enemy, frame_time):
         self.atk_time += frame_time
 
-        if hero.frame == 0:
-            if self.atk_time > 0.05:
+        if enemy.frame == 0:
+            if self.atk_time > 0.1:
                 self.atk_time = 0
-                self.health -= self.atk
+                self.health -= enemy.atk
                 if self.health <= 0:
                     return True
         return False
@@ -442,9 +444,9 @@ class Hero_Ninja:
         self.total_frames = 0.0
         self.dir = 2.0
         self.atk_time = 0.0
-        self.atk = 10
+        self.atk = 100
         self.col = 0
-        self.health = 50
+        self.health = 2000
         self.state = self.WALK
         if Hero_Ninja.ninja_image == None:
             Hero_Ninja.ninja_image = load_image('Hero/Ninja_Sheet.png')
@@ -455,29 +457,29 @@ class Hero_Ninja:
         if self.state == self.WALK:
             self.frame = int(self.total_frames) % 6
             self.dir = 2.0
+            self.x += (self.dir * distance)
         elif self.state == self.ATK:
             self.frame = int(self.total_frames) % 4
             self.dir = 0.0
-            if self.frame == 1:
+            if self.frame == 3:
                 self.col = 0
-        self.x += (self.dir * distance)
 
         if self.x > 1100:
-            self.dir = 0
-            self.x = random.randint(1100, 1103)
-            self.state = self.ATK
+            self.health = 0
+            self.x = 1400
+
         elif self.x < 100:
             self.dir = 0.5
             self.x = 100
             self.state = self.WALK
 
-    def die(self, hero, frame_time):
+    def die(self, enemy, frame_time):
         self.atk_time += frame_time
 
-        if hero.frame == 0:
-            if self.atk_time > 0.05:
+        if enemy.frame == 0:
+            if self.atk_time > 0.1:
                 self.atk_time = 0
-                self.health -= self.atk
+                self.health -= enemy.atk
                 if self.health <= 0:
                     return True
         return False
@@ -511,9 +513,9 @@ class Hero_Pram:
         self.total_frames = 0.0
         self.dir = 2.0
         self.atk_time = 0.0
-        self.atk = 10
+        self.atk = 200
         self.col = 0
-        self.health = 50
+        self.health = 2500
         self.state = self.WALK
         if Hero_Pram.pram_image == None:
             Hero_Pram.pram_image = load_image('Hero/Pram_Sheet.png')
@@ -524,29 +526,29 @@ class Hero_Pram:
         if self.state == self.WALK:
             self.frame = int(self.total_frames) % 6
             self.dir = 2.0
-        elif self.state == self.ATK:
+            self.x += (self.dir * distance)
+        if self.state == self.ATK:
             self.frame = int(self.total_frames) % 4
             self.dir = 0.0
-            if self.frame == 1:
+            if self.frame == 3:
                 self.col = 0
-        self.x += (self.dir * distance)
 
         if self.x > 1100:
-            self.dir = 0
-            self.x = random.randint(1100, 1103)
-            self.state = self.ATK
+            self.health = 0
+            self.x = 1400
+
         elif self.x < 100:
             self.dir = 0.5
             self.x = 100
             self.state = self.WALK
 
-    def die(self, hero, frame_time):
+    def die(self, enemy, frame_time):
         self.atk_time += frame_time
 
-        if hero.frame == 0:
-            if self.atk_time > 0.05:
+        if enemy.frame == 0:
+            if self.atk_time > 0.1:
                 self.atk_time = 0
-                self.health -= self.atk
+                self.health -= enemy.atk
                 if self.health <= 0:
                     return True
         return False
@@ -580,9 +582,9 @@ class Hero_Prof:
         self.total_frames = 0.0
         self.dir = 2.0
         self.atk_time = 0.0
-        self.atk = 10
+        self.atk = 500
         self.col = 0
-        self.health = 50
+        self.health = 5000
         self.state = self.WALK
         if Hero_Prof.professor_image == None:
             Hero_Prof.professor_image = load_image('Hero/Professor_Sheet.png')
@@ -593,29 +595,29 @@ class Hero_Prof:
         if self.state == self.WALK:
             self.frame = int(self.total_frames) % 6
             self.dir = 2.0
+            self.x += (self.dir * distance)
         elif self.state == self.ATK:
             self.frame = int(self.total_frames) % 4
             self.dir = 0.0
-            if self.frame == 1:
+            if self.frame == 3:
                 self.col = 0
-        self.x += (self.dir * distance)
 
         if self.x > 1100:
-            self.dir = 0
-            self.x = random.randint(1100, 1103)
-            self.state = self.ATK
+            self.health = 0
+            self.x = 1400
+
         elif self.x < 100:
             self.dir = 0.5
             self.x = 100
             self.state = self.WALK
 
-    def die(self, hero, frame_time):
+    def die(self, enemy, frame_time):
         self.atk_time += frame_time
 
-        if hero.frame == 0:
-            if self.atk_time > 0.07:
+        if enemy.frame == 0:
+            if self.atk_time > 0.1:
                 self.atk_time = 0
-                self.health -= self.atk
+                self.health -= enemy.atk
                 if self.health <= 0:
                     return True
         return False
