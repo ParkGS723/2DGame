@@ -12,9 +12,21 @@ mx, my = 0, 0
 name = "MenuScene"
 Title_bkg = None
 
+
+class MenuBackGround:
+    def __init__(self):
+        self.x, self.y = 640, 360
+        self.image = load_image('UI/MainMenu.png')
+        self.bgm = load_music('Sound/menu_bgm.mp3')
+        self.bgm.set_volume(60)
+        self.bgm.repeat_play()
+
+    def draw(self):
+        self.image.clip_draw(0, 0, 1280, 720, self.x, self.y)
+
 def enter():
-    global MainMenu_bkg, Menu_0, Menu_0_over, Menu_1, Menu_1_over, Menu_2, Menu_2_over, Menu_3, Menu_3_over, level_setting
-    MainMenu_bkg = load_image('UI/MainMenu.png')
+    global MainMenu_bg, Menu_0, Menu_0_over, Menu_1, Menu_1_over, Menu_2, Menu_2_over, Menu_3, Menu_3_over, level_setting
+    MainMenu_bg = MenuBackGround()
     Menu_0 = load_image('UI/Menu_0.png')
     Menu_0_over = load_image('UI/Menu_0(over).png')
     Menu_1 = load_image('UI/Menu_1.png')
@@ -24,6 +36,7 @@ def enter():
     Menu_3 = load_image('UI/Menu_3.png')
     Menu_3_over = load_image('UI/Menu_3(over).png')
     level_setting = load_image('UI/level_settings.png')
+
 
 def exit():
     pass
@@ -69,7 +82,7 @@ def draw(frame_time):
     global mx, my
     global MainMenu_bkg, Menu_0, Menu_0_over, Menu_1, Menu_1_over, Menu_2, Menu_2_over, Menu_3, Menu_3_over
     clear_canvas()
-    MainMenu_bkg.draw(640, 360)
+    MainMenu_bg.draw()
 
     if 195 < mx < 445 and 515 < my < 690:
         Menu_0_over.draw(320, 600)

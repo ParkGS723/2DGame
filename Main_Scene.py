@@ -29,6 +29,9 @@ class BackGround:
     def __init__(self):
         self.x, self.y = 400, 445
         self.image = load_image('Map/Stage_bkg.jpg')
+        self.bgm = load_music('Sound/game_bgm.mp3')
+        self.bgm.set_volume(60)
+        self.bgm.repeat_play()
 
     def draw(self):
         self.image.clip_draw(0, 0, 2000, 550, self.x, self.y)
@@ -89,7 +92,7 @@ def enter():
     #}                                                  \
     #'
     #object_data = json.load(obj_data_txt)
-    gold = 100000
+    gold = 1000000
 
     hero_group1 = []
     hero_group2 = []
@@ -174,7 +177,7 @@ def pause():
 def resume():
     pass
 
-def EnemyLevel_System(frame_time):
+def Level_Design(frame_time):
     global load_time, summon_random
     load_time += frame_time
     if load_time > 0.5:
@@ -224,7 +227,7 @@ def EnemyLevel_System(frame_time):
             enemy_succubus = Object_Enemy.Enemy_Succubus(x = 1250)
             enemy_group6.append(enemy_succubus)
 
-def object_state(frame_time):
+def Gameobj_state(frame_time):
     for hero_adell in hero_group1:
         if hero_adell.col > 0:
             hero_adell.state = hero_adell.ATK
@@ -1192,19 +1195,17 @@ def handle_events(frame_time):
                     coll_chk = False
                     coll_chk_pic = True
 
-
-
 def update(frame_time):
     global chk_time, load_time, gold, timer
     load_time += frame_time
 
     if load_time > 0.5:
-        EnemyLevel_System(frame_time)
+        Level_Design(frame_time)
         load_time = 0
 
     user_valva.update(frame_time)
     magic_meteor.update(frame_time)
-    object_state(frame_time)
+    Gameobj_state(frame_time)
     collide_enter(frame_time)
     gold += (frame_time * 100)
     if timer == False:
@@ -1274,8 +1275,8 @@ def draw(frame_time):
             enemy_succubus.draw_bb()
 
 
-    font.draw(350, 55, '%1.f' % score)
-    font.draw(505, 55, '%1.f' % gold)
+    font.draw(340, 55, '%1.f' % score)
+    font.draw(495, 55, '%1.f' % gold)
     for m_meteor in my_magic:
         m_meteor.update(frame_time)
         m_meteor.draw()
