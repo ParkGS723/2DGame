@@ -21,15 +21,15 @@ class Enemy_Slime:
     slime_image = None
     WALK, ATK, MTK, DIE = 3, 2, 1, 0
 
-    def __init__(self, x = 1200):
+    def __init__(self, x = 1100):
         self.x, self.y = x, 330#object_data['Enemy_Slime']['y']
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
         self.total_frames = 0.0
         self.atk_time = 0.0
-        self.dir = -0.5
+        self.dir = -1.0
         self.col = 0
-        self.atk = 2 #object_data['Enemy_Slime']['atk']
+        self.atk = 10 #object_data['Enemy_Slime']['atk']
         self.health = 100 #object_data['Enemy_Slime']['heath']
         self.state = self.WALK
         if Enemy_Slime.slime_image == None:
@@ -40,32 +40,32 @@ class Enemy_Slime:
         self.total_frames += Enemy_Slime.FRAMES_PER_ACTION * Enemy_Slime.ACTION_PER_TIME * frame_time
         if self.state == self.WALK:
             self.frame = int(self.total_frames) % 5
-            self.dir = -0.5
+            self.dir = -1.0
+            self.x += (self.dir * distance)
         elif self.state == self.ATK:
             self.frame = int(self.total_frames) % 5
             self.dir = 0
-            if self.frame == 1:
+            if self.frame == 4:
                 self.col = 0
-        self.x += (self.dir * distance)
 
         if self.x < 200:
-            self.dir = 0
-            self.x = 200
-            self.state = self.ATK
-        elif self.x > 200:
-            self.dir = -0.5
+            self.health = 0
+            self.x = -100
+
+        elif self.x > 1000:
+            self.dir = -1.0
             self.state = self.WALK
 
-    def die(self, enemy, frame_time):
+    def die(self, hero, frame_time):
         self.atk_time += frame_time
-        if enemy.frame == 0:
-            if self.atk_time > 0.3:
+
+        if hero.frame == 0:
+            if self.atk_time > 0.1:
                 self.atk_time = 0
-                self.health -= enemy.atk
+                self.health -= hero.atk
                 if self.health <= 0:
                     return True
         return False
-
 
     def draw(self):
         self.slime_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
@@ -89,15 +89,15 @@ class Enemy_Zombie:
     zombie_image = None
     WALK, ATK, MTK, DIE = 3, 2, 1, 0
 
-    def __init__(self, x = 1250):
+    def __init__(self, x = 1100):
         self.x, self.y = x, 330
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
         self.total_frames = 0.0
         self.atk_time = 0.0
         self.dir = -0.5
-        self.atk = 2
-        self.health = 50
+        self.atk = 20
+        self.health = 300
         self.col = 0
         self.state = self.WALK
         if Enemy_Zombie.zombie_image == None:
@@ -109,27 +109,27 @@ class Enemy_Zombie:
         if self.state == self.WALK:
             self.frame = int(self.total_frames) % 5
             self.dir = -0.5
+            self.x += (self.dir * distance)
         elif self.state == self.ATK:
             self.frame = int(self.total_frames) % 4
             self.dir = 0.0
-            if self.frame == 1:
+            if self.frame == 3:
                 self.col = 0
-        self.x += (self.dir * distance)
 
         if self.x < 200:
-            self.dir = 0
-            self.x = 200
-            self.state = self.ATK
-        elif self.x > 200:
+            self.health = 0
+            self.x = -100
+
+        elif self.x > 1000:
             self.dir = -0.5
             self.state = self.WALK
 
-    def die(self, enemy, frame_time):
+    def die(self, hero, frame_time):
         self.atk_time += frame_time
-        if enemy.frame == 0:
+        if hero.frame == 0:
             if self.atk_time > 0.1:
                 self.atk_time = 0
-                self.health -= enemy.atk
+                self.health -= hero.atk
                 if self.health <= 0:
                     return True
         return False
@@ -142,7 +142,6 @@ class Enemy_Zombie:
 
     def get_bb(self):
         return self.x - 40, self.y - 80, self.x + 40, self.y + 40
-
 
 class Enemy_Golem:
     PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
@@ -157,15 +156,15 @@ class Enemy_Golem:
     golem_image = None
     WALK, ATK, MTK, DIE = 3, 2, 1, 0
 
-    def __init__(self, x = 1300):
+    def __init__(self, x = 1100):
         self.x, self.y = x, 320
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
         self.total_frames = 0.0
         self.atk_time = 0.0
         self.dir = -0.5
-        self.atk = 2
-        self.health = 50
+        self.atk = 40
+        self.health = 500
         self.col = 0
         self.state = self.WALK
         if Enemy_Golem.golem_image == None:
@@ -177,27 +176,27 @@ class Enemy_Golem:
         if self.state == self.WALK:
             self.frame = int(self.total_frames) % 6
             self.dir = -0.5
+            self.x += (self.dir * distance)
         elif self.state == self.ATK:
             self.frame = int(self.total_frames) % 5
             self.dir = 0.0
-            if self.frame == 1:
+            if self.frame == 4:
                 self.col = 0
-        self.x += (self.dir * distance)
 
         if self.x < 200:
-            self.dir = 0
-            self.x = 200
-            self.state = self.ATK
-        elif self.x > 200:
+            self.health = 0
+            self.x = -100
+
+        elif self.x > 1000:
             self.dir = -0.5
             self.state = self.WALK
 
-    def die(self, enemy, frame_time):
+    def die(self, hero, frame_time):
         self.atk_time += frame_time
-        if enemy.frame == 0:
+        if hero.frame == 0:
             if self.atk_time > 0.1:
                 self.atk_time = 0
-                self.health -= enemy.atk
+                self.health -= hero.atk
                 if self.health <= 0:
                     return True
         return False
@@ -222,34 +221,52 @@ class Enemy_Pringer:
     ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
     FRAMES_PER_ACTION = 6
     pringer_image = None
-    WALK, ATK  = 3,2
+    WALK, ATK, MTK, DIE = 3, 2, 1, 0
 
-    def __init__(self):
-        self.x, self.y = 1100, 340
+    def __init__(self, x = 1100):
+        self.x, self.y = x, 340
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
         self.total_frames = 0.0
-        self.dir = -0.5
+        self.atk_time = 0.0
+        self.dir = -1.3
+        self.atk = 10
+        self.health = 1000
+        self.col = 0
         self.state = self.WALK
         if Enemy_Pringer.pringer_image == None:
             Enemy_Pringer.pringer_image = load_image('Monster/Pringer_Sheet.png')
 
     def update(self, frame_time):
-        distance = Enemy_Pringer.RUN_SPEED_PPS * frame_time
-        self.total_frames += Enemy_Pringer.FRAMES_PER_ACTION * Enemy_Pringer.ACTION_PER_TIME * frame_time
+        distance = Enemy_Zombie.RUN_SPEED_PPS * frame_time
+        self.total_frames += Enemy_Zombie.FRAMES_PER_ACTION * Enemy_Zombie.ACTION_PER_TIME * frame_time
         if self.state == self.WALK:
             self.frame = int(self.total_frames) % 2
+            self.dir = -1.3
+            self.x += (self.dir * distance)
         elif self.state == self.ATK:
             self.frame = int(self.total_frames) % 3
-        self.x += (self.dir * distance)
+            self.dir = 0.0
+            if self.frame == 2:
+                self.col = 0
 
         if self.x < 200:
-            self.dir = 0
-            self.x = 200
-            self.state = self.ATK
-        elif self.x > 200:
+            self.health = 0
+            self.x = -100
+
+        elif self.x > 1000:
             self.dir = -0.5
             self.state = self.WALK
+
+    def die(self, hero, frame_time):
+        self.atk_time += frame_time
+        if hero.frame == 0:
+            if self.atk_time > 0.1:
+                self.atk_time = 0
+                self.health -= hero.atk
+                if self.health <= 0:
+                    return True
+        return False
 
     def draw(self):
         self.pringer_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
@@ -271,34 +288,52 @@ class Enemy_Demon:
     ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
     FRAMES_PER_ACTION = 6
     demon_image = None
-    WALK, ATK  = 3,2
+    WALK, ATK, MTK, DIE = 3, 2, 1, 0
 
-    def __init__(self):
-        self.x, self.y = 1000, 340
+    def __init__(self, x = 1100):
+        self.x, self.y = x, 340
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
         self.total_frames = 0.0
+        self.atk_time = 0.0
         self.dir = -0.5
+        self.atk = 100
+        self.health = 1500
+        self.col = 0
         self.state = self.WALK
         if Enemy_Demon.demon_image == None:
             Enemy_Demon.demon_image = load_image('Monster/Demon_Sheet.png')
 
     def update(self, frame_time):
-        distance = Enemy_Demon.RUN_SPEED_PPS * frame_time
-        self.total_frames += Enemy_Demon.FRAMES_PER_ACTION * Enemy_Demon.ACTION_PER_TIME * frame_time
+        distance = Enemy_Zombie.RUN_SPEED_PPS * frame_time
+        self.total_frames += Enemy_Zombie.FRAMES_PER_ACTION * Enemy_Zombie.ACTION_PER_TIME * frame_time
         if self.state == self.WALK:
             self.frame = int(self.total_frames) % 6
+            self.dir = -0.5
+            self.x += (self.dir * distance)
         elif self.state == self.ATK:
             self.frame = int(self.total_frames) % 3
-        self.x += (self.dir * distance)
+            self.dir = 0.0
+            if self.frame == 2:
+                self.col = 0
 
         if self.x < 200:
-            self.dir = 0
-            self.x = 200
-            self.state = self.ATK
-        elif self.x > 200:
+            self.health = 0
+            self.x = -100
+
+        elif self.x > 1000:
             self.dir = -0.5
             self.state = self.WALK
+
+    def die(self, hero, frame_time):
+        self.atk_time += frame_time
+        if hero.frame == 0:
+            if self.atk_time > 0.1:
+                self.atk_time = 0
+                self.health -= hero.atk
+                if self.health <= 0:
+                    return True
+        return False
 
     def draw(self):
         self.demon_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
@@ -320,34 +355,52 @@ class Enemy_Succubus:
     ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
     FRAMES_PER_ACTION = 6
     succubus_image = None
-    WALK, ATK  = 3,2
+    WALK, ATK, MTK, DIE = 3, 2, 1, 0
 
-    def __init__(self):
-        self.x, self.y = 1300, 340
+    def __init__(self, x = 1100):
+        self.x, self.y = x, 340
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
         self.total_frames = 0.0
-        self.dir = -0.5
+        self.atk_time = 0.0
+        self.dir = -1.2
+        self.atk = 200
+        self.health = 2500
+        self.col = 0
         self.state = self.WALK
         if Enemy_Succubus.succubus_image == None:
             Enemy_Succubus.succubus_image = load_image('Monster/Succubus_Sheet.png')
 
     def update(self, frame_time):
-        distance = Enemy_Succubus.RUN_SPEED_PPS * frame_time
-        self.total_frames += Enemy_Succubus.FRAMES_PER_ACTION * Enemy_Succubus.ACTION_PER_TIME * frame_time
+        distance = Enemy_Zombie.RUN_SPEED_PPS * frame_time
+        self.total_frames += Enemy_Zombie.FRAMES_PER_ACTION * Enemy_Zombie.ACTION_PER_TIME * frame_time
         if self.state == self.WALK:
-            self.frame = int(self.total_frames) % 6
+            self.frame = int(self.total_frames) % 7
+            self.dir = -1.2
+            self.x += (self.dir * distance)
         elif self.state == self.ATK:
             self.frame = int(self.total_frames) % 5
-        self.x += (self.dir * distance)
+            self.dir = 0.0
+            if self.frame == 4:
+                self.col = 0
 
         if self.x < 200:
-            self.dir = 0
-            self.x = 200
-            self.state = self.ATK
-        elif self.x > 200:
+            self.health = 0
+            self.x = -100
+
+        elif self.x > 1000:
             self.dir = -0.5
             self.state = self.WALK
+
+    def die(self, hero, frame_time):
+        self.atk_time += frame_time
+        if hero.frame == 0:
+            if self.atk_time > 0.1:
+                self.atk_time = 0
+                self.health -= hero.atk
+                if self.health <= 0:
+                    return True
+        return False
 
     def draw(self):
         self.succubus_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
