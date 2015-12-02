@@ -24,6 +24,7 @@ chk_time = 0.0
 load_time = 0.0
 gold = 0
 score = 0
+motion_time = 0
 
 class BackGround:
     def __init__(self):
@@ -50,8 +51,8 @@ class Magic_Meteor:
     FRAMES_PER_ACTION = 6
     magic_image = None
 
-    def __init__(self):
-        self.x, self.y = 0, 800
+    def __init__(self, y = 0):
+        self.x, self.y = 0, y
         self.frame = 0
         self.total_frames = 0.0
         self.state = 0
@@ -61,8 +62,8 @@ class Magic_Meteor:
     def update(self, frame_time):
         self.total_frames += Magic_Meteor.FRAMES_PER_ACTION * Magic_Meteor.ACTION_PER_TIME * frame_time
         self.frame = int(self.total_frames) % 16
-        if(self.y > 300):
-            self.y -= 0.2
+        if (self.y > 300):
+            self.y -= 50 * frame_time
 
     def draw(self):
         self.magic_image.clip_draw(self.frame*70, self.state*100, 60, 80, self.x, self.y)
@@ -73,17 +74,45 @@ class Magic_Meteor:
     def get_bb(self):
         return self.x - 30, self.y - 30, self.x + 30, self.y + 30
 
+class Magic_Tornado:
+    TIME_PER_ACTION = 0.5
+    ACTION_PER_TIME = 2.0 / TIME_PER_ACTION
+    FRAMES_PER_ACTION = 6
+    magic_image = None
+
+    def __init__(self):
+        self.x, self.y = 100, 370
+        self.frame = 0
+        self.total_frames = 0.0
+        self.state = 0
+        if Magic_Tornado.magic_image == None:
+            Magic_Tornado.magic_image = load_image('Magic/Magic_Tornado.png')
+
+    def update(self, frame_time):
+        self.total_frames += Magic_Meteor.FRAMES_PER_ACTION * Magic_Meteor.ACTION_PER_TIME * frame_time
+        self.frame = int(self.total_frames) % 10
+        if (self.x < 1400):
+            self.x += 150 * frame_time
+
+    def draw(self):
+        self.magic_image.clip_draw(self.frame*280, self.state*100, 240, 320, self.x, self.y)
+
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 100, self.y - 100, self.x + 60, self.y + 80
+
 def enter():
     global hero_adell, hero_archer, hero_axel, hero_asuka, hero_fenrich, hero_gunner, hero_ninja, hero_pram, hero_prof
     global m_Skeleton, enemy_castle, enemy_slime, enemy_zombie, enemy_golem, enemy_pringer, enemy_demon, enemy_succubus
     global user_valva, user_castle
     global stage_background, stage2_background, cloud, ui_button, gold, font
     global gameUI_easy, gameUI_normal, gameUI_hard
-    global my_team
     global hero_group1, hero_group2, hero_group3, hero_group4, hero_group5, hero_group6, hero_group7, hero_group8, hero_group9
     global enemy_group1, enemy_group2, enemy_group3, enemy_group4, enemy_group5, enemy_group6
-    global my_magic
-    global magic_meteor
+    global magic_group1, magic_group2
+    global magic_meteor, magic_tornado
 
     #obj_data_txt = '                                   \
     #{                                                  \
@@ -111,8 +140,8 @@ def enter():
     enemy_group5 = []
     enemy_group6 = []
 
-    my_magic = []
-
+    magic_group1 = []
+    magic_group2 = []
     user_valva = Object_User.User_Valvatorez()
 
     user_castle = Object_Castle.User_Castle()
@@ -129,6 +158,7 @@ def enter():
     hero_prof = Object_Hero.Hero_Prof()
 
     magic_meteor = Magic_Meteor()
+    magic_tornado = Magic_Tornado()
 
     enemy_slime = Object_Enemy.Enemy_Slime()
     enemy_zombie = Object_Enemy.Enemy_Zombie()
@@ -331,16 +361,67 @@ def collide(a, b):
     return True
 
 def collide_enter(frame_time):
-    global score
+    global score, motion_time
+
+    for magic_meteor in magic_group1:
+        if magic_meteor.y < 300:
+            magic_group1.remove(magic_meteor)
+        for enemy_slime in enemy_group1:
+            if collide(enemy_slime, magic_meteor) == True:
+                enemy_group1.remove(enemy_slime)
+                magic_group1.remove(magic_meteor)
+        for enemy_zombie in enemy_group2:
+            if collide(enemy_zombie, magic_meteor) == True:
+                enemy_group2.remove(enemy_zombie)
+                magic_group1.remove(magic_meteor)
+        for enemy_golem in enemy_group3:
+            if collide(enemy_golem, magic_meteor) == True:
+                enemy_group3.remove(enemy_golem)
+                magic_group1.remove(magic_meteor)
+        for enemy_pringer in enemy_group4:
+            if collide(enemy_pringer, magic_meteor) == True:
+                enemy_group4.remove(enemy_pringer)
+                magic_group1.remove(magic_meteor)
+        for enemy_demon in enemy_group5:
+            if collide(enemy_demon, magic_meteor) == True:
+                enemy_group5.remove(enemy_demon)
+                magic_group1.remove(magic_meteor)
+        for enemy_succubus in enemy_group6:
+            if collide(enemy_succubus, magic_meteor) == True:
+                enemy_group6.remove(enemy_succubus)
+                magic_group1.remove(magic_meteor)
+
+    for magic_tornado in magic_group2:
+        if magic_tornado.x > 1200:
+            magic_group2.remove(magic_tornado)
+        for enemy_slime in enemy_group1:
+            if collide(enemy_slime, magic_tornado) == True:
+                enemy_slime.x += 250 * frame_time
+        for enemy_zombie in enemy_group2:
+            if collide(enemy_zombie, magic_tornado) == True:
+                #enemy_group2.remove(enemy_zombie)
+                enemy_zombie.x += 250 * frame_time
+        for enemy_golem in enemy_group3:
+            if collide(enemy_golem, magic_tornado) == True:
+                #enemy_group3.remove(enemy_golem)
+                enemy_golem.x += 250 * frame_time
+        for enemy_pringer in enemy_group4:
+            if collide(enemy_pringer, magic_tornado) == True:
+                #enemy_group4.remove(enemy_pringer)
+                enemy_pringer.x += 250 * frame_time
 
     for enemy_slime in enemy_group1:
         for hero_adell in hero_group1:
             if collide(hero_adell, enemy_slime) == True:
                 enemy_slime.check = 1
                 hero_adell.check = 1
-
                 if hero_adell.die(enemy_slime, frame_time) == True:
-                    hero_group1.remove(hero_adell)
+                    hero_adell.state = hero_adell.DIE
+                    motion_time += frame_time * 70
+                    print(motion_time)
+                    if motion_time > 0.7:
+                        hero_group1.remove(hero_adell)
+                        motion_time = 0
                     enemy_slime.check = 0
 
                 elif enemy_slime.die(hero_adell, frame_time) == True:
@@ -1098,7 +1179,7 @@ def collide_enter(frame_time):
                     hero_prof.check = 0
 
 def button_click():
-    global hero_adell, hero_archer, hero_asuka, hero_axel, hero_fenrich, hero_gunner, hero_ninja, hero_pram, hero_prof, gold
+    global hero_adell, hero_archer, hero_asuka, hero_axel, hero_fenrich, hero_gunner, hero_ninja, hero_pram, hero_prof, magic_meteor, magic_tornado, gold
 
     if 49 < button_x < 170 and 80 < button_y < 210:
         hero_adell = Object_Hero.Hero_Adell(x = 0)
@@ -1156,10 +1237,20 @@ def button_click():
             hero_group9.append(hero_prof)
 
     if 100 < button_x < 700 and 300 < button_y < 768:
-         m_meteor = Magic_Meteor()
-         if len(my_magic) < 100:
-             m_meteor.x = button_x
-             my_magic.append(m_meteor)
+        magic_meteor = Magic_Meteor(y = 800)
+        if len(magic_group1) < 3:
+             magic_meteor.x = button_x
+             magic_group1.append(magic_meteor)
+             if magic_meteor.y < 350:
+                 magic_group1.remove(magic_meteor)
+
+    if 10 < button_x < 100 and 10 < button_y < 100:
+        magic_tornado = Magic_Tornado()
+        if len(magic_group2) < 3:
+            magic_tornado.x = 100
+            magic_group2.append(magic_tornado)
+            if magic_tornado.x > 1400:
+                magic_group2.remove(magic_tornado)
 
 def handle_events(frame_time):
     global button_x, button_y, user_valva, coll_chk, coll_chk_pic
@@ -1178,6 +1269,9 @@ def handle_events(frame_time):
             button_click()
             if 100 < button_x < 700 and 300 < button_y < 768:
                 user_valva.state = user_valva.ATK
+                timer = False
+            if 10 < button_x < 50 and 10 < button_y < 50:
+                user_valva.state = user_valva.MTK
                 timer = False
             if 1240 < button_x < 1260 and 680 < button_y < 700:
                 Menu_Scene.setting_draw = False
@@ -1216,7 +1310,7 @@ def update(frame_time):
         user_valva.state = user_valva.IDLE
 
 def draw(frame_time):
-    global gold, score, coll_chk
+    global gold, score, coll_chk, magic_meteor
     clear_canvas()
     stage2_background.draw()
     if Menu_Scene.level_easy == True:
@@ -1233,7 +1327,7 @@ def draw(frame_time):
     if coll_chk == True:
         user_castle.draw_bb()
 
-    user_valva.draw()
+
     enemy_castle.draw()
     if coll_chk == True:
         enemy_castle.draw_bb()
@@ -1277,11 +1371,18 @@ def draw(frame_time):
 
     font.draw(340, 55, '%1.f' % score)
     font.draw(495, 55, '%1.f' % gold)
-    for m_meteor in my_magic:
-        m_meteor.update(frame_time)
-        m_meteor.draw()
+
+    for magic_meteor in magic_group1:
+        magic_meteor.update(frame_time)
+        magic_meteor.draw()
         if coll_chk == True:
-            m_meteor.draw_bb()
+            magic_meteor.draw_bb()
+
+    for magic_tornado in magic_group2:
+        magic_tornado.update(frame_time)
+        magic_tornado.draw()
+        if coll_chk == True:
+            magic_tornado.draw_bb()
 
     for hero_adell in hero_group1:
         hero_adell.update(frame_time)
@@ -1336,7 +1437,7 @@ def draw(frame_time):
         hero_prof.draw()
         if coll_chk == True:
             hero_prof.draw_bb()
-
+    user_valva.draw()
     if coll_chk == True:
         user_valva.draw_bb()
     update_canvas()
