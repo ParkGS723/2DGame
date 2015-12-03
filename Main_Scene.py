@@ -9,6 +9,7 @@ import Object_Enemy
 import Object_User
 import Object_Castle
 import Object_Magic
+import Upgrade_Manager
 import Stage_Background
 
 from pico2d import *
@@ -58,7 +59,6 @@ meteor_limit = 0
 tornado_limit = 0
 explosion_limit = 0
 
-
 def enter():
     global hero_adell, hero_archer, hero_axel, hero_asuka, hero_fenrich, hero_gunner, hero_ninja, hero_pram, hero_prof
     global m_Skeleton, enemy_castle, enemy_slime, enemy_zombie, enemy_golem, enemy_pringer, enemy_demon, enemy_succubus
@@ -74,6 +74,7 @@ def enter():
     global ui_adell_pic, ui_adell_pic_over, ui_archer_pic, ui_archer_pic_over, ui_asuka_pic, ui_asuka_pic_over, ui_axel_pic, ui_axel_pic_over, ui_fenrich_pic, ui_fenrich_pic_over
     global ui_gunner_pic, ui_gunner_pic_over, ui_ninja_pic, ui_ninja_pic_over, ui_pram_pic, ui_pram_pic_over, ui_prof_pic, ui_prof_pic_over
     global ui_meteor_pic, ui_meteor_pic_over, ui_tornado_pic, ui_tornado_pic_over, ui_explosion_pic, ui_explosion_pic_over, ui_goldup, ui_goldup_over
+    global upgrade_manager, hero_buy_manager, upgradestar
     #obj_data_txt = '                                   \
     #{                                                  \
     #    "Hero_Adell": {y":340, "atk":2, "health":50},  \
@@ -81,7 +82,13 @@ def enter():
     #}                                                  \
     #'
     #object_data = json.load(obj_data_txt)
-    gold = 10000
+    gold = 50000
+
+    upgrade_manager = Upgrade_Manager.UpgradeManager()
+    hero_buy_manager = Upgrade_Manager.HeroBuyManager()
+    upgradestar = Upgrade_Manager.UpgradeStar()
+
+
     random_stage = random.randint(1, 50)
     hero_group1 = []
     hero_group2 = []
@@ -1357,7 +1364,6 @@ def update(frame_time):
     cool_time_1 += frame_time
     cool_time_2 += frame_time
     cool_time_3 += frame_time
-
     if m_load_time > 0.5:
         m_load_time = 0
 
@@ -1392,7 +1398,7 @@ def update(frame_time):
         user_valva.state = user_valva.IDLE
 
 def draw(frame_time):
-    global gold, score, coll_chk, magic_meteor, magic_tornadoe, magic_explosion, m_load_time, random_stage
+    global gold, score, coll_chk, magic_meteor, magic_tornado, magic_explosion, m_load_time, random_stage
     global meteor_limit, tornado_limit, explosion_limit, gold_manager
     global button_x, button_y
     global m_exp, m_exp_1, m_exp_2, m_exp_3, m_exp_4, m_exp_5, m_exp_6, m_exp_7, m_exp_8, m_exp_9, m_exp_10, m_exp_11, m_exp_12, m_exp_13, m_exp_14, m_exp_15, m_exp_16, m_exp_17, m_exp_18, m_exp_19
@@ -1443,25 +1449,31 @@ def draw(frame_time):
     else:
         ui_gunner_pic.draw(640, 70)
 
-    if 699 < button_x < 820 and 85 < button_y < 210:
-        ui_fenrich_pic_over.draw(640, 70)
-    else:
-        ui_fenrich_pic.draw(640, 70)
 
-    if 829 < button_x < 950 and 85 < button_y < 210:
-        ui_ninja_pic_over.draw(640, 70)
-    else:
-        ui_ninja_pic.draw(640, 70)
+    if Upgrade_Manager.HeroBuyManager.sell_6 > 1:
+        if 699 < button_x < 820 and 85 < button_y < 210:
+            ui_fenrich_pic_over.draw(640, 70)
+        else:
+            ui_fenrich_pic.draw(640, 70)
 
-    if 959 < button_x < 1080 and 85 < button_y < 210:
-        ui_pram_pic_over.draw(640, 70)
-    else:
-        ui_pram_pic.draw(640, 70)
+    if Upgrade_Manager.HeroBuyManager.sell_7 > 1:
+        if 829 < button_x < 950 and 85 < button_y < 210:
+            ui_ninja_pic_over.draw(640, 70)
+        else:
+            ui_ninja_pic.draw(640, 70)
 
-    if 1089 < button_x < 1209 and 85 < button_y < 210:
-        ui_prof_pic_over.draw(640, 70)
-    else:
-        ui_prof_pic.draw(640, 70)
+
+    if Upgrade_Manager.HeroBuyManager.sell_8 > 1:
+        if 959 < button_x < 1080 and 85 < button_y < 210:
+            ui_pram_pic_over.draw(640, 70)
+        else:
+            ui_pram_pic.draw(640, 70)
+
+    if Upgrade_Manager.HeroBuyManager.sell_9 > 1:
+        if 1089 < button_x < 1209 and 85 < button_y < 210:
+            ui_prof_pic_over.draw(640, 70)
+        else:
+            ui_prof_pic.draw(640, 70)
 
     if 699 < button_x < 775 and 5 < button_y < 78:
         ui_meteor_pic_over.draw(640, 70)
