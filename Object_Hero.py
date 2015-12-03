@@ -47,7 +47,10 @@ class Hero_Adell:
             self.dir = 0
             if self.frame == 3:
                 self.check = 0
-
+        elif self.state == self.MTK:
+            self.frame = int(self.total_frames) % 4
+        elif self.state == self.DIE:
+            self.frame = int(self.total_frames) % 1
         if self.x > 1100:
             self.health = 0
             self.x = 1400

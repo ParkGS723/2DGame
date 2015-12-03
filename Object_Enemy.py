@@ -171,8 +171,8 @@ class Enemy_Golem:
             Enemy_Golem.golem_image = load_image('Monster/WoodGolem_Sheet.png')
 
     def update(self, frame_time):
-        distance = Enemy_Zombie.RUN_SPEED_PPS * frame_time
-        self.total_frames += Enemy_Zombie.FRAMES_PER_ACTION * Enemy_Zombie.ACTION_PER_TIME * frame_time
+        distance = Enemy_Golem.RUN_SPEED_PPS * frame_time
+        self.total_frames += Enemy_Golem.FRAMES_PER_ACTION * Enemy_Golem.ACTION_PER_TIME * frame_time
         if self.state == self.WALK:
             self.frame = int(self.total_frames) % 6
             self.dir = -0.5
@@ -238,8 +238,8 @@ class Enemy_Pringer:
             Enemy_Pringer.pringer_image = load_image('Monster/Pringer_Sheet.png')
 
     def update(self, frame_time):
-        distance = Enemy_Zombie.RUN_SPEED_PPS * frame_time
-        self.total_frames += Enemy_Zombie.FRAMES_PER_ACTION * Enemy_Zombie.ACTION_PER_TIME * frame_time
+        distance = Enemy_Pringer.RUN_SPEED_PPS * frame_time
+        self.total_frames += Enemy_Pringer.FRAMES_PER_ACTION * Enemy_Pringer.ACTION_PER_TIME * frame_time
         if self.state == self.WALK:
             self.frame = int(self.total_frames) % 2
             self.dir = -1.3
@@ -305,8 +305,8 @@ class Enemy_Demon:
             Enemy_Demon.demon_image = load_image('Monster/Demon_Sheet.png')
 
     def update(self, frame_time):
-        distance = Enemy_Zombie.RUN_SPEED_PPS * frame_time
-        self.total_frames += Enemy_Zombie.FRAMES_PER_ACTION * Enemy_Zombie.ACTION_PER_TIME * frame_time
+        distance = Enemy_Demon.RUN_SPEED_PPS * frame_time
+        self.total_frames += Enemy_Demon.FRAMES_PER_ACTION * Enemy_Demon.ACTION_PER_TIME * frame_time
         if self.state == self.WALK:
             self.frame = int(self.total_frames) % 6
             self.dir = -0.5
@@ -372,8 +372,8 @@ class Enemy_Succubus:
             Enemy_Succubus.succubus_image = load_image('Monster/Succubus_Sheet.png')
 
     def update(self, frame_time):
-        distance = Enemy_Zombie.RUN_SPEED_PPS * frame_time
-        self.total_frames += Enemy_Zombie.FRAMES_PER_ACTION * Enemy_Zombie.ACTION_PER_TIME * frame_time
+        distance = Enemy_Succubus.RUN_SPEED_PPS * frame_time
+        self.total_frames += Enemy_Succubus.FRAMES_PER_ACTION * Enemy_Succubus.ACTION_PER_TIME * frame_time
         if self.state == self.WALK:
             self.frame = int(self.total_frames) % 7
             self.dir = -1.2

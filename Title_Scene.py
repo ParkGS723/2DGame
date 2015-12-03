@@ -11,7 +11,7 @@ Title_bkg = None
 class TitleBackGround:
     def __init__(self):
         self.x, self.y = 640, 360
-        self.image = load_image('UI/GameTitle.jpg')
+        self.image = load_image('UI/GameTitle.png')
         self.bgm = load_music('Sound/title_bgm.mp3')
         self.bgm.set_volume(60)
         self.bgm.repeat_play()
@@ -23,8 +23,8 @@ class TitleBackGround:
 def enter():
     global Title_start, Title_start_over, title_bg
     title_bg = TitleBackGround()
-    Title_start = load_image('UI/Title_Play.png')
-    Title_start_over = load_image('UI/Title_Play(over).png')
+    Title_start = load_image('UI/GameStart.png')
+    Title_start_over = load_image('UI/GameStart(over).png')
 
 def exit():
     global Title_bkg
@@ -63,10 +63,10 @@ def draw(frame_time):
     clear_canvas()
     title_bg.draw()
 
-    if 470 < mx < 800 and 185 < my < 315:
-        Title_start_over.draw(640, 250)
+    if 550 < mx < 750 and 115 < my < 315:
+        Title_start_over.draw(640, 360)
     else:
-        Title_start.draw(640, 250)
+        Title_start.draw(640, 360)
 
     update_canvas()
 

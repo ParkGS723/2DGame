@@ -31,7 +31,10 @@ class User_Valvatorez:
             self.frame = int(self.total_frames) % 6
         elif self.state == self.ATK:
             self.frame = int(self.total_frames) % 4
-
+        elif self.state == self.MTK:
+            self.frame = int(self.total_frames) % 4
+        elif self.state == self.DIE:
+            self.frame = int(self.total_frames) % 1
     def draw(self):
         self.user_image.clip_draw(self.frame*120, self.state*180, 120, 180, self.x, self.y)
 
