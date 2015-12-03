@@ -9,6 +9,7 @@ import Object_Enemy
 import Object_User
 import Object_Castle
 import Object_Magic
+import Stage_Background
 
 from pico2d import *
 
@@ -56,49 +57,6 @@ score = 0
 meteor_limit = 0
 tornado_limit = 0
 explosion_limit = 0
-class BackGround:
-    def __init__(self):
-        self.x, self.y = 400, 445
-        self.image = load_image('Map/Stage_bkg.png')
-        self.bgm = load_music('Sound/game_bgm.mp3')
-        self.bgm.set_volume(60)
-        self.bgm.repeat_play()
-
-    def draw(self):
-        self.image.clip_draw(0, 0, 2000, 550, self.x, self.y)
-
-class BackGround2:
-    def __init__(self):
-        self.x, self.y = 400, 445
-        self.image = load_image('Map/Stage2_bkg.png')
-
-    def draw(self):
-        self.image.clip_draw(0, 0, 2000, 550, self.x, self.y)
-
-class BackGround3:
-    def __init__(self):
-        self.x, self.y = 400, 445
-        self.image = load_image('Map/Stage3_bkg.png')
-
-    def draw(self):
-        self.image.clip_draw(0, 0, 2000, 550, self.x, self.y)
-
-class BackGround4:
-    def __init__(self):
-        self.x, self.y = 400, 445
-        self.image = load_image('Map/Stage4_bkg.png')
-
-    def draw(self):
-        self.image.clip_draw(0, 0, 2000, 550, self.x, self.y)
-
-class BackGround5:
-    def __init__(self):
-        self.x, self.y = 400, 445
-        self.image = load_image('Map/Stage5_bkg.png')
-
-    def draw(self):
-        self.image.clip_draw(0, 0, 2000, 550, self.x, self.y)
-
 
 
 def enter():
@@ -222,11 +180,11 @@ def enter():
     magic_exp_image_18 = load_image('Magic/Magic_Explosion_18.png')
     magic_exp_image_19 = load_image('Magic/Magic_Explosion_19.png')
 
-    stage_background = BackGround()
-    stage2_background = BackGround2()
-    stage3_background = BackGround3()
-    stage4_background = BackGround3()
-    stage5_background = BackGround3()
+    stage_background = Stage_Background.BackGround()
+    stage2_background = Stage_Background.BackGround2()
+    stage3_background = Stage_Background.BackGround3()
+    stage4_background = Stage_Background.BackGround3()
+    stage5_background = Stage_Background.BackGround3()
 
     cloud = load_image('Map/cloud.png')
     font = load_font('ENCR10B.TTF')
