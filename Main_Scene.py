@@ -83,12 +83,7 @@ def enter():
     #'
     #object_data = json.load(obj_data_txt)
     gold = 50000
-
-    upgrade_manager = Upgrade_Manager.UpgradeManager()
-    hero_buy_manager = Upgrade_Manager.HeroBuyManager()
-    upgradestar = Upgrade_Manager.UpgradeStar()
-
-
+    upgrade_manager = Upgrade_Manager.UpgradeStar_Main()
     random_stage = random.randint(1, 50)
     hero_group1 = []
     hero_group2 = []
@@ -279,92 +274,92 @@ def Level_Design(frame_time):
 def Gameobj_state(frame_time):
     for hero_adell in hero_group1:
         if hero_adell.check > 0:
-            hero_adell.state = hero_adell.ATK
+            hero_adell.state = hero_adell.ATTACK
         elif hero_adell.check <= 0:
             hero_adell.state = hero_adell.WALK
 
 
     for hero_archer in hero_group2:
         if hero_archer.check > 0:
-            hero_archer.state = hero_archer.ATK
+            hero_archer.state = hero_archer.ATTACK
         elif hero_archer.check <= 0:
             hero_archer.state = hero_archer.WALK
 
     for hero_asuka in hero_group3:
         if hero_asuka.check > 0:
-            hero_asuka.state = hero_asuka.ATK
+            hero_asuka.state = hero_asuka.ATTACK
         elif hero_asuka.check <= 0:
             hero_asuka.state = hero_asuka.WALK
 
     for hero_axel in hero_group4:
         if hero_axel.check > 0:
-            hero_axel.state = hero_axel.ATK
+            hero_axel.state = hero_axel.ATTACK
         elif hero_axel.check <= 0:
             hero_axel.state = hero_axel.WALK
 
     for hero_gunner in hero_group5:
         if hero_gunner.check > 0:
-            hero_gunner.state = hero_gunner.ATK
+            hero_gunner.state = hero_gunner.ATTACK
         elif hero_gunner.check <= 0:
             hero_gunner.state = hero_gunner.WALK
 
     for hero_fenrich in hero_group6:
         if hero_fenrich.check > 0:
-            hero_fenrich.state = hero_fenrich.ATK
+            hero_fenrich.state = hero_fenrich.ATTACK
         elif hero_fenrich.check <= 0:
             hero_fenrich.state = hero_fenrich.WALK
 
     for hero_ninja in hero_group7:
         if hero_ninja.check > 0:
-            hero_ninja.state = hero_ninja.ATK
+            hero_ninja.state = hero_ninja.ATTACK
         elif hero_ninja.check <= 0:
             hero_ninja.state = hero_ninja.WALK
 
     for hero_pram in hero_group8:
         if hero_pram.check > 0:
-            hero_pram.state = hero_pram.ATK
+            hero_pram.state = hero_pram.ATTACK
         elif hero_pram.check <= 0:
             hero_pram.state = hero_pram.WALK
 
     for hero_prof in hero_group9:
         if hero_prof.check > 0:
-            hero_prof.state = hero_prof.ATK
+            hero_prof.state = hero_prof.ATTACK
         elif hero_prof.check <= 0:
             hero_prof.state = hero_prof.WALK
 
     for enemy_slime in enemy_group1:
         if enemy_slime.check > 0:
-            enemy_slime.state = enemy_slime.ATK
+            enemy_slime.state = enemy_slime.ATTACK
         elif enemy_slime.check <= 0:
             enemy_slime.state = enemy_slime.WALK
 
     for enemy_zombie in enemy_group2:
         if enemy_zombie.check > 0:
-            enemy_zombie.state = enemy_zombie.ATK
+            enemy_zombie.state = enemy_zombie.ATTACK
         elif enemy_zombie.check <= 0:
             enemy_zombie.state = enemy_zombie.WALK
 
     for enemy_golem in enemy_group3:
         if enemy_golem.check > 0:
-            enemy_golem.state = enemy_golem.ATK
+            enemy_golem.state = enemy_golem.ATTACK
         elif enemy_golem.check <= 0:
             enemy_golem.state = enemy_golem.WALK
 
     for enemy_pringer in enemy_group4:
         if enemy_pringer.check > 0:
-            enemy_pringer.state = enemy_pringer.ATK
+            enemy_pringer.state = enemy_pringer.ATTACK
         elif enemy_pringer.check <= 0:
             enemy_pringer.state = enemy_pringer.WALK
 
     for enemy_demon in enemy_group5:
         if enemy_demon.check > 0:
-            enemy_demon.state = enemy_demon.ATK
+            enemy_demon.state = enemy_demon.ATTACK
         elif enemy_demon.check <= 0:
             enemy_demon.state = enemy_demon.WALK
 
     for enemy_succbus in enemy_group6:
         if enemy_succbus.check > 0:
-            enemy_succbus.state = enemy_succbus.ATK
+            enemy_succbus.state = enemy_succbus.ATTACK
         elif enemy_succbus.check <= 0:
             enemy_succbus.state = enemy_succbus.WALK
 
@@ -1617,6 +1612,77 @@ def draw(frame_time):
         hero_prof.draw()
         if coll_chk == True:
             hero_prof.draw_bb()
+    if Upgrade_Manager.UpgradeManager.hero_1_star_level == 1:
+        upgrade_manager.draw(640, 75)
+    if Upgrade_Manager.UpgradeManager.hero_1_star_level == 2:
+        upgrade_manager.draw(640, 75)
+        upgrade_manager.draw(655, 75)
+    if Upgrade_Manager.UpgradeManager.hero_1_star_level == 3:
+        upgrade_manager.draw(640, 75)
+        upgrade_manager.draw(655, 75)
+        upgrade_manager.draw(670, 75)
+    if Upgrade_Manager.UpgradeManager.hero_1_star_level == 4:
+        upgrade_manager.draw(640, 75)
+        upgrade_manager.draw(655, 75)
+        upgrade_manager.draw(670, 75)
+        upgrade_manager.draw(685, 75)
+    if Upgrade_Manager.UpgradeManager.hero_1_star_level == 5:
+        upgrade_manager.draw(640, 75)
+        upgrade_manager.draw(655, 75)
+        upgrade_manager.draw(670, 75)
+        upgrade_manager.draw(685, 75)
+        upgrade_manager.draw(700, 75)
+    if Upgrade_Manager.UpgradeManager.hero_1_star_level == 6:
+        upgrade_manager.draw(640, 75)
+        upgrade_manager.draw(655, 75)
+        upgrade_manager.draw(670, 75)
+        upgrade_manager.draw(685, 75)
+        upgrade_manager.draw(700, 75)
+        upgrade_manager.draw(715, 75)
+    if Upgrade_Manager.UpgradeManager.hero_1_star_level == 7:
+        upgrade_manager.draw(640, 75)
+        upgrade_manager.draw(655, 75)
+        upgrade_manager.draw(670, 75)
+        upgrade_manager.draw(685, 75)
+        upgrade_manager.draw(700, 75)
+        upgrade_manager.draw(715, 75)
+        upgrade_manager.draw(730, 75)
+
+    if Upgrade_Manager.UpgradeManager.hero_2_star_level == 1:
+        upgrade_manager.draw(770, 75)
+    if Upgrade_Manager.UpgradeManager.hero_2_star_level == 2:
+        upgrade_manager.draw(770, 75)
+        upgrade_manager.draw(785, 75)
+    if Upgrade_Manager.UpgradeManager.hero_2_star_level == 3:
+        upgrade_manager.draw(770, 75)
+        upgrade_manager.draw(785, 75)
+        upgrade_manager.draw(800, 75)
+    if Upgrade_Manager.UpgradeManager.hero_2_star_level == 4:
+        upgrade_manager.draw(770, 75)
+        upgrade_manager.draw(785, 75)
+        upgrade_manager.draw(800, 75)
+        upgrade_manager.draw(815, 75)
+    if Upgrade_Manager.UpgradeManager.hero_2_star_level == 5:
+        upgrade_manager.draw(770, 75)
+        upgrade_manager.draw(785, 75)
+        upgrade_manager.draw(800, 75)
+        upgrade_manager.draw(815, 75)
+        upgrade_manager.draw(830, 75)
+    if Upgrade_Manager.UpgradeManager.hero_2_star_level == 6:
+        upgrade_manager.draw(770, 75)
+        upgrade_manager.draw(785, 75)
+        upgrade_manager.draw(800, 75)
+        upgrade_manager.draw(815, 75)
+        upgrade_manager.draw(830, 75)
+        upgrade_manager.draw(845, 75)
+    if Upgrade_Manager.UpgradeManager.hero_2_star_level == 7:
+        upgrade_manager.draw(770, 75)
+        upgrade_manager.draw(785, 75)
+        upgrade_manager.draw(800, 75)
+        upgrade_manager.draw(815, 75)
+        upgrade_manager.draw(830, 75)
+        upgrade_manager.draw(845, 75)
+        upgrade_manager.draw(860, 75)
 
     user_valva.draw()
     if coll_chk == True:
