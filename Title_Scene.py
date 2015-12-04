@@ -12,20 +12,20 @@ class TitleBackGround:
     def __init__(self):
         self.x, self.y = 640, 360
         self.image = load_image('UI/GameTitle.png')
-        self.bgm = load_music('Sound/title_bgm.mp3')
-        self.bgm.set_volume(60)
-        self.bgm.repeat_play()
+
 
     def draw(self):
         self.image.clip_draw(0, 0, 1280, 720, self.x, self.y)
 
 
 def enter():
-    global Title_start, Title_start_over, title_bg
+    global Title_start, Title_start_over, title_bg, bgm
     title_bg = TitleBackGround()
     Title_start = load_image('UI/GameStart.png')
     Title_start_over = load_image('UI/GameStart(over).png')
-
+    bgm = load_music('Sound/title_bgm.mp3')
+    bgm.set_volume(64)
+    bgm.repeat_play()
 def exit():
     global Title_bkg
     del(Title_bkg)

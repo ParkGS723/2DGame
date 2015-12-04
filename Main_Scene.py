@@ -14,7 +14,6 @@ import Stage_Background
 
 from pico2d import *
 
-
 font = None
 gameUI = None
 timer = False
@@ -31,7 +30,6 @@ m_exp_7 = None
 m_exp_8 = None
 m_exp_9 = None
 m_exp_10 = None
-m_exp_11 = None
 m_exp_11 = None
 m_exp_12 = None
 m_exp_13 = None
@@ -74,14 +72,11 @@ def enter():
     global ui_adell_pic, ui_adell_pic_over, ui_archer_pic, ui_archer_pic_over, ui_asuka_pic, ui_asuka_pic_over, ui_axel_pic, ui_axel_pic_over, ui_fenrich_pic, ui_fenrich_pic_over
     global ui_gunner_pic, ui_gunner_pic_over, ui_ninja_pic, ui_ninja_pic_over, ui_pram_pic, ui_pram_pic_over, ui_prof_pic, ui_prof_pic_over
     global ui_meteor_pic, ui_meteor_pic_over, ui_tornado_pic, ui_tornado_pic_over, ui_explosion_pic, ui_explosion_pic_over, ui_goldup, ui_goldup_over
-    global upgrade_manager, hero_buy_manager, upgradestar
-    #obj_data_txt = '                                   \
-    #{                                                  \
-    #    "Hero_Adell": {y":340, "atk":2, "health":50},  \
-    #    "Enemy_Slime": {"y":330, "atk":2, "health":50} \
-    #}                                                  \
-    #'
-    #object_data = json.load(obj_data_txt)
+    global upgrade_manager, hero_buy_manager, upgradestar, bgm, team_data, team_data_txt
+
+    bgm = load_music('Sound/game_bgm.mp3')
+    bgm.set_volume(64)
+    bgm.repeat_play()
     gold = 50000
     upgrade_manager = Upgrade_Manager.UpgradeStar_Main()
     random_stage = random.randint(1, 50)
@@ -1395,7 +1390,7 @@ def update(frame_time):
 def draw(frame_time):
     global gold, score, coll_chk, magic_meteor, magic_tornado, magic_explosion, m_load_time, random_stage
     global meteor_limit, tornado_limit, explosion_limit, gold_manager
-    global button_x, button_y
+    global button_x, button_y, hero_adell, hero_archer, hero_asuka, hero_axel, hero_fenrich, hero_gunner, hero_ninja, hero_pram, hero_prof
     global m_exp, m_exp_1, m_exp_2, m_exp_3, m_exp_4, m_exp_5, m_exp_6, m_exp_7, m_exp_8, m_exp_9, m_exp_10, m_exp_11, m_exp_12, m_exp_13, m_exp_14, m_exp_15, m_exp_16, m_exp_17, m_exp_18, m_exp_19
     clear_canvas()
 
@@ -1612,26 +1607,38 @@ def draw(frame_time):
         hero_prof.draw()
         if coll_chk == True:
             hero_prof.draw_bb()
+
+    # 히어로 1
     if Upgrade_Manager.UpgradeManager.hero_1_star_level == 1:
         upgrade_manager.draw(640, 75)
+        hero_adell.atk = 15
+        hero_adell.hp = 150
     if Upgrade_Manager.UpgradeManager.hero_1_star_level == 2:
         upgrade_manager.draw(640, 75)
         upgrade_manager.draw(655, 75)
+        hero_adell.atk = 20
+        hero_adell.hp = 200
     if Upgrade_Manager.UpgradeManager.hero_1_star_level == 3:
         upgrade_manager.draw(640, 75)
         upgrade_manager.draw(655, 75)
         upgrade_manager.draw(670, 75)
+        hero_adell.atk = 25
+        hero_adell.hp = 250
     if Upgrade_Manager.UpgradeManager.hero_1_star_level == 4:
         upgrade_manager.draw(640, 75)
         upgrade_manager.draw(655, 75)
         upgrade_manager.draw(670, 75)
         upgrade_manager.draw(685, 75)
+        hero_adell.atk = 30
+        hero_adell.hp = 300
     if Upgrade_Manager.UpgradeManager.hero_1_star_level == 5:
         upgrade_manager.draw(640, 75)
         upgrade_manager.draw(655, 75)
         upgrade_manager.draw(670, 75)
         upgrade_manager.draw(685, 75)
         upgrade_manager.draw(700, 75)
+        hero_adell.atk = 35
+        hero_adell.hp = 350
     if Upgrade_Manager.UpgradeManager.hero_1_star_level == 6:
         upgrade_manager.draw(640, 75)
         upgrade_manager.draw(655, 75)
@@ -1639,6 +1646,8 @@ def draw(frame_time):
         upgrade_manager.draw(685, 75)
         upgrade_manager.draw(700, 75)
         upgrade_manager.draw(715, 75)
+        hero_adell.atk = 40
+        hero_adell.hp = 400
     if Upgrade_Manager.UpgradeManager.hero_1_star_level == 7:
         upgrade_manager.draw(640, 75)
         upgrade_manager.draw(655, 75)
@@ -1647,27 +1656,40 @@ def draw(frame_time):
         upgrade_manager.draw(700, 75)
         upgrade_manager.draw(715, 75)
         upgrade_manager.draw(730, 75)
+        hero_adell.atk = 50
+        hero_adell.hp = 500
 
+    # 히어로 2
     if Upgrade_Manager.UpgradeManager.hero_2_star_level == 1:
         upgrade_manager.draw(770, 75)
+        hero_archer.atk = 20
+        hero_archer.hp = 300
     if Upgrade_Manager.UpgradeManager.hero_2_star_level == 2:
         upgrade_manager.draw(770, 75)
         upgrade_manager.draw(785, 75)
+        hero_archer.atk = 25
+        hero_archer.hp = 350
     if Upgrade_Manager.UpgradeManager.hero_2_star_level == 3:
         upgrade_manager.draw(770, 75)
         upgrade_manager.draw(785, 75)
         upgrade_manager.draw(800, 75)
+        hero_archer.atk = 30
+        hero_archer.hp = 400
     if Upgrade_Manager.UpgradeManager.hero_2_star_level == 4:
         upgrade_manager.draw(770, 75)
         upgrade_manager.draw(785, 75)
         upgrade_manager.draw(800, 75)
         upgrade_manager.draw(815, 75)
+        hero_archer.atk = 35
+        hero_archer.hp = 450
     if Upgrade_Manager.UpgradeManager.hero_2_star_level == 5:
         upgrade_manager.draw(770, 75)
         upgrade_manager.draw(785, 75)
         upgrade_manager.draw(800, 75)
         upgrade_manager.draw(815, 75)
         upgrade_manager.draw(830, 75)
+        hero_archer.atk = 40
+        hero_archer.hp = 500
     if Upgrade_Manager.UpgradeManager.hero_2_star_level == 6:
         upgrade_manager.draw(770, 75)
         upgrade_manager.draw(785, 75)
@@ -1675,6 +1697,8 @@ def draw(frame_time):
         upgrade_manager.draw(815, 75)
         upgrade_manager.draw(830, 75)
         upgrade_manager.draw(845, 75)
+        hero_archer.atk = 50
+        hero_archer.hp = 600
     if Upgrade_Manager.UpgradeManager.hero_2_star_level == 7:
         upgrade_manager.draw(770, 75)
         upgrade_manager.draw(785, 75)
@@ -1683,6 +1707,365 @@ def draw(frame_time):
         upgrade_manager.draw(830, 75)
         upgrade_manager.draw(845, 75)
         upgrade_manager.draw(860, 75)
+        hero_archer.atk = 70
+        hero_archer.hp = 700
+
+    # 히어로 3
+    if Upgrade_Manager.UpgradeManager.hero_3_star_level == 1:
+        upgrade_manager.draw(900, 75)
+        hero_asuka.atk = 40
+        hero_asuka.hp = 550
+    if Upgrade_Manager.UpgradeManager.hero_3_star_level == 2:
+        upgrade_manager.draw(900, 75)
+        upgrade_manager.draw(915, 75)
+        hero_asuka.atk = 45
+        hero_asuka.hp = 600
+    if Upgrade_Manager.UpgradeManager.hero_3_star_level == 3:
+        upgrade_manager.draw(900, 75)
+        upgrade_manager.draw(915, 75)
+        upgrade_manager.draw(930, 75)
+        hero_asuka.atk = 50
+        hero_asuka.hp = 650
+    if Upgrade_Manager.UpgradeManager.hero_3_star_level == 4:
+        upgrade_manager.draw(900, 75)
+        upgrade_manager.draw(915, 75)
+        upgrade_manager.draw(930, 75)
+        upgrade_manager.draw(945, 75)
+        hero_asuka.atk = 55
+        hero_asuka.hp = 700
+    if Upgrade_Manager.UpgradeManager.hero_3_star_level == 5:
+        upgrade_manager.draw(900, 75)
+        upgrade_manager.draw(915, 75)
+        upgrade_manager.draw(930, 75)
+        upgrade_manager.draw(945, 75)
+        upgrade_manager.draw(960, 75)
+        hero_asuka.atk = 60
+        hero_asuka.hp = 750
+    if Upgrade_Manager.UpgradeManager.hero_3_star_level == 6:
+        upgrade_manager.draw(900, 75)
+        upgrade_manager.draw(915, 75)
+        upgrade_manager.draw(930, 75)
+        upgrade_manager.draw(945, 75)
+        upgrade_manager.draw(960, 75)
+        upgrade_manager.draw(975, 75)
+        hero_asuka.atk = 65
+        hero_asuka.hp = 800
+    if Upgrade_Manager.UpgradeManager.hero_3_star_level == 7:
+        upgrade_manager.draw(900, 75)
+        upgrade_manager.draw(915, 75)
+        upgrade_manager.draw(930, 75)
+        upgrade_manager.draw(945, 75)
+        upgrade_manager.draw(960, 75)
+        upgrade_manager.draw(975, 75)
+        upgrade_manager.draw(990, 75)
+        hero_asuka.atk = 80
+        hero_asuka.hp = 1000
+
+    # 히어로 4
+    if Upgrade_Manager.UpgradeManager.hero_4_star_level == 1:
+        upgrade_manager.draw(1030, 75)
+        hero_axel.atk = 15
+        hero_axel.hp = 1200
+    if Upgrade_Manager.UpgradeManager.hero_4_star_level == 2:
+        upgrade_manager.draw(1030, 75)
+        upgrade_manager.draw(1045, 75)
+        hero_axel.atk = 20
+        hero_axel.hp = 1400
+    if Upgrade_Manager.UpgradeManager.hero_4_star_level == 3:
+        upgrade_manager.draw(1030, 75)
+        upgrade_manager.draw(1045, 75)
+        upgrade_manager.draw(1060, 75)
+        hero_axel.atk = 25
+        hero_axel.hp = 1600
+    if Upgrade_Manager.UpgradeManager.hero_4_star_level == 4:
+        upgrade_manager.draw(1030, 75)
+        upgrade_manager.draw(1045, 75)
+        upgrade_manager.draw(1060, 75)
+        upgrade_manager.draw(1075, 75)
+        hero_axel.atk = 30
+        hero_axel.hp = 1800
+    if Upgrade_Manager.UpgradeManager.hero_4_star_level == 5:
+        upgrade_manager.draw(1030, 75)
+        upgrade_manager.draw(1045, 75)
+        upgrade_manager.draw(1060, 75)
+        upgrade_manager.draw(1075, 75)
+        upgrade_manager.draw(1090, 75)
+        hero_axel.atk = 35
+        hero_axel.hp = 2000
+    if Upgrade_Manager.UpgradeManager.hero_4_star_level == 6:
+        upgrade_manager.draw(1030, 75)
+        upgrade_manager.draw(1045, 75)
+        upgrade_manager.draw(1060, 75)
+        upgrade_manager.draw(1075, 75)
+        upgrade_manager.draw(1090, 75)
+        upgrade_manager.draw(1105, 75)
+        hero_axel.atk = 40
+        hero_axel.hp = 2200
+    if Upgrade_Manager.UpgradeManager.hero_4_star_level == 7:
+        upgrade_manager.draw(1030, 75)
+        upgrade_manager.draw(1045, 75)
+        upgrade_manager.draw(1060, 75)
+        upgrade_manager.draw(1075, 75)
+        upgrade_manager.draw(1090, 75)
+        upgrade_manager.draw(1105, 75)
+        upgrade_manager.draw(1120, 75)
+        hero_axel.atk = 50
+        hero_axel.hp = 2500
+
+    # 히어로 5
+    if Upgrade_Manager.UpgradeManager.hero_5_star_level == 1:
+        upgrade_manager.draw(1160, 75)
+        hero_fenrich.atk = 80
+        hero_fenrich.hp = 550
+    if Upgrade_Manager.UpgradeManager.hero_5_star_level == 2:
+        upgrade_manager.draw(1160, 75)
+        upgrade_manager.draw(1175, 75)
+        hero_fenrich.atk = 90
+        hero_fenrich.hp = 600
+    if Upgrade_Manager.UpgradeManager.hero_5_star_level == 3:
+        upgrade_manager.draw(1160, 75)
+        upgrade_manager.draw(1175, 75)
+        upgrade_manager.draw(1190, 75)
+        hero_fenrich.atk = 100
+        hero_fenrich.hp = 650
+    if Upgrade_Manager.UpgradeManager.hero_5_star_level == 4:
+        upgrade_manager.draw(1160, 75)
+        upgrade_manager.draw(1175, 75)
+        upgrade_manager.draw(1190, 75)
+        upgrade_manager.draw(1205, 75)
+        hero_fenrich.atk = 110
+        hero_fenrich.hp = 700
+    if Upgrade_Manager.UpgradeManager.hero_5_star_level == 5:
+        upgrade_manager.draw(1160, 75)
+        upgrade_manager.draw(1175, 75)
+        upgrade_manager.draw(1190, 75)
+        upgrade_manager.draw(1205, 75)
+        upgrade_manager.draw(1220, 75)
+        hero_fenrich.atk = 120
+        hero_fenrich.hp = 800
+    if Upgrade_Manager.UpgradeManager.hero_5_star_level == 6:
+        upgrade_manager.draw(1160, 75)
+        upgrade_manager.draw(1175, 75)
+        upgrade_manager.draw(1190, 75)
+        upgrade_manager.draw(1205, 75)
+        upgrade_manager.draw(1220, 75)
+        upgrade_manager.draw(1235, 75)
+        hero_axel.atk = 130
+        hero_axel.hp = 900
+    if Upgrade_Manager.UpgradeManager.hero_5_star_level == 7:
+        upgrade_manager.draw(1160, 75)
+        upgrade_manager.draw(1175, 75)
+        upgrade_manager.draw(1190, 75)
+        upgrade_manager.draw(1205, 75)
+        upgrade_manager.draw(1220, 75)
+        upgrade_manager.draw(1235, 75)
+        upgrade_manager.draw(1250, 75)
+        hero_fenrich.atk = 150
+        hero_fenrich.hp = 1000
+
+    # 히어로 6
+    if Upgrade_Manager.UpgradeManager.hero_6_star_level == 1:
+        upgrade_manager.draw(1290, 75)
+        hero_gunner.atk = 15
+        hero_gunner.hp = 2200
+    if Upgrade_Manager.UpgradeManager.hero_6_star_level == 2:
+        upgrade_manager.draw(1290, 75)
+        upgrade_manager.draw(1305, 75)
+        hero_gunner.atk = 20
+        hero_gunner.hp = 2400
+    if Upgrade_Manager.UpgradeManager.hero_6_star_level == 3:
+        upgrade_manager.draw(1290, 75)
+        upgrade_manager.draw(1305, 75)
+        upgrade_manager.draw(1320, 75)
+        hero_gunner.atk = 25
+        hero_gunner.hp = 2600
+    if Upgrade_Manager.UpgradeManager.hero_6_star_level == 4:
+        upgrade_manager.draw(1290, 75)
+        upgrade_manager.draw(1305, 75)
+        upgrade_manager.draw(1320, 75)
+        upgrade_manager.draw(1335, 75)
+        hero_gunner.atk = 30
+        hero_gunner.hp = 2800
+    if Upgrade_Manager.UpgradeManager.hero_6_star_level == 5:
+        upgrade_manager.draw(1290, 75)
+        upgrade_manager.draw(1305, 75)
+        upgrade_manager.draw(1320, 75)
+        upgrade_manager.draw(1335, 75)
+        upgrade_manager.draw(1350, 75)
+        hero_gunner.atk = 35
+        hero_gunner.hp = 3000
+    if Upgrade_Manager.UpgradeManager.hero_6_star_level == 6:
+        upgrade_manager.draw(1290, 75)
+        upgrade_manager.draw(1305, 75)
+        upgrade_manager.draw(1320, 75)
+        upgrade_manager.draw(1335, 75)
+        upgrade_manager.draw(1350, 75)
+        upgrade_manager.draw(1365, 75)
+        hero_gunner.atk = 40
+        hero_gunner.hp = 3200
+    if Upgrade_Manager.UpgradeManager.hero_6_star_level == 7:
+        upgrade_manager.draw(1290, 75)
+        upgrade_manager.draw(1305, 75)
+        upgrade_manager.draw(1320, 75)
+        upgrade_manager.draw(1335, 75)
+        upgrade_manager.draw(1350, 75)
+        upgrade_manager.draw(1365, 75)
+        upgrade_manager.draw(1380, 75)
+        hero_gunner.atk = 50
+        hero_gunner.hp = 3500
+
+    # 히어로 7
+    if Upgrade_Manager.UpgradeManager.hero_7_star_level == 1:
+        upgrade_manager.draw(1420, 75)
+        hero_ninja.atk = 90
+        hero_ninja.hp = 1000
+    if Upgrade_Manager.UpgradeManager.hero_7_star_level == 2:
+        upgrade_manager.draw(1420, 75)
+        upgrade_manager.draw(1435, 75)
+        hero_ninja.atk = 100
+        hero_ninja.hp = 1050
+    if Upgrade_Manager.UpgradeManager.hero_7_star_level == 3:
+        upgrade_manager.draw(1420, 75)
+        upgrade_manager.draw(1435, 75)
+        upgrade_manager.draw(1450, 75)
+        hero_ninja.atk = 110
+        hero_ninja.hp = 1150
+    if Upgrade_Manager.UpgradeManager.hero_7_star_level == 4:
+        upgrade_manager.draw(1420, 75)
+        upgrade_manager.draw(1435, 75)
+        upgrade_manager.draw(1450, 75)
+        upgrade_manager.draw(1465, 75)
+        hero_ninja.atk = 120
+        hero_ninja.hp = 1200
+    if Upgrade_Manager.UpgradeManager.hero_7_star_level == 5:
+        upgrade_manager.draw(1420, 75)
+        upgrade_manager.draw(1435, 75)
+        upgrade_manager.draw(1450, 75)
+        upgrade_manager.draw(1465, 75)
+        upgrade_manager.draw(1480, 75)
+        hero_ninja.atk = 130
+        hero_ninja.hp = 1250
+    if Upgrade_Manager.UpgradeManager.hero_7_star_level == 6:
+        upgrade_manager.draw(1420, 75)
+        upgrade_manager.draw(1435, 75)
+        upgrade_manager.draw(1450, 75)
+        upgrade_manager.draw(1465, 75)
+        upgrade_manager.draw(1480, 75)
+        upgrade_manager.draw(1495, 75)
+        hero_ninja.atk = 140
+        hero_ninja.hp = 1300
+    if Upgrade_Manager.UpgradeManager.hero_7_star_level == 7:
+        upgrade_manager.draw(1420, 75)
+        upgrade_manager.draw(1435, 75)
+        upgrade_manager.draw(1450, 75)
+        upgrade_manager.draw(1465, 75)
+        upgrade_manager.draw(1480, 75)
+        upgrade_manager.draw(1495, 75)
+        upgrade_manager.draw(1510, 75)
+        hero_ninja.atk = 150
+        hero_ninja.hp = 1500
+
+    # 히어로 8
+    if Upgrade_Manager.UpgradeManager.hero_8_star_level == 1:
+        upgrade_manager.draw(1550, 75)
+        hero_pram.atk = 120
+        hero_pram.hp = 1600
+    if Upgrade_Manager.UpgradeManager.hero_8_star_level == 2:
+        upgrade_manager.draw(1550, 75)
+        upgrade_manager.draw(1565, 75)
+        hero_pram.atk = 140
+        hero_pram.hp = 1700
+    if Upgrade_Manager.UpgradeManager.hero_8_star_level == 3:
+        upgrade_manager.draw(1550, 75)
+        upgrade_manager.draw(1565, 75)
+        upgrade_manager.draw(1580, 75)
+        hero_pram.atk = 160
+        hero_pram.hp = 1800
+    if Upgrade_Manager.UpgradeManager.hero_8_star_level == 4:
+        upgrade_manager.draw(1550, 75)
+        upgrade_manager.draw(1565, 75)
+        upgrade_manager.draw(1580, 75)
+        upgrade_manager.draw(1595, 75)
+        hero_pram.atk = 180
+        hero_pram.hp = 1900
+    if Upgrade_Manager.UpgradeManager.hero_8_star_level == 5:
+        upgrade_manager.draw(1550, 75)
+        upgrade_manager.draw(1565, 75)
+        upgrade_manager.draw(1580, 75)
+        upgrade_manager.draw(1595, 75)
+        upgrade_manager.draw(1610, 75)
+        hero_pram.atk = 200
+        hero_pram.hp = 2000
+    if Upgrade_Manager.UpgradeManager.hero_8_star_level == 6:
+        upgrade_manager.draw(1550, 75)
+        upgrade_manager.draw(1565, 75)
+        upgrade_manager.draw(1580, 75)
+        upgrade_manager.draw(1595, 75)
+        upgrade_manager.draw(1610, 75)
+        upgrade_manager.draw(1625, 75)
+        hero_pram.atk = 220
+        hero_pram.hp = 2200
+    if Upgrade_Manager.UpgradeManager.hero_8_star_level == 7:
+        upgrade_manager.draw(1550, 75)
+        upgrade_manager.draw(1565, 75)
+        upgrade_manager.draw(1580, 75)
+        upgrade_manager.draw(1595, 75)
+        upgrade_manager.draw(1610, 75)
+        upgrade_manager.draw(1625, 75)
+        upgrade_manager.draw(1640, 75)
+        hero_pram.atk = 250
+        hero_pram.hp = 2500
+
+    # 히어로 9
+    if Upgrade_Manager.UpgradeManager.hero_9_star_level == 1:
+        upgrade_manager.draw(1680, 75)
+        hero_pram.atk = 160
+        hero_pram.hp = 2200
+    if Upgrade_Manager.UpgradeManager.hero_9_star_level == 2:
+        upgrade_manager.draw(1680, 75)
+        upgrade_manager.draw(1695, 75)
+        hero_pram.atk = 170
+        hero_pram.hp = 2400
+    if Upgrade_Manager.UpgradeManager.hero_9_star_level == 3:
+        upgrade_manager.draw(1680, 75)
+        upgrade_manager.draw(1695, 75)
+        upgrade_manager.draw(1710, 75)
+        hero_pram.atk = 180
+        hero_pram.hp = 2600
+    if Upgrade_Manager.UpgradeManager.hero_9_star_level == 4:
+        upgrade_manager.draw(1680, 75)
+        upgrade_manager.draw(1695, 75)
+        upgrade_manager.draw(1710, 75)
+        upgrade_manager.draw(1725, 75)
+        hero_pram.atk = 190
+        hero_pram.hp = 2800
+    if Upgrade_Manager.UpgradeManager.hero_9_star_level == 5:
+        upgrade_manager.draw(1680, 75)
+        upgrade_manager.draw(1695, 75)
+        upgrade_manager.draw(1710, 75)
+        upgrade_manager.draw(1725, 75)
+        upgrade_manager.draw(1740, 75)
+        hero_pram.atk = 200
+        hero_pram.hp = 3000
+    if Upgrade_Manager.UpgradeManager.hero_9_star_level == 6:
+        upgrade_manager.draw(1680, 75)
+        upgrade_manager.draw(1695, 75)
+        upgrade_manager.draw(1710, 75)
+        upgrade_manager.draw(1725, 75)
+        upgrade_manager.draw(1740, 75)
+        upgrade_manager.draw(1755, 75)
+        hero_pram.atk = 210
+        hero_pram.hp = 3200
+    if Upgrade_Manager.UpgradeManager.hero_9_star_level == 7:
+        upgrade_manager.draw(1680, 75)
+        upgrade_manager.draw(1695, 75)
+        upgrade_manager.draw(1710, 75)
+        upgrade_manager.draw(1725, 75)
+        upgrade_manager.draw(1740, 75)
+        upgrade_manager.draw(1755, 75)
+        upgrade_manager.draw(1770, 75)
+        hero_pram.atk = 2200
+        hero_pram.hp = 3500
 
     user_valva.draw()
     if coll_chk == True:

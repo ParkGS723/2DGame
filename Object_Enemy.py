@@ -19,7 +19,7 @@ class Enemy_Slime:
     ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
     FRAMES_PER_ACTION = 3
     slime_image = None
-    WALK, ATK, MTK, DIE = 3, 2, 1, 0
+    WALK, ATTACK, MTK, DIE = 3, 2, 1, 0
 
     def __init__(self, x = 1100):
         self.x, self.y = x, 330#object_data['Enemy_Slime']['y']
@@ -42,7 +42,7 @@ class Enemy_Slime:
             self.frame = int(self.total_frames) % 5
             self.dir = -1.0
             self.x += (self.dir * distance)
-        elif self.state == self.ATK:
+        elif self.state == self.ATTACK:
             self.frame = int(self.total_frames) % 5
             self.dir = 0
             if self.frame == 4:
@@ -87,7 +87,7 @@ class Enemy_Zombie:
     ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
     FRAMES_PER_ACTION = 6
     zombie_image = None
-    WALK, ATK, MTK, DIE = 3, 2, 1, 0
+    WALK, ATTACK, MTK, DIE = 3, 2, 1, 0
 
     def __init__(self, x = 1100):
         self.x, self.y = x, 330
@@ -110,7 +110,7 @@ class Enemy_Zombie:
             self.frame = int(self.total_frames) % 5
             self.dir = -0.5
             self.x += (self.dir * distance)
-        elif self.state == self.ATK:
+        elif self.state == self.ATTACK:
             self.frame = int(self.total_frames) % 4
             self.dir = 0.0
             if self.frame == 3:
@@ -154,7 +154,7 @@ class Enemy_Golem:
     ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
     FRAMES_PER_ACTION = 6
     golem_image = None
-    WALK, ATK, MTK, DIE = 3, 2, 1, 0
+    WALK, ATTACK, MTK, DIE = 3, 2, 1, 0
 
     def __init__(self, x = 1100):
         self.x, self.y = x, 320
@@ -177,7 +177,7 @@ class Enemy_Golem:
             self.frame = int(self.total_frames) % 6
             self.dir = -0.5
             self.x += (self.dir * distance)
-        elif self.state == self.ATK:
+        elif self.state == self.ATTACK:
             self.frame = int(self.total_frames) % 5
             self.dir = 0.0
             if self.frame == 4:
@@ -221,7 +221,7 @@ class Enemy_Pringer:
     ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
     FRAMES_PER_ACTION = 6
     pringer_image = None
-    WALK, ATK, MTK, DIE = 3, 2, 1, 0
+    WALK, ATTACK, MTK, DIE = 3, 2, 1, 0
 
     def __init__(self, x = 1100):
         self.x, self.y = x, 340
@@ -244,7 +244,7 @@ class Enemy_Pringer:
             self.frame = int(self.total_frames) % 2
             self.dir = -1.3
             self.x += (self.dir * distance)
-        elif self.state == self.ATK:
+        elif self.state == self.ATTACK:
             self.frame = int(self.total_frames) % 3
             self.dir = 0.0
             if self.frame == 2:
@@ -288,7 +288,7 @@ class Enemy_Demon:
     ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
     FRAMES_PER_ACTION = 6
     demon_image = None
-    WALK, ATK, MTK, DIE = 3, 2, 1, 0
+    WALK, ATTACK, MTK, DIE = 3, 2, 1, 0
 
     def __init__(self, x = 1100):
         self.x, self.y = x, 340
@@ -311,7 +311,7 @@ class Enemy_Demon:
             self.frame = int(self.total_frames) % 6
             self.dir = -0.5
             self.x += (self.dir * distance)
-        elif self.state == self.ATK:
+        elif self.state == self.ATTACK:
             self.frame = int(self.total_frames) % 3
             self.dir = 0.0
             if self.frame == 2:
@@ -355,7 +355,7 @@ class Enemy_Succubus:
     ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
     FRAMES_PER_ACTION = 6
     succubus_image = None
-    WALK, ATK, MTK, DIE = 3, 2, 1, 0
+    WALK, ATTACK, MTK, DIE = 3, 2, 1, 0
 
     def __init__(self, x = 1100):
         self.x, self.y = x, 340
@@ -378,7 +378,7 @@ class Enemy_Succubus:
             self.frame = int(self.total_frames) % 7
             self.dir = -1.2
             self.x += (self.dir * distance)
-        elif self.state == self.ATK:
+        elif self.state == self.ATTACK:
             self.frame = int(self.total_frames) % 5
             self.dir = 0.0
             if self.frame == 4:

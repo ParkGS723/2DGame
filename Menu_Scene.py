@@ -69,9 +69,6 @@ class MenuBackGround:
     def __init__(self):
         self.x, self.y = 640, 360
         self.image = load_image('UI/MainMenu.png')
-        self.bgm = load_music('Sound/menu_bgm.mp3')
-        self.bgm.set_volume(64)
-        self.bgm.repeat_play()
 
     def draw(self):
         self.image.draw(self.x, self.y)
@@ -96,12 +93,15 @@ def enter():
     global store_main, store_upgrade_1, store_upgrade_2, store_hero1, store_hero1_over, store_hero1_sell, store_hero2, store_hero2_over, store_hero2_sell, store_hero3, store_hero3_over, store_hero3_sell
     global store_hero4, store_hero4_over, store_hero4_sell, store_hero5, store_hero5_over, store_hero5_sell, store_hero6, store_hero6_over, store_hero6_sell, store_hero7, store_hero7_over, store_hero7_sell
     global store_hero8, store_hero8_over, store_hero8_sell, store_hero9, store_hero9_over, store_hero9_sell, store_user_magic_1, store_user_magic_1_over, store_user_magic_2, store_user_magic_2_over, store_user_magic_3, store_user_magic_3_over
-    global hero_up_ask, magic_up_ask, upgradestar, star_group, diamond, font
+    global hero_up_ask, magic_up_ask, upgradestar, star_group, diamond, font, bgm
 
     upgradestar = Upgrade_Manager.UpgradeStar()
     diamond = 999999
     font = load_font('ENCR10B.TTF')
     star_group = []
+    bgm = load_music('Sound/menu_bgm.mp3')
+    bgm.set_volume(64)
+    bgm.repeat_play()
 
     MainMenu_bg = MenuBackGround()
     clicksound = MenuSound()
@@ -395,8 +395,8 @@ def handle_events(frame_time):
                             hero8_up += 1
                             diamond -= 5000
                             Upgrade_Manager.UpgradeManager.hero_8_star_level += 1
-                            if Upgrade_Manager.UpgradeManager.hero_8_star_level > 3:
-                                Upgrade_Manager.UpgradeManager.hero_8_star_level = 3
+                            if Upgrade_Manager.UpgradeManager.hero_8_star_level > 7:
+                                Upgrade_Manager.UpgradeManager.hero_8_star_level = 7
                             if hero8_up > 7:
                                 hero8_up = 7
                             hero_star_8 = False
@@ -412,9 +412,9 @@ def handle_events(frame_time):
                             up_ask = False
                             hero9_up += 1
                             diamond -= 7000
-                            Upgrade_Manager.UpgradeManager.hero_9_star_level = 1
-                            if Upgrade_Manager.UpgradeManager.hero_9_star_level > 3:
-                                Upgrade_Manager.UpgradeManager.hero_9_star_level = 3
+                            Upgrade_Manager.UpgradeManager.hero_9_star_level += 1
+                            if Upgrade_Manager.UpgradeManager.hero_9_star_level > 7:
+                                Upgrade_Manager.UpgradeManager.hero_9_star_level = 7
                             if hero9_up > 7:
                                 hero9_up = 7
                             hero_star_9 = False

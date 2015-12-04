@@ -12,9 +12,6 @@ class BackGround:
     def __init__(self):
         self.x, self.y = 400, 445
         self.image = load_image('Map/Stage_bkg.png')
-        self.bgm = load_music('Sound/game_bgm.mp3')
-        self.bgm.set_volume(60)
-        self.bgm.repeat_play()
 
     def draw(self):
         self.image.clip_draw(0, 0, 2000, 550, self.x, self.y)
