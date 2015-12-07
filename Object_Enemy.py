@@ -22,15 +22,18 @@ class Enemy_Slime:
     WALK, ATTACK, MTK, DIE = 3, 2, 1, 0
 
     def __init__(self, x = 1100):
-        self.x, self.y = x, 330#object_data['Enemy_Slime']['y']
+        enemy_data_file = open('Json/enemy_data.txt','r')
+        enemy_data = json.load(enemy_data_file)
+        enemy_data_file.close()
+        self.x, self.y = x, enemy_data['Enemy_Slime']['y']
+        self.atk = enemy_data['Enemy_Slime']['atk']
+        self.hp = enemy_data['Enemy_Slime']['hp']
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
         self.total_frames = 0.0
         self.atk_time = 0.0
         self.dir = -1.0
         self.check = 0
-        self.atk = 10 #object_data['Enemy_Slime']['atk']
-        self.health = 100 #object_data['Enemy_Slime']['heath']
         self.state = self.WALK
         if Enemy_Slime.slime_image == None:
             Enemy_Slime.slime_image = load_image('Monster/Slime_Sheet.png')
@@ -48,22 +51,14 @@ class Enemy_Slime:
             if self.frame == 4:
                 self.check = 0
 
-        if self.x < 200:
-            self.health = 0
-            self.x = -100
-
-        elif self.x > 1000:
-            self.dir = -1.0
-            self.state = self.WALK
-
     def die(self, hero, frame_time):
         self.atk_time += frame_time
 
         if hero.frame == 0:
             if self.atk_time > 0.1:
                 self.atk_time = 0
-                self.health -= hero.atk
-                if self.health <= 0:
+                self.hp -= hero.atk
+                if self.hp <= 0:
                     return True
         return False
 
@@ -90,14 +85,17 @@ class Enemy_Zombie:
     WALK, ATTACK, MTK, DIE = 3, 2, 1, 0
 
     def __init__(self, x = 1100):
-        self.x, self.y = x, 330
+        enemy_data_file = open('Json/enemy_data.txt','r')
+        enemy_data = json.load(enemy_data_file)
+        enemy_data_file.close()
+        self.x, self.y = x, enemy_data['Enemy_Zombie']['y']
+        self.atk = enemy_data['Enemy_Zombie']['atk']
+        self.hp = enemy_data['Enemy_Zombie']['hp']
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
         self.total_frames = 0.0
         self.atk_time = 0.0
         self.dir = -0.5
-        self.atk = 20
-        self.health = 300
         self.check = 0
         self.state = self.WALK
         if Enemy_Zombie.zombie_image == None:
@@ -116,21 +114,13 @@ class Enemy_Zombie:
             if self.frame == 3:
                 self.check = 0
 
-        if self.x < 200:
-            self.health = 0
-            self.x = -100
-
-        elif self.x > 1000:
-            self.dir = -0.5
-            self.state = self.WALK
-
     def die(self, hero, frame_time):
         self.atk_time += frame_time
         if hero.frame == 0:
             if self.atk_time > 0.1:
                 self.atk_time = 0
-                self.health -= hero.atk
-                if self.health <= 0:
+                self.hp -= hero.atk
+                if self.hp <= 0:
                     return True
         return False
 
@@ -157,14 +147,17 @@ class Enemy_Golem:
     WALK, ATTACK, MTK, DIE = 3, 2, 1, 0
 
     def __init__(self, x = 1100):
-        self.x, self.y = x, 320
+        enemy_data_file = open('Json/enemy_data.txt','r')
+        enemy_data = json.load(enemy_data_file)
+        enemy_data_file.close()
+        self.x, self.y = x, enemy_data['Enemy_Golem']['y']
+        self.atk = enemy_data['Enemy_Golem']['atk']
+        self.hp = enemy_data['Enemy_Golem']['hp']
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
         self.total_frames = 0.0
         self.atk_time = 0.0
         self.dir = -0.5
-        self.atk = 40
-        self.health = 500
         self.check = 0
         self.state = self.WALK
         if Enemy_Golem.golem_image == None:
@@ -183,21 +176,13 @@ class Enemy_Golem:
             if self.frame == 4:
                 self.check = 0
 
-        if self.x < 200:
-            self.health = 0
-            self.x = -100
-
-        elif self.x > 1000:
-            self.dir = -0.5
-            self.state = self.WALK
-
     def die(self, hero, frame_time):
         self.atk_time += frame_time
         if hero.frame == 0:
             if self.atk_time > 0.1:
                 self.atk_time = 0
-                self.health -= hero.atk
-                if self.health <= 0:
+                self.hp -= hero.atk
+                if self.hp <= 0:
                     return True
         return False
 
@@ -224,14 +209,17 @@ class Enemy_Pringer:
     WALK, ATTACK, MTK, DIE = 3, 2, 1, 0
 
     def __init__(self, x = 1100):
-        self.x, self.y = x, 340
+        enemy_data_file = open('Json/enemy_data.txt','r')
+        enemy_data = json.load(enemy_data_file)
+        enemy_data_file.close()
+        self.x, self.y = x, enemy_data['Enemy_Pringer']['y']
+        self.atk = enemy_data['Enemy_Pringer']['atk']
+        self.hp = enemy_data['Enemy_Pringer']['hp']
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
         self.total_frames = 0.0
         self.atk_time = 0.0
         self.dir = -1.3
-        self.atk = 10
-        self.health = 1000
         self.check = 0
         self.state = self.WALK
         if Enemy_Pringer.pringer_image == None:
@@ -250,21 +238,13 @@ class Enemy_Pringer:
             if self.frame == 2:
                 self.check = 0
 
-        if self.x < 200:
-            self.health = 0
-            self.x = -100
-
-        elif self.x > 1000:
-            self.dir = -0.5
-            self.state = self.WALK
-
     def die(self, hero, frame_time):
         self.atk_time += frame_time
         if hero.frame == 0:
             if self.atk_time > 0.1:
                 self.atk_time = 0
-                self.health -= hero.atk
-                if self.health <= 0:
+                self.hp -= hero.atk
+                if self.hp <= 0:
                     return True
         return False
 
@@ -291,14 +271,17 @@ class Enemy_Demon:
     WALK, ATTACK, MTK, DIE = 3, 2, 1, 0
 
     def __init__(self, x = 1100):
-        self.x, self.y = x, 340
+        enemy_data_file = open('Json/enemy_data.txt','r')
+        enemy_data = json.load(enemy_data_file)
+        enemy_data_file.close()
+        self.x, self.y = x, enemy_data['Enemy_Pringer']['y']
+        self.atk = enemy_data['Enemy_Pringer']['atk']
+        self.hp = enemy_data['Enemy_Pringer']['hp']
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
         self.total_frames = 0.0
         self.atk_time = 0.0
         self.dir = -0.5
-        self.atk = 100
-        self.health = 1500
         self.check = 0
         self.state = self.WALK
         if Enemy_Demon.demon_image == None:
@@ -317,21 +300,13 @@ class Enemy_Demon:
             if self.frame == 2:
                 self.check = 0
 
-        if self.x < 200:
-            self.health = 0
-            self.x = -100
-
-        elif self.x > 1000:
-            self.dir = -0.5
-            self.state = self.WALK
-
     def die(self, hero, frame_time):
         self.atk_time += frame_time
         if hero.frame == 0:
             if self.atk_time > 0.1:
                 self.atk_time = 0
-                self.health -= hero.atk
-                if self.health <= 0:
+                self.hp -= hero.atk
+                if self.hp <= 0:
                     return True
         return False
 
@@ -358,14 +333,17 @@ class Enemy_Succubus:
     WALK, ATTACK, MTK, DIE = 3, 2, 1, 0
 
     def __init__(self, x = 1100):
-        self.x, self.y = x, 340
+        enemy_data_file = open('Json/enemy_data.txt','r')
+        enemy_data = json.load(enemy_data_file)
+        enemy_data_file.close()
+        self.x, self.y = x, enemy_data['Enemy_Succubus']['y']
+        self.atk = enemy_data['Enemy_Succubus']['atk']
+        self.hp = enemy_data['Enemy_Succubus']['hp']
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
         self.total_frames = 0.0
         self.atk_time = 0.0
         self.dir = -1.2
-        self.atk = 200
-        self.health = 2500
         self.check = 0
         self.state = self.WALK
         if Enemy_Succubus.succubus_image == None:
@@ -384,21 +362,13 @@ class Enemy_Succubus:
             if self.frame == 4:
                 self.check = 0
 
-        if self.x < 200:
-            self.health = 0
-            self.x = -100
-
-        elif self.x > 1000:
-            self.dir = -0.5
-            self.state = self.WALK
-
     def die(self, hero, frame_time):
         self.atk_time += frame_time
         if hero.frame == 0:
             if self.atk_time > 0.1:
                 self.atk_time = 0
-                self.health -= hero.atk
-                if self.health <= 0:
+                self.hp -= hero.atk
+                if self.hp <= 0:
                     return True
         return False
 

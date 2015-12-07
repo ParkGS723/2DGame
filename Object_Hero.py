@@ -23,7 +23,7 @@ class Hero_Adell:
     adell_image = None
     WALK, ATTACK, MTK, DIE = 3,2,1,0
 
-    def __init__(self, x = 0):
+    def __init__(self, x = 100):
         hero_data_file = open('Json/hero_data.txt','r')
         hero_data = json.load(hero_data_file)
         hero_data_file.close()
@@ -56,14 +56,6 @@ class Hero_Adell:
             self.frame = int(self.total_frames) % 4
         elif self.state == self.DIE:
             self.frame = int(self.total_frames) % 1
-        if self.x > 1100:
-            self.hp = 0
-            self.x = 1400
-
-        elif self.x < 100:
-            self.dir = 2.5
-            self.x = 100
-            self.state = self.WALK
 
     def die(self, enemy, frame_time):
         self.atk_time += frame_time
@@ -97,7 +89,7 @@ class Hero_Archer:
     archer_image = None
     WALK, ATTACK, MTK, DIE = 3,2,1,0
 
-    def __init__(self, x = 0):
+    def __init__(self, x = 100):
         hero_data_file = open('Json/hero_data.txt','r')
         hero_data = json.load(hero_data_file)
         hero_data_file.close()
@@ -127,15 +119,6 @@ class Hero_Archer:
             self.x += (self.dir * distance)
             if self.frame == 3:
                 self.check = 0
-
-        if self.x > 1100:
-            self.hp = 0
-            self.x = 1400
-
-        elif self.x < 100:
-            self.dir = 2
-            self.x = 100
-            self.state = self.WALK
 
     def die(self, enemy, frame_time):
         self.atk_time += frame_time
@@ -170,7 +153,7 @@ class Hero_Asuka:
     asuka_image = None
     WALK, ATTACK, MTK, DIE = 3,2,1,0
 
-    def __init__(self, x = 0):
+    def __init__(self, x = 100):
         hero_data_file = open('Json/hero_data.txt','r')
         hero_data = json.load(hero_data_file)
         hero_data_file.close()
@@ -199,17 +182,6 @@ class Hero_Asuka:
             self.dir = 0
             if self.frame == 3:
                 self.check = 0
-
-
-
-        if self.x > 1100:
-            self.hp = 0
-            self.x = 1400
-
-        elif self.x < 100:
-            self.dir = 2.0
-            self.x = 100
-            self.state = self.WALK
 
     def die(self, enemy, frame_time):
         self.atk_time += frame_time
@@ -244,7 +216,7 @@ class Hero_Axel:
     axel_image = None
     WALK, ATTACK, MTK, DIE = 3,2,1,0
 
-    def __init__(self, x = 0):
+    def __init__(self, x = 100):
         hero_data_file = open('Json/hero_data.txt','r')
         hero_data = json.load(hero_data_file)
         hero_data_file.close()
@@ -273,15 +245,6 @@ class Hero_Axel:
             self.dir = 0
             if self.frame == 3:
                 self.check = 0
-
-        if self.x > 1100:
-            self.hp = 0
-            self.x = 1400
-
-        elif self.x < 100:
-            self.dir = 2.0
-            self.x = 100
-            self.state = self.WALK
 
     def die(self, enemy, frame_time):
         self.atk_time += frame_time
@@ -316,7 +279,7 @@ class Hero_Gunner:
     gunner_image = None
     WALK, ATTACK, MTK, DIE = 3,2,1,0
 
-    def __init__(self, x = 0):
+    def __init__(self, x = 100):
         self.x, self.y = x, 340
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
@@ -342,15 +305,6 @@ class Hero_Gunner:
             self.dir = 0.0
             if self.frame == 3:
                 self.check = 0
-
-        if self.x > 1100:
-            self.hp = 0
-            self.x = 1400
-
-        elif self.x < 100:
-            self.dir = 2.0
-            self.x = 100
-            self.state = self.WALK
 
     def die(self, enemy, frame_time):
         self.atk_time += frame_time
@@ -385,7 +339,7 @@ class Hero_Fenrich:
     fenrich_image = None
     WALK, ATTACK, MTK, DIE = 3,2,1,0
 
-    def __init__(self, x = 0):
+    def __init__(self, x = 100):
         self.x, self.y = x, 340
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
@@ -412,14 +366,6 @@ class Hero_Fenrich:
             if self.frame == 3:
                 self.check = 0
 
-        if self.x > 1100:
-            self.hp = 0
-            self.x = 1400
-
-        elif self.x < 100:
-            self.dir = 2.0
-            self.x = 100
-            self.state = self.WALK
 
     def die(self, enemy, frame_time):
         self.atk_time += frame_time
@@ -454,7 +400,7 @@ class Hero_Ninja:
     ninja_image = None
     WALK, ATTACK, MTK, DIE = 3,2,1,0
 
-    def __init__(self, x = 0):
+    def __init__(self, x = 100):
         self.x, self.y = x, 340
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
@@ -480,15 +426,6 @@ class Hero_Ninja:
             self.dir = 0.0
             if self.frame == 3:
                 self.check = 0
-
-        if self.x > 1100:
-            self.hp = 0
-            self.x = 1400
-
-        elif self.x < 100:
-            self.dir = 0.5
-            self.x = 100
-            self.state = self.WALK
 
     def die(self, enemy, frame_time):
         self.atk_time += frame_time
@@ -523,7 +460,7 @@ class Hero_Pram:
     pram_image = None
     WALK, ATTACK, MTK, DIE = 3,2,1,0
 
-    def __init__(self, x = 0):
+    def __init__(self, x = 100):
         self.x, self.y = x, 340
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
@@ -549,15 +486,6 @@ class Hero_Pram:
             self.dir = 0.0
             if self.frame == 3:
                 self.check = 0
-
-        if self.x > 1100:
-            self.hp = 0
-            self.x = 1400
-
-        elif self.x < 100:
-            self.dir = 0.5
-            self.x = 100
-            self.state = self.WALK
 
     def die(self, enemy, frame_time):
         self.atk_time += frame_time
@@ -592,7 +520,7 @@ class Hero_Prof:
     professor_image = None
     WALK, ATTACK, MTK, DIE = 3,2,1,0
 
-    def __init__(self, x = 0):
+    def __init__(self, x = 100):
         self.x, self.y = x, 340
         self.frame = random.randint(0, 2)
         self.life_time = 0.0
@@ -618,15 +546,6 @@ class Hero_Prof:
             self.dir = 0.0
             if self.frame == 3:
                 self.check = 0
-
-        if self.x > 1100:
-            self.health = 0
-            self.x = 1400
-
-        elif self.x < 100:
-            self.dir = 0.5
-            self.x = 100
-            self.state = self.WALK
 
     def die(self, enemy, frame_time):
         self.atk_time += frame_time

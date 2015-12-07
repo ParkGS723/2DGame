@@ -8,7 +8,8 @@ level_hard = None
 level_normal = None
 level_easy = None
 setting_draw = None
-mx, my = 0, 0
+button_x, button_y = 0, 0
+diamond = 0
 name = "MenuScene"
 Title_bkg = None
 herobar = None
@@ -69,6 +70,9 @@ class MenuBackGround:
     def __init__(self):
         self.x, self.y = 640, 360
         self.image = load_image('UI/MainMenu.png')
+        self.bgm = load_music('Sound/menu_bgm.mp3')
+        self.bgm.set_volume(64)
+        self.bgm.repeat_play()
 
     def draw(self):
         self.image.draw(self.x, self.y)
@@ -76,15 +80,61 @@ class MenuBackGround:
 
 class MenuSound:
     button_sound = None
-
+    search_sound = None
+    search_music = None
+    herobuy_sound = None
+    heroup_sound = None
+    magicup_sound = None
+    upgrade_sound = None
     def __init__(self):
         if MenuSound.button_sound == None:
-            MenuSound.button_sound = load_wav('Sound/test.wav')
-            MenuSound.button_sound.set_volume(32)
+            MenuSound.button_sound = load_wav('Sound/menu_GameClick.wav')
+            MenuSound.button_sound.set_volume(64)
+
+        if MenuSound.search_sound == None:
+            MenuSound.search_sound = load_wav('Sound/menu_SearchClick.wav')
+            MenuSound.search_sound.set_volume(64)
+
+        if MenuSound.search_music == None:
+            MenuSound.search_music = load_music('Sound/menu_SearchSound.mp3')
+            MenuSound.search_music.set_volume(64)
+
+        if MenuSound.herobuy_sound == None:
+            MenuSound.herobuy_sound = load_wav('Sound/menu_herobuy.wav')
+            MenuSound.herobuy_sound.set_volume(64)
+
+        if MenuSound.heroup_sound == None:
+            MenuSound.heroup_sound = load_music('Sound/menu_heroup.mp3')
+            MenuSound.heroup_sound.set_volume(64)
+
+        if MenuSound.magicup_sound == None:
+            MenuSound.magicup_sound = load_music('Sound/menu_magicupgrade.mp3')
+            MenuSound.magicup_sound.set_volume(64)
+
+        if MenuSound.upgrade_sound == None:
+            MenuSound.upgrade_sound = load_wav('Sound/menu_upgrade.WAV')
+            MenuSound.upgrade_sound.set_volume(64)
 
     def click(self):
         self.button_sound.play()
 
+    def search(self):
+        self.search_sound.play()
+
+    def searchbgm(self):
+        self.herobuy_sound.play()
+
+    def hero_buy(self):
+        self.search_sound.play()
+
+    def hero_up(self):
+        self.heroup_sound.play()
+
+    def magicup(self):
+        self.magicup_sound.play()
+
+    def menu_upgrade(self):
+        self.upgrade_sound.play()
 
 
 def enter():
@@ -96,12 +146,10 @@ def enter():
     global hero_up_ask, magic_up_ask, upgradestar, star_group, diamond, font, bgm
 
     upgradestar = Upgrade_Manager.UpgradeStar()
-    diamond = 999999
+    diamond = 30000
     font = load_font('ENCR10B.TTF')
     star_group = []
-    bgm = load_music('Sound/menu_bgm.mp3')
-    bgm.set_volume(64)
-    bgm.repeat_play()
+
 
     MainMenu_bg = MenuBackGround()
     clicksound = MenuSound()
@@ -173,7 +221,7 @@ def resume():
 
 def handle_events(frame_time):
     events = get_events()
-    global mx, my, level_easy, level_normal, level_hard, setting_draw, clicksound, herobar, buy_ask, up_ask, up_ask2
+    global button_x, button_y, level_easy, level_normal, level_hard, setting_draw, clicksound, herobar, buy_ask, up_ask, up_ask2
     global hero1_sell, hero2_sell, hero3_sell, hero4_sell, hero5_sell, hero6_sell, hero7_sell, hero8_sell, hero9_sell
     global buy_yes, buy_no, hero_upgrade, magic_upgrade, diamond, magic_star_1, magic_star_2, magic_star_3, magic1_up, magic2_up, magic3_up
     global hero1_buy, hero2_buy, hero3_buy, hero4_buy, hero5_buy, hero6_buy, hero7_buy, hero8_buy, hero9_buy
@@ -183,66 +231,75 @@ def handle_events(frame_time):
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_MOUSEMOTION:
-            mx, my = event.x, 720 - event.y
+            button_x, button_y = event.x, 720 - event.y
         else:
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
                 game_framework.quit()
             elif (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT ):
-                print(mx, my)
-                if 135 < mx < 566 and 575 < my < 670: #전투영웅
+                print(button_x, button_y)
+                if 135 < button_x < 566 and 575 < button_y < 670: #전투영웅
                     clicksound.click()
                     hero_upgrade = True
-                if 749 < mx < 1173 and 580 < my < 655: #유저영웅
+                if 749 < button_x < 1173 and 580 < button_y < 655: #유저영웅
                     clicksound.click()
                     magic_upgrade = True
-                if 990 < mx < 1260 and 312 < my < 392: #선술집
+                if 990 < button_x < 1260 and 312 < button_y < 392: #선술집
                     clicksound.click()
                     herobar = True
 
                 if magic_upgrade == True:
-                    if 855 < mx < 905 and 529 < my < 570:
+                    if 855 < button_x < 905 and 529 < button_y < 570:
+                        clicksound.click()
                         up_ask2 = False
                         magic_upgrade = False
 
-                    if 440 < mx < 525 and 293 < my < 368:
+                    if 440 < button_x < 525 and 293 < button_y < 368:
+                        clicksound.click()
                         up_ask2 = True
                         magic_star_1 = True
                     if magic_star_1 == True:
-                        if 566 < mx < 601 and 360 < my < 400:
+                        if 566 < button_x < 601 and 360 < button_y < 400:
+                            clicksound.click()
                             up_ask2 = False
                             diamond -= 100
                             magic1_up += 1
-                            Upgrade_Manager.UpgradeStar.magic_1_star_level += 1
-                            if Upgrade_Manager.UpgradeStar.magic_1_star_level > 3:
-                                Upgrade_Manager.UpgradeStar.magic_1_star_level = 3
+                            Upgrade_Manager.UpgradeManager.magic_1_star_level += 1
+                            if Upgrade_Manager.UpgradeManager.magic_1_star_level > 3:
+                                Upgrade_Manager.UpgradeManager.magic_1_star_level = 3
                             if magic1_up > 3:
                                 magic1_up = 3
                             magic_star_1 = False
-                        if 679 < mx < 712 and 360 < my < 400:
+                        if 679 < button_x < 712 and 360 < button_y < 400:
+                            clicksound.click()
                             up_ask2 = False
                             magic_star_1 = False
-                    if 590 < mx < 680 and 293 < my < 368:
+                    if 590 < button_x < 680 and 293 < button_y < 368:
+                        clicksound.click()
                         up_ask2 = True
                         magic_star_2 = True
                     if magic_star_2 == True:
-                        if 566 < mx < 601 and 360 < my < 400:
+                        if 566 < button_x < 601 and 360 < button_y < 400:
+                            clicksound.magic_up()
                             up_ask2 = False
                             magic2_up += 1
                             diamond -= 500
                             Upgrade_Manager.UpgradeManager.magic_2_star_level += 1
-                            if Upgrade_Manager.UpgradeManager.hero_star_level > 3:
+                            if Upgrade_Manager.UpgradeManager.magic_2_star_level > 3:
                                 Upgrade_Manager.UpgradeManager.magic_2_star_level = 3
                             if magic2_up > 3:
                                 magic2_up = 3
                             magic_star_2 = False
-                        if 679 < mx < 712 and 360 < my < 400:
+                        if 679 < button_x < 712 and 360 < button_y < 400:
+                            clicksound.click()
                             up_ask2 = False
                             magic_star_2 = False
-                    if 745 < mx < 830 and 293 < my < 368:
+                    if 745 < button_x < 830 and 293 < button_y < 368:
+                        clicksound.click()
                         up_ask2 = True
                         magic_star_3 = True
                     if magic_star_3 == True:
-                        if 566 < mx < 601 and 360 < my < 400:
+                        if 566 < button_x < 601 and 360 < button_y < 400:
+                            clicksound.magic_up()
                             up_ask2 = False
                             magic3_up += 1
                             diamond -= 1000
@@ -252,20 +309,24 @@ def handle_events(frame_time):
                             if magic3_up > 3:
                                 magic3_up = 3
                             magic_star_3 = False
-                        if 679 < mx < 712 and 360 < my < 400:
+                        if 679 < button_x < 712 and 360 < button_y < 400:
+                            clicksound.click()
                             up_ask2 = False
                             magic_star_3 = False
 
                 if hero_upgrade == True:
-                    if 855 < mx < 905 and 529 < my < 570:
+                    if 855 < button_x < 905 and 529 < button_y < 570:
+                        clicksound.click()
                         up_ask = False
                         hero_upgrade = False
-                    if 372 < mx < 457 and 388 < my < 478:
+                    if 372 < button_x < 457 and 388 < button_y < 478:
+                        clicksound.click()
                         up_ask = True
                         hero_star_1 = True
                     if hero_star_1 == True:
-                        if 566 < mx < 601 and 360 < my < 400:
+                        if 566 < button_x < 601 and 360 < button_y < 400:
                             up_ask = False
+                            clicksound.hero_up()
                             hero1_up += 1
                             diamond -= 100
                             Upgrade_Manager.UpgradeManager.hero_1_star_level += 1
@@ -274,16 +335,19 @@ def handle_events(frame_time):
                             if hero1_up > 7:
                                 hero1_up = 7
                             hero_star_1 = False
-                        if 679 < mx < 712 and 360 < my < 400:
+                        if 679 < button_x < 712 and 360 < button_y < 400:
+                            clicksound.click()
                             up_ask = False
                             hero_star_1 = False
 
-                    if 477 < mx < 561 and 388 < my < 478:
+                    if 477 < button_x < 561 and 388 < button_y < 478:
+                        clicksound.click()
                         up_ask = True
                         hero_star_2 = True
                     if hero_star_2 == True:
-                        if 566 < mx < 601 and 360 < my < 400:
+                        if 566 < button_x < 601 and 360 < button_y < 400:
                             up_ask = False
+                            clicksound.hero_up()
                             hero2_up += 1
                             diamond -= 300
                             Upgrade_Manager.UpgradeManager.hero_2_star_level += 1
@@ -292,15 +356,18 @@ def handle_events(frame_time):
                             if hero2_up > 7:
                                 hero2_up = 7
                             hero_star_2 = False
-                        if 679 < mx < 712 and 360 < my < 400:
+                        if 679 < button_x < 712 and 360 < button_y < 400:
+                            clicksound.click()
                             up_ask = False
                             hero_star_2 = False
 
-                    if 583 < mx < 667 and 388 < my < 478:
+                    if 583 < button_x < 667 and 388 < button_y < 478:
+                        clicksound.click()
                         up_ask = True
                         hero_star_3 = True
                     if hero_star_3 == True:
-                        if 566 < mx < 601 and 360 < my < 400:
+                        if 566 < button_x < 601 and 360 < button_y < 400:
+                            clicksound.hero_up()
                             up_ask = False
                             hero3_up += 1
                             diamond -= 500
@@ -310,15 +377,18 @@ def handle_events(frame_time):
                             if hero3_up > 7:
                                 hero3_up = 7
                             hero_star_3 = False
-                        if 679 < mx < 712 and 360 < my < 400:
+                        if 679 < button_x < 712 and 360 < button_y < 400:
+                            clicksound.click()
                             up_ask = False
                             hero_star_3 = False
 
-                    if 687 < mx < 775 and 388 < my < 478:
+                    if 687 < button_x < 775 and 388 < button_y < 478:
+                        clicksound.click()
                         up_ask = True
                         hero_star_4 = True
                     if hero_star_4 == True:
-                        if 566 < mx < 601 and 360 < my < 400:
+                        if 566 < button_x < 601 and 360 < button_y < 400:
+                            clicksound.hero_up()
                             up_ask = False
                             hero4_up += 1
                             diamond -= 1000
@@ -328,15 +398,18 @@ def handle_events(frame_time):
                             if hero4_up > 7:
                                 hero4_up = 7
                             hero_star_4 = False
-                        if 679 < mx < 712 and 360 < my < 400:
+                        if 679 < button_x < 712 and 360 < button_y < 400:
+                            clicksound.click()
                             up_ask = False
                             hero_star_4 = False
 
-                    if 796 < mx < 882 and 388 < my < 478:
+                    if 796 < button_x < 882 and 388 < button_y < 478:
+                        clicksound.click()
                         up_ask = True
                         hero_star_5 = True
                     if hero_star_5 == True:
-                        if 566 < mx < 601 and 360 < my < 400:
+                        if 566 < button_x < 601 and 360 < button_y < 400:
+                            clicksound.hero_up()
                             up_ask = False
                             hero5_up += 1
                             diamond -= 1500
@@ -346,15 +419,18 @@ def handle_events(frame_time):
                             if hero5_up > 7:
                                 hero5_up = 7
                             hero_star_5 = False
-                        if 679 < mx < 712 and 360 < my < 400:
+                        if 679 < button_x < 712 and 360 < button_y < 400:
+                            clicksound.click()
                             up_ask = False
                             hero_star_5 = False
 
-                    if 429 < mx < 515 and 250 < my < 335:
+                    if 429 < button_x < 515 and 250 < button_y < 335:
+                        clicksound.click()
                         up_ask = True
                         hero_star_6 = True
                     if hero_star_6 == True:
-                        if 566 < mx < 601 and 360 < my < 400:
+                        if 566 < button_x < 601 and 360 < button_y < 400:
+                            clicksound.hero_up()
                             up_ask = False
                             hero6_up += 1
                             diamond -= 2000
@@ -364,15 +440,18 @@ def handle_events(frame_time):
                             if hero6_up > 7:
                                 hero6_up = 7
                             hero_star_6 = False
-                        if 679 < mx < 712 and 360 < my < 400:
+                        if 679 < button_x < 712 and 360 < button_y < 400:
+                            clicksound.click()
                             up_ask = False
                             hero_star_6 = False
 
-                    if 535 < mx < 622 and 250 < my < 335:
+                    if 535 < button_x < 622 and 250 < button_y < 335:
+                        clicksound.click()
                         up_ask = True
                         hero_star_7 = True
                     if hero_star_7 == True:
-                        if 566 < mx < 601 and 360 < my < 400:
+                        if 566 < button_x < 601 and 360 < button_y < 400:
+                            clicksound.hero_up()
                             up_ask = False
                             hero7_up += 1
                             diamond -= 3000
@@ -382,15 +461,18 @@ def handle_events(frame_time):
                             if hero7_up > 7:
                                 hero7_up = 7
                             hero_star_7 = False
-                        if 679 < mx < 712 and 360 < my < 400:
+                        if 679 < button_x < 712 and 360 < button_y < 400:
+                            clicksound.click()
                             up_ask = False
                             hero_star_7 = False
 
-                    if 642 < mx < 724 and 250 < my < 335:
+                    if 642 < button_x < 724 and 250 < button_y < 335:
+                        clicksound.click()
                         up_ask = True
                         hero_star_8 = True
                     if hero_star_8 == True:
-                        if 566 < mx < 601 and 360 < my < 400:
+                        if 566 < button_x < 601 and 360 < button_y < 400:
+                            clicksound.hero_up()
                             up_ask = False
                             hero8_up += 1
                             diamond -= 5000
@@ -400,15 +482,18 @@ def handle_events(frame_time):
                             if hero8_up > 7:
                                 hero8_up = 7
                             hero_star_8 = False
-                        if 679 < mx < 712 and 360 < my < 400:
+                        if 679 < button_x < 712 and 360 < button_y < 400:
+                            clicksound.click()
                             up_ask = False
                             hero_star_8 = False
 
-                    if 747 < mx < 835 and 250 < my < 335:
+                    if 747 < button_x < 835 and 250 < button_y < 335:
+                        clicksound.click()
                         up_ask = True
                         hero_star_9 = True
                     if hero_star_9 == True:
-                        if 566 < mx < 601 and 360 < my < 400:
+                        if 566 < button_x < 601 and 360 < button_y < 400:
+                            clicksound.hero_up()
                             up_ask = False
                             hero9_up += 1
                             diamond -= 7000
@@ -418,85 +503,104 @@ def handle_events(frame_time):
                             if hero9_up > 7:
                                 hero9_up = 7
                             hero_star_9 = False
-                        if 679 < mx < 712 and 360 < my < 400:
+                        if 679 < button_x < 712 and 360 < button_y < 400:
+                            clicksound.click()
                             up_ask = False
                             hero_star_9 = False
 
                 if herobar == True:
-                    if 855 < mx < 905 and 529 < my < 570:
+                    if 855 < button_x < 905 and 529 < button_y < 570:
+                        clicksound.click()
                         buy_ask = False
                         herobar = False
-                    if 429 < mx < 515 and 280 < my < 365:
+                    if 429 < button_x < 515 and 280 < button_y < 365:
+                        clicksound.click()
                         buy_ask = True
                         hero6_buy = True
                     if hero6_buy == True:
-                        if 566 < mx < 601 and 360 < my < 400:
+                        if 566 < button_x < 601 and 360 < button_y < 400:
+                            clicksound.menu_upgrade()
                             buy_ask = False
                             hero6_sell = True
                             diamond -= 2000
                             Upgrade_Manager.HeroBuyManager.sell_6 = 2
-                        if 679 < mx < 712 and 360 < my < 400:
+                        if 679 < button_x < 712 and 360 < button_y < 400:
+                            clicksound.click()
                             buy_ask = False
 
-                    if 535 < mx < 622 and 280 < my < 365:
+                    if 535 < button_x < 622 and 280 < button_y < 365:
+                        clicksound.click()
                         buy_ask = True
                         hero7_buy = True
                     if hero7_buy == True:
-                        if 566 < mx < 601 and 360 < my < 400:
+                        if 566 < button_x < 601 and 360 < button_y < 400:
+                            clicksound.menu_upgrade()
                             buy_ask = False
                             hero7_sell = True
                             diamond -= 3000
                             Upgrade_Manager.HeroBuyManager.sell_7 = 2
-                        if 679 < mx < 712 and 360 < my < 400:
+                        if 679 < button_x < 712 and 360 < button_y < 400:
+                            clicksound.click()
                             buy_ask = False
 
-                    if 642 < mx < 724 and 280 < my < 365:
+                    if 642 < button_x < 724 and 280 < button_y < 365:
+                        clicksound.click()
                         buy_ask = True
                         hero8_buy = True
                     if hero8_buy == True:
-                        if 566 < mx < 601 and 360 < my < 400:
+                        if 566 < button_x < 601 and 360 < button_y < 400:
+                            clicksound.menu_upgrade()
                             buy_ask = False
                             hero8_sell = True
                             diamond -= 5000
                             Upgrade_Manager.HeroBuyManager.sell_8 = 2
-                        if 679 < mx < 712 and 360 < my < 400:
+                        if 679 < button_x < 712 and 360 < button_y < 400:
+                            clicksound.click()
                             buy_ask = False
 
-                    if 747 < mx < 835 and 280 < my < 365:
+                    if 747 < button_x < 835 and 280 < button_y < 365:
+                        clicksound.click()
                         buy_ask = True
                         hero9_buy = True
                     if hero9_buy == True:
-                        if 566 < mx < 601 and 360 < my < 400:
+                        if 566 < button_x < 601 and 360 < button_y < 400:
+                            clicksound.menu_upgrade()
                             buy_ask = False
                             diamond -= 7000
                             hero9_sell = True
                             Upgrade_Manager.HeroBuyManager.sell_9 = 2
-                        if 679 < mx < 712 and 360 < my < 400:
+                        if 679 < button_x < 712 and 360 < button_y < 400:
+                            clicksound.click()
                             buy_ask = False
 
-                if 458 < mx < 820 and 40 < my < 193:
+                if 458 < button_x < 820 and 40 < button_y < 193:
                     clicksound.click()
                     setting_draw = True
+                if 575 < button_x < 605 and 288 < button_y < 320:
+                    setting_draw = False
 
                 if setting_draw == True:
-                    if 610 < mx < 680 and 430 < my < 460:
+                    if 610 < button_x < 680 and 430 < button_y < 460:
                         level_easy = True
                         clicksound.click()
                         game_framework.change_state(Main_Scene)
-                    if 610 < mx < 690 and 390 < my < 420:
+                        setting_draw = False
+                    if 610 < button_x < 690 and 390 < button_y < 420:
                         level_normal = True
                         clicksound.click()
                         game_framework.change_state(Main_Scene)
-                    if 610 < mx < 690 and 340 < my < 370:
+                        setting_draw = False
+                    if 610 < button_x < 690 and 340 < button_y < 370:
                         level_hard = True
                         clicksound.click()
                         game_framework.change_state(Main_Scene)
+                        setting_draw = False
 
 def update(frame_time):
     pass
 
 def draw(frame_time):
-    global mx, my
+    global button_x, button_y
     global MainMenu_bkg, Menu_1, Menu_1_over, Menu_2, Menu_2_over, Menu_3, Menu_3_over,Search, Search_over
     global Menu_buy_yes, Menu_buy_yes_over, Menu_buy_no, Menu_buy_no_over, store_exit, store_exit_over, buy_ask
     global store_main, store_upgrade_1, store_upgrade_2, store_hero1, store_hero1_over, store_hero1_sell, store_hero2, store_hero2_over, store_hero2_sell, store_hero3, store_hero3_over, store_hero3_sell
@@ -507,22 +611,22 @@ def draw(frame_time):
 
     clear_canvas()
     MainMenu_bg.draw()
-    if 135 < mx < 566 and 575 < my < 670:
+    if 135 < button_x < 566 and 575 < button_y < 670:
         Menu_1_over.draw(640, 360)
     else:
         Menu_1.draw(640, 360)
 
-    if 749 < mx < 1173 and 580 < my < 655:
+    if 749 < button_x < 1173 and 580 < button_y < 655:
         Menu_2_over.draw(640, 360)
     else:
         Menu_2.draw(640, 360)
 
-    if 990 < mx < 1260 and 312 < my < 392:
+    if 990 < button_x < 1260 and 312 < button_y < 392:
         Menu_3_over.draw(640, 360)
     else:
         Menu_3.draw(640, 360)
 
-    if 458 < mx < 820 and 40 < my < 193:
+    if 458 < button_x < 820 and 40 < button_y < 193:
         Search_over.draw(640, 360)
     else:
         Search.draw(640, 360)
@@ -533,19 +637,19 @@ def draw(frame_time):
     if magic_upgrade == True:
         store_upgrade_2.draw(640,360)
         font.draw(440, 530, '%d' % diamond)
-        if 855 < mx < 905 and 529 < my < 570:
+        if 855 < button_x < 905 and 529 < button_y < 570:
             store_exit_over.draw(640,360)
         else:
             store_exit.draw(640,360)
-        if 440 < mx < 525 and 293 < my < 368:
+        if 440 < button_x < 525 and 293 < button_y < 368:
             store_user_magic_1_over.draw(640, 360)
         else:
             store_user_magic_1.draw(640, 360)
-        if 590 < mx < 680 and 293 < my < 368:
+        if 590 < button_x < 680 and 293 < button_y < 368:
             store_user_magic_2_over.draw(640, 360)
         else:
             store_user_magic_2.draw(640, 360)
-        if 745 < mx < 830 and 293 < my < 368:
+        if 745 < button_x < 830 and 293 < button_y < 368:
             store_user_magic_3_over.draw(640, 360)
         else:
             store_user_magic_3.draw(640, 360)
@@ -584,7 +688,7 @@ def draw(frame_time):
     if herobar == True:
         store_main.draw(640,360)
         font.draw(440, 530, '%d' % diamond)
-        if 855 < mx < 905 and 529 < my < 570:
+        if 855 < button_x < 905 and 529 < button_y < 570:
             store_exit_over.draw(640,360)
         else:
             store_exit.draw(640,360)
@@ -597,28 +701,28 @@ def draw(frame_time):
         if hero6_sell == True:
             store_hero6_sell.draw(640, 360)
         else:
-            if 429 < mx < 515 and 280 < my < 365:
+            if 429 < button_x < 515 and 280 < button_y < 365:
                 store_hero6_over.draw(640, 360)
             else:
                 store_hero6.draw(640, 360)
         if hero7_sell == True:
             store_hero7_sell.draw(640, 360)
         else:
-            if 535 < mx < 622 and 280 < my < 365:
+            if 535 < button_x < 622 and 280 < button_y < 365:
                 store_hero7_over.draw(640, 360)
             else:
                 store_hero7.draw(640, 360)
         if hero8_sell == True:
             store_hero8_sell.draw(640, 360)
         else:
-            if 642 < mx < 724 and 280 < my < 365:
+            if 642 < button_x < 724 and 280 < button_y < 365:
                 store_hero8_over.draw(640, 360)
             else:
                 store_hero8.draw(640, 360)
         if hero9_sell == True:
             store_hero9_sell.draw(640, 360)
         else:
-            if 747 < mx < 835 and 280 < my < 365:
+            if 747 < button_x < 835 and 280 < button_y < 365:
                 store_hero9_over.draw(640, 360)
             else:
                 store_hero9.draw(640, 360)
@@ -626,44 +730,44 @@ def draw(frame_time):
     if hero_upgrade == True:
         store_upgrade_1.draw(640, 360)
         font.draw(440, 530, '%d' % diamond)
-        if 855 < mx < 905 and 529 < my < 570:
+        if 855 < button_x < 905 and 529 < button_y < 570:
             store_exit_over.draw(640,360)
         else:
             store_exit.draw(640,360)
 
-        if 372 < mx < 457 and 388 < my < 478:
+        if 372 < button_x < 457 and 388 < button_y < 478:
             store_hero1_over.draw(640, 360)
         else:
             store_hero1.draw(640, 360)
-        if 477 < mx < 561 and 388 < my < 478:
+        if 477 < button_x < 561 and 388 < button_y < 478:
             store_hero2_over.draw(640, 360)
         else:
             store_hero2.draw(640, 360)
-        if 583 < mx < 667 and 388 < my < 478:
+        if 583 < button_x < 667 and 388 < button_y < 478:
             store_hero3_over.draw(640, 360)
         else:
             store_hero3.draw(640, 360)
-        if 687 < mx < 775 and 388 < my < 478:
+        if 687 < button_x < 775 and 388 < button_y < 478:
             store_hero4_over.draw(640, 360)
         else:
             store_hero4.draw(640, 360)
-        if 796 < mx < 882 and 388 < my < 478:
+        if 796 < button_x < 882 and 388 < button_y < 478:
             store_hero5_over.draw(640, 360)
         else:
             store_hero5.draw(640, 360)
-        if 429 < mx < 515 and 250 < my < 335:
+        if 429 < button_x < 515 and 250 < button_y < 335:
             store_hero6_over.draw(640, 330)
         else:
             store_hero6.draw(640, 330)
-        if 535 < mx < 622 and 250 < my < 335:
+        if 535 < button_x < 622 and 250 < button_y < 335:
             store_hero7_over.draw(640, 330)
         else:
             store_hero7.draw(640, 330)
-        if 642 < mx < 724 and 250 < my < 335:
+        if 642 < button_x < 724 and 250 < button_y < 335:
             store_hero8_over.draw(640, 330)
         else:
             store_hero8.draw(640, 330)
-        if 747 < mx < 835 and 250 < my < 335:
+        if 747 < button_x < 835 and 250 < button_y < 335:
             store_hero9_over.draw(640, 330)
         else:
             store_hero9.draw(640, 330)
@@ -994,33 +1098,33 @@ def draw(frame_time):
 
     if buy_ask == True:
         hero_buy_ask.draw(640,460)
-        if 566 < mx < 601 and 360 < my < 400:
+        if 566 < button_x < 601 and 360 < button_y < 400:
             Menu_buy_yes_over.draw(640,460)
         else:
             Menu_buy_yes.draw(640,460)
-        if 679 < mx < 712 and 360 < my < 400:
+        if 679 < button_x < 712 and 360 < button_y < 400:
             Menu_buy_no_over.draw(640,460)
         else:
             Menu_buy_no.draw(640,460)
 
     if up_ask2 == True:
         magic_up_ask.draw(640, 460)
-        if 566 < mx < 601 and 360 < my < 400:
+        if 566 < button_x < 601 and 360 < button_y < 400:
             Menu_buy_yes_over.draw(640,460)
         else:
             Menu_buy_yes.draw(640,460)
-        if 679 < mx < 712 and 360 < my < 400:
+        if 679 < button_x < 712 and 360 < button_y < 400:
             Menu_buy_no_over.draw(640,460)
         else:
             Menu_buy_no.draw(640,460)
 
     if up_ask == True:
         hero_up_ask.draw(640, 460)
-        if 566 < mx < 601 and 360 < my < 400:
+        if 566 < button_x < 601 and 360 < button_y < 400:
             Menu_buy_yes_over.draw(640,460)
         else:
             Menu_buy_yes.draw(640,460)
-        if 679 < mx < 712 and 360 < my < 400:
+        if 679 < button_x < 712 and 360 < button_y < 400:
             Menu_buy_no_over.draw(640,460)
         else:
             Menu_buy_no.draw(640,460)

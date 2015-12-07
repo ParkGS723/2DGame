@@ -8,11 +8,20 @@ mx, my = 0, 0
 name = "TitleScene"
 Title_bkg = None
 
+
+
 class TitleBackGround:
+    button_sound = None
     def __init__(self):
         self.x, self.y = 640, 360
         self.image = load_image('UI/GameTitle.png')
+        if TitleBackGround.button_sound == None:
+            TitleBackGround.button_sound = load_wav('Sound/StartClick.wav')
+            TitleBackGround.button_sound.set_volume(64)
 
+
+    def click(self):
+        self.button_sound.play()
 
     def draw(self):
         self.image.clip_draw(0, 0, 1280, 720, self.x, self.y)
@@ -52,6 +61,7 @@ def handle_events(frame_time):
             elif (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT ):
                 print(mx, my)
                 if 470 < mx < 800 and 185 < my < 315:
+                    title_bg.click()
                     game_framework.change_state(Menu_Scene)
 
 def update(frame_time):
@@ -63,7 +73,7 @@ def draw(frame_time):
     clear_canvas()
     title_bg.draw()
 
-    if 550 < mx < 750 and 115 < my < 315:
+    if 550 < mx < 750 and 110 < my < 320:
         Title_start_over.draw(640, 360)
     else:
         Title_start.draw(640, 360)

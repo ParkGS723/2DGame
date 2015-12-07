@@ -8,6 +8,48 @@ import Main_Scene
 
 from pico2d import *
 
+class Star_Bar:
+    castle_image = None
+    defeat = False
+    star_image = None
+    star_blue_image  = None
+    def __init__(self):
+        self.x, self.y = 345, 158
+        self.StarBar = 100
+        if Star_Bar.star_image == None:
+            Star_Bar.star_image = load_image('UI/UI_ScoreBar.png')
+        if Star_Bar.star_blue_image == None:
+            Star_Bar.star_blue_image = load_image('UI/UI_ScoreBar_Blue.png')
+
+    def update(self):
+        if self.StarBar >= 100:
+            self.StarBar = 100
+
+    def draw(self):
+        self.star_image.clip_draw(0, 0, 170, 54, self.x, self.y - 105)
+        self.star_blue_image.clip_draw(0, 0, int(113 * (self.StarBar / 100)), 28, self.x - 37 + int(113 * (self.StarBar / 100) / 2), self.y  - 105)
+
+class Effect_Die:
+    TIME_PER_ACTION = 0.5
+    ACTION_PER_TIME = 2.0 / TIME_PER_ACTION
+    FRAMES_PER_ACTION = 6
+    Effect_image = None
+
+    def __init__(self, x = 0):
+        self.x, self.y = x, 340
+        self.frame = 0
+        self.total_frames = 0.0
+        if Effect_Die.Effect_image == None:
+            Effect_Die.Effect_image = load_image('Magic/Effect_Die.png')
+
+    def update(self, frame_time):
+        self.total_frames += Magic_Meteor.FRAMES_PER_ACTION * Magic_Meteor.ACTION_PER_TIME * frame_time
+        self.frame = int(self.total_frames) % 8
+
+    def draw(self):
+        self.Effect_image.clip_draw(self.frame*120, 540, 120, 180, self.x, self.y)
+
+
 class Magic_Meteor:
     TIME_PER_ACTION = 0.5
     ACTION_PER_TIME = 2.0 / TIME_PER_ACTION
@@ -26,7 +68,7 @@ class Magic_Meteor:
         self.total_frames += Magic_Meteor.FRAMES_PER_ACTION * Magic_Meteor.ACTION_PER_TIME * frame_time
         self.frame = int(self.total_frames) % 16
         if (self.y > 300):
-            self.y -= 150 * frame_time
+            self.y -= 250 * frame_time
 
     def draw(self):
         self.magic_image.clip_draw(self.frame*70, self.state*100, 60, 80, self.x, self.y)
