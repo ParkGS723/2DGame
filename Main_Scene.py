@@ -56,6 +56,9 @@ cool_time_3 = 0.0
 gold_manager = 1.0
 gold = 0
 score = 0
+meteor_numb = 6
+tornado_numb = 4
+explosion_numb = 2
 result_score = 0
 meteor_limit = 0
 tornado_limit = 0
@@ -70,7 +73,7 @@ def enter():
     global hero_group1, hero_group2, hero_group3, hero_group4, hero_group5, hero_group6, hero_group7, hero_group8, hero_group9
     global enemy_group1, enemy_group2, enemy_group3, enemy_group4, enemy_group5, enemy_group6
     global magic_group1, magic_group2, magic_group3, castle_group1, castle_group2, effect_group1
-    global magic_meteor, magic_tornado, magic_explosion, ui_timer
+    global magic_meteor, magic_tornado, magic_explosion, ui_timer, gamesound
     global magic_exp_image_1, magic_exp_image_2, magic_exp_image_3, magic_exp_image_4, magic_exp_image_5, magic_exp_image_6, magic_exp_image_7, magic_exp_image_8
     global magic_exp_image_9, magic_exp_image_10, magic_exp_image_11, magic_exp_image_12, magic_exp_image_13, magic_exp_image_14, magic_exp_image_15, magic_exp_image_16, magic_exp_image_17, magic_exp_image_18, magic_exp_image_19
     global ui_adell_pic, ui_adell_pic_over, ui_archer_pic, ui_archer_pic_over, ui_asuka_pic, ui_asuka_pic_over, ui_axel_pic, ui_axel_pic_over, ui_fenrich_pic, ui_fenrich_pic_over
@@ -86,7 +89,7 @@ def enter():
     score = 10000
     upgrade_manager = Upgrade_Manager.UpgradeStar_Main()
     random_stage = random.randint(1, 50)
-
+    gamesound = GameSound()
     castle_group1 = []
     castle_group2 = []
 
@@ -240,6 +243,129 @@ def pause():
 
 def resume():
     pass
+
+class GameSound:
+    bomb_sound = None
+    goldup_sound = None
+    meteor_sound = None
+    punch2_sound = None
+    slap_sound = None
+    tornado_sound = None
+    hero1_sound = None
+    hero2_sound = None
+    hero3_sound = None
+    hero4_sound = None
+    hero5_sound = None
+    hero6_sound = None
+    hero7_sound = None
+    hero8_sound = None
+    hero9_sound = None
+
+    def __init__(self):
+        if GameSound.bomb_sound == None:
+            GameSound.bomb_sound = load_wav('Sound/game_bomb.wav')
+            GameSound.bomb_sound.set_volume(64)
+
+        if GameSound.goldup_sound == None:
+            GameSound.goldup_sound = load_wav('Sound/game_goldup.wav')
+            GameSound.goldup_sound.set_volume(64)
+
+        if GameSound.meteor_sound == None:
+            GameSound.meteor_sound = load_wav('Sound/game_meteor.wav')
+            GameSound.meteor_sound.set_volume(64)
+
+        if GameSound.punch2_sound == None:
+            GameSound.punch2_sound = load_wav('Sound/game_punch2.wav')
+            GameSound.punch2_sound.set_volume(5)
+
+        if GameSound.slap_sound == None:
+            GameSound.slap_sound = load_wav('Sound/game_slap.wav')
+            GameSound.slap_sound.set_volume(5)
+
+        if GameSound.tornado_sound == None:
+            GameSound.tornado_sound = load_wav('Sound/game_Tornado.wav')
+            GameSound.tornado_sound.set_volume(64)
+
+        if GameSound.hero1_sound == None:
+            GameSound.hero1_sound = load_wav('Sound/game_hero1.wav')
+            GameSound.hero1_sound.set_volume(64)
+
+        if GameSound.hero2_sound == None:
+            GameSound.hero2_sound = load_wav('Sound/game_hero2.wav')
+            GameSound.hero2_sound.set_volume(64)
+
+        if GameSound.hero3_sound == None:
+            GameSound.hero3_sound = load_wav('Sound/game_hero3.wav')
+            GameSound.hero3_sound.set_volume(64)
+
+        if GameSound.hero4_sound == None:
+            GameSound.hero4_sound = load_wav('Sound/game_hero4.wav')
+            GameSound.hero4_sound.set_volume(100)
+
+        if GameSound.hero5_sound == None:
+            GameSound.hero5_sound = load_wav('Sound/game_hero5.wav')
+            GameSound.hero5_sound.set_volume(100)
+
+        if GameSound.hero6_sound == None:
+            GameSound.hero6_sound = load_wav('Sound/game_hero6.wav')
+            GameSound.hero6_sound.set_volume(100)
+
+        if GameSound.hero7_sound == None:
+            GameSound.hero7_sound = load_wav('Sound/game_hero7.wav')
+            GameSound.hero7_sound.set_volume(100)
+
+        if GameSound.hero8_sound == None:
+            GameSound.hero8_sound = load_wav('Sound/game_hero8.wav')
+            GameSound.hero8_sound.set_volume(100)
+
+        if GameSound.hero9_sound == None:
+            GameSound.hero9_sound = load_wav('Sound/game_hero9.wav')
+            GameSound.hero9_sound.set_volume(100)
+
+    def bomb(self):
+        self.bomb_sound.play()
+
+    def goldup(self):
+        self.goldup_sound.play()
+
+    def meteor(self):
+        self.meteor_sound.play()
+
+    def punch2(self):
+        self.punch2_sound.play()
+
+    def slap(self):
+        self.slap_sound.play()
+
+    def tornado(self):
+        self.tornado_sound.play()
+
+    def hero1(self):
+        self.hero1_sound.play()
+
+    def hero2(self):
+        self.hero2_sound.play()
+
+    def hero3(self):
+        self.hero3_sound.play()
+
+    def hero4(self):
+        self.hero4_sound.play()
+
+    def hero5(self):
+        self.hero5_sound.play()
+
+    def hero6(self):
+        self.hero6_sound.play()
+
+    def hero7(self):
+        self.hero7_sound.play()
+
+    def hero8(self):
+        self.hero8_sound.play()
+
+    def hero9(self):
+        self.hero9_sound.play()
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
@@ -454,12 +580,12 @@ def collide_enter(frame_time):
     for enemy_slime in enemy_group1:
         for hero_adell in hero_group1:
             if collide(hero_adell, enemy_slime) == True:
+                gamesound.punch2()
                 enemy_slime.check = 1
                 hero_adell.check = 1
                 if hero_adell.die(enemy_slime, frame_time) == True:
                     hero_group1.remove(hero_adell)
                     enemy_slime.check = 0
-
 
                 elif enemy_slime.die(hero_adell, frame_time) == True:
                     score += 100
@@ -470,6 +596,7 @@ def collide_enter(frame_time):
 
         for hero_archer in hero_group2:
             if collide(hero_archer, enemy_slime) == True:
+                gamesound.punch2()
                 enemy_slime.check += 1
                 hero_archer.check += 1
 
@@ -486,6 +613,7 @@ def collide_enter(frame_time):
 
         for hero_asuka in hero_group3:
             if collide(hero_asuka, enemy_slime) == True:
+                gamesound.punch2()
                 enemy_slime.check += 1
                 hero_asuka.check += 1
 
@@ -502,6 +630,7 @@ def collide_enter(frame_time):
 
         for hero_axel in hero_group4:
             if collide(hero_axel, enemy_slime) == True:
+                gamesound.punch2()
                 enemy_slime.check += 1
                 hero_axel.check += 1
 
@@ -518,6 +647,7 @@ def collide_enter(frame_time):
 
         for hero_gunner in hero_group5:
             if collide(hero_gunner, enemy_slime) == True:
+                gamesound.punch2()
                 enemy_slime.check += 1
                 hero_gunner.check += 1
 
@@ -534,6 +664,7 @@ def collide_enter(frame_time):
 
         for hero_fenrich in hero_group6:
             if collide(hero_fenrich, enemy_slime) == True:
+                gamesound.punch2()
                 enemy_slime.check += 1
                 hero_fenrich.check += 1
 
@@ -550,6 +681,7 @@ def collide_enter(frame_time):
 
         for hero_ninja in hero_group7:
             if collide(hero_ninja, enemy_slime) == True:
+                gamesound.punch2()
                 enemy_slime.check += 1
                 hero_ninja.check += 1
 
@@ -566,6 +698,7 @@ def collide_enter(frame_time):
 
         for hero_pram in hero_group8:
             if collide(hero_pram, enemy_slime) == True:
+                gamesound.punch2()
                 enemy_slime.check += 1
                 hero_pram.check += 1
 
@@ -582,6 +715,7 @@ def collide_enter(frame_time):
 
         for hero_prof in hero_group9:
             if collide(hero_prof, enemy_slime) == True:
+                gamesound.punch2()
                 enemy_slime.check += 1
                 hero_prof.check += 1
 
@@ -1331,6 +1465,7 @@ def button_click():
         if 49 < button_x < 170 and 80 < button_y < 210:
             hero_adell = Object_Hero.Hero_Adell(x = 100)
             gold = gold - 100
+            gamesound.hero1()
             if len(hero_group1) < 5:
                 hero_adell.draw()
                 hero_group1.append(hero_adell)
@@ -1338,59 +1473,69 @@ def button_click():
         if 179 < button_x < 310 and 85 < button_y < 210:
             hero_archer = Object_Hero.Hero_Archer(x = 100)
             gold = gold - 300
+            gamesound.hero2()
             if len(hero_group2) < 5:
                 hero_group2.append(hero_archer)
     if gold > 500:
         if 309 < button_x < 440 and 85 < button_y < 210:
             hero_asuka = Object_Hero.Hero_Asuka(x = 100)
             gold = gold - 500
+            gamesound.hero3()
             if len(hero_group3) < 5:
                 hero_group3.append(hero_asuka)
     if gold > 1000:
         if 439 < button_x < 560 and 85 < button_y < 210:
             hero_axel = Object_Hero.Hero_Axel(x = 100)
             gold = gold - 1000
+            gamesound.hero4()
             if len(hero_group4) < 5:
                 hero_group4.append(hero_axel)
     if gold > 1500:
         if 569 < button_x < 690 and 85 < button_y < 210:
             gold = gold - 1500
             hero_gunner = Object_Hero.Hero_Gunner(x = 100)
+            gamesound.hero5()
             if len(hero_group5) < 5:
                 hero_group5.append(hero_gunner)
     if gold > 2000:
         if 699 < button_x < 820 and 85 < button_y < 210:
             gold = gold - 2000
             hero_fenrich = Object_Hero.Hero_Fenrich(x = 100)
+            gamesound.hero6()
             if len(hero_group6) < 5:
                 hero_group6.append(hero_fenrich)
     if gold > 3000:
         if 829 < button_x < 950 and 85 < button_y < 210:
             gold = gold - 3000
             hero_ninja = Object_Hero.Hero_Ninja(x = 100)
+            gamesound.hero7()
             if len(hero_group7) < 4:
                 hero_group7.append(hero_ninja)
     if gold > 5000:
         if 959 < button_x < 1080 and 85 < button_y < 210:
             gold = gold - 5000
             hero_pram = Object_Hero.Hero_Pram(x = 100)
+            gamesound.hero8()
             if len(hero_group8) < 3:
                 hero_group8.append(hero_pram)
     if gold > 7000:
         if 1089 < button_x < 1209 and 85 < button_y < 210:
             gold = gold - 7000
             hero_prof = Object_Hero.Hero_Prof(x = 100)
+            gamesound.hero9()
             if len(hero_group9) < 2:
                 hero_group9.append(hero_prof)
     if star_bar.StarBar >= 25:
          if 1071 < button_x < 1150 and 5 < button_y < 78:
+             gamesound.goldup()
              star_bar.StarBar -= 25
              gold_manager += 0.1
     if meteor_limit > 0:
         if 100 < button_x < 700 and 300 < button_y < 768:
             magic_meteor = Object_Magic.Magic_Meteor(y = 800)
+            gamesound.meteor()
             meteor_limit -= 1
-            if len(magic_group1) < 5:
+            if len(magic_group1) < 6 + meteor_numb:
                  magic_meteor.x = button_x
                  magic_group1.append(magic_meteor)
                  if magic_meteor.y < 350:
@@ -1398,8 +1543,9 @@ def button_click():
     if tornado_limit > 0:
         if 831 < button_x < 910 and 5 < button_y < 78:
             magic_tornado = Object_Magic.Magic_Tornado()
+            gamesound.tornado()
             tornado_limit -= 1
-            if len(magic_group2) < 3:
+            if len(magic_group2) < 4 + tornado_numb:
                 magic_tornado.x = 100
                 magic_group2.append(magic_tornado)
                 if magic_tornado.x > 1400:
@@ -1407,7 +1553,8 @@ def button_click():
     if explosion_limit > 0:
         if 961 < button_x < 1040 and 5 < button_y < 78:
             explosion_limit -= 1
-            if len(magic_group3) < 1:
+            gamesound.bomb()
+            if len(magic_group3) < 2 + explosion_numb:
                 magic_group3.append(magic_explosion)
                 m_exp = True
                 m_exp_1 = True
@@ -1623,17 +1770,17 @@ def update(frame_time):
 
         if cool_time_1 > 3.0:
             cool_time_1 = 0.0
-            if meteor_limit < 6:
+            if meteor_limit < meteor_numb:
                 meteor_limit += 1
 
         if cool_time_2 > 8.0:
             cool_time_2 = 0.0
-            if tornado_limit < 4:
+            if tornado_limit < tornado_numb:
                 tornado_limit += 1
 
         if cool_time_3 > 15.0:
             cool_time_3 = 0.0
-            if explosion_limit < 2:
+            if explosion_limit < explosion_numb:
                 explosion_limit += 1
 
         star_bar.update()
@@ -1650,7 +1797,7 @@ def update(frame_time):
 
 def draw(frame_time):
     global gold, score, coll_chk, magic_meteor, magic_tornado, magic_explosion, m_load_time, random_stage
-    global meteor_limit, tornado_limit, explosion_limit, gold_manager
+    global meteor_limit, tornado_limit, explosion_limit, gold_manager, meteor_numb, tornado_numb, explosion_numb
     global button_x, button_y, hero_adell, hero_archer, hero_asuka, hero_axel, hero_fenrich, hero_gunner, hero_ninja, hero_pram, hero_prof
     global m_exp, m_exp_1, m_exp_2, m_exp_3, m_exp_4, m_exp_5, m_exp_6, m_exp_7, m_exp_8, m_exp_9, m_exp_10, m_exp_11, m_exp_12, m_exp_13, m_exp_14, m_exp_15, m_exp_16, m_exp_17, m_exp_18, m_exp_19
     clear_canvas()
@@ -2319,10 +2466,46 @@ def draw(frame_time):
         hero_pram.hp = 3500
 
     # magic_1
-    if Upgrade_Manager.UpgradeManager.hero_9_star_level == 1:
-        upgrade_manager.draw(1680, 75)
-        hero_pram.atk = 160
-        hero_pram.hp = 2200
+    if Upgrade_Manager.UpgradeManager.magic_1_star_level == 1:
+        upgrade_manager.draw(1290, -55)
+        meteor_numb = 7
+    if Upgrade_Manager.UpgradeManager.magic_1_star_level == 2:
+        upgrade_manager.draw(1290, -55)
+        upgrade_manager.draw(1315, -55)
+        meteor_numb = 8
+    if Upgrade_Manager.UpgradeManager.magic_1_star_level == 3:
+        upgrade_manager.draw(1290, -55)
+        upgrade_manager.draw(1315, -55)
+        upgrade_manager.draw(1340, -55)
+        meteor_numb = 9
+
+    # magic_2
+    if Upgrade_Manager.UpgradeManager.magic_2_star_level == 1:
+        upgrade_manager.draw(1420, -55)
+        tornado_numb = 5
+    if Upgrade_Manager.UpgradeManager.magic_2_star_level == 2:
+        upgrade_manager.draw(1420, -55)
+        upgrade_manager.draw(1445, -55)
+        tornado_numb = 6
+    if Upgrade_Manager.UpgradeManager.magic_2_star_level == 3:
+        upgrade_manager.draw(1420, -55)
+        upgrade_manager.draw(1445, -55)
+        upgrade_manager.draw(1470, -55)
+        tornado_numb = 7
+
+    # magic_3
+    if Upgrade_Manager.UpgradeManager.magic_3_star_level == 1:
+        upgrade_manager.draw(1550, -55)
+        explosion_numb = 3
+    if Upgrade_Manager.UpgradeManager.magic_3_star_level == 2:
+        upgrade_manager.draw(1550, -55)
+        upgrade_manager.draw(1575, -55)
+        explosion_numb = 4
+    if Upgrade_Manager.UpgradeManager.magic_3_star_level == 3:
+        upgrade_manager.draw(1550, -55)
+        upgrade_manager.draw(1575, -55)
+        upgrade_manager.draw(1600, -55)
+        explosion_numb = 5
 
     user_valva.draw()
     for magic_meteor in magic_group1:
@@ -2482,12 +2665,12 @@ def draw(frame_time):
         else:
             ui_gotown.draw(640,360)
 
-    ui_timer.draw(640, 690)
+    ui_timer.draw(635, 690)
     time_font.draw(640, 687, '%0.1f' % play_time)
     if user_castle.defeat == True or enemy_castle.defeat == True:
-        result_font.draw(730, 478, '%1.f' % ((result_score * play_time) / 50))
-        result_font.draw(730, 390, '%1.f' % play_time)
-        result_font.draw(730, 305, '%1.f' % (Menu_Scene.diamond + (result_score / 10)))
+        result_font.draw(730, 475, '%1.f' % ((result_score * play_time) / 50))
+        result_font.draw(730, 387, '%1.f' % play_time)
+        result_font.draw(730, 302, '%1.f' % (Menu_Scene.diamond + (play_time * 10.0)))
 
     update_canvas()
 
