@@ -1,0 +1,8 @@
+{
+   "Enemy_Slime": {"y":340, "atk":10, "hp":100},
+   "Enemy_Zombie": {"y":340, "atk":10, "hp":500},
+   "Enemy_Golem": {"y":340, "atk":20, "hp":1500},
+   "Enemy_Pringer": {"y":340, "atk":30, "hp":700},
+   "Enemy_Demon": {"y":340, "atk":100, "hp":5000},
+   "Enemy_Succubus": {"y":340, "atk":200, "hp":2000}
+}

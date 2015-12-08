@@ -56,9 +56,7 @@ def handle_events(frame_time):
         elif event.type == SDL_MOUSEMOTION:
             mx, my = event.x, 720 - event.y
         else:
-            if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
-                game_framework.quit()
-            elif (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT ):
+            if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT ):
                 print(mx, my)
                 if 470 < mx < 800 and 185 < my < 315:
                     title_bg.click()
@@ -74,8 +72,10 @@ def draw(frame_time):
     title_bg.draw()
 
     if 550 < mx < 750 and 110 < my < 320:
+        Title_start.opacify(0.5)
         Title_start_over.draw(640, 360)
     else:
+        Title_start.opacify(1)
         Title_start.draw(640, 360)
 
     update_canvas()

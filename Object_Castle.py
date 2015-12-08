@@ -26,7 +26,6 @@ class User_Castle:
 
     def update(self, frame_time):
         #print(self.user_hp)
-
         if self.user_hp == 0:
             self.defeat = True
 

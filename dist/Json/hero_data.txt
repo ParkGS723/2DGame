@@ -1,0 +1,11 @@
+{
+   "Hero_Adell": {"y":340, "atk":10, "hp":100},
+   "Hero_Archer": {"y":340, "atk":20, "hp":300},
+   "Hero_Asuka": {"y":340, "atk":35, "hp":500},
+   "Hero_Axel": {"y":340, "atk":10, "hp":1000},
+   "Hero_Fenrich": {"y":340, "atk":70, "hp":500},
+   "Hero_Gunner": {"y":340, "atk":10, "hp":2000},
+   "Hero_Ninja": {"y":340, "atk":80, "hp":1000},
+   "Hero_Pram": {"y":340, "atk":100, "hp":1500},
+   "Hero_Prof": {"y":340, "atk":150, "hp":2000}
+}

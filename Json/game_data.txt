@@ -1,0 +1,4 @@
+{
+   "Game_Gold": {"gold":30000},
+   "Game_Diamond": {"diamond":77777}
+}

@@ -18,6 +18,29 @@ from pico2d import *
 
 #Main
 
+
+button_x, button_y = 0, 0
+name = "MainScene"
+
+chk_time = 0.0
+load_time = 0.0
+play_time = 0.0
+m_load_time = 0.0
+cool_time_1 = 0.0
+cool_time_2 = 0.0
+cool_time_3 = 0.0
+
+gold_manager = 1.0
+gold = 0
+score = 0
+meteor_numb = 6
+tornado_numb = 4
+explosion_numb = 2
+result_score = 0
+meteor_limit = 0
+tornado_limit = 0
+explosion_limit = 0
+
 result_font = None
 time_font = None
 font = None
@@ -45,27 +68,6 @@ m_exp_17 = None
 m_exp_18 = None
 m_exp_19 = None
 
-button_x, button_y = 0, 0
-name = "MainScene"
-
-chk_time = 0.0
-load_time = 0.0
-play_time = 0.0
-m_load_time = 0.0
-cool_time_1 = 0.0
-cool_time_2 = 0.0
-cool_time_3 = 0.0
-
-gold_manager = 1.0
-gold = 0
-score = 0
-meteor_numb = 6
-tornado_numb = 4
-explosion_numb = 2
-result_score = 0
-meteor_limit = 0
-tornado_limit = 0
-explosion_limit = 0
 
 def enter():
     global hero_adell, hero_archer, hero_axel, hero_asuka, hero_fenrich, hero_gunner, hero_ninja, hero_pram, hero_prof
@@ -85,14 +87,19 @@ def enter():
     global upgrade_manager, hero_buy_manager, upgradestar, bgm, team_data, team_data_txt
     global ui_victory, ui_defeat, ui_restart, ui_restart_over, ui_gotown, ui_gotown_over, ui_gotown2, ui_gotown2_over, ui_collchk, ui_collchk_over
 
+    game_data_file = open('Json/game_data.txt','r')
+    game_data = json.load(game_data_file)
+    game_data_file.close()
+    gold = game_data['Game_Gold']['gold']
+
     bgm = load_music('Sound/game_bgm.mp3')
     bgm.set_volume(75)
     bgm.repeat_play()
-    gold = 30000
     score = 10000
     upgrade_manager = Upgrade_Manager.UpgradeStar_Main()
     random_stage = random.randint(1, 50)
     gamesound = GameSound()
+    gamesound.sound_check = True
     castle_group1 = []
     castle_group2 = []
 
@@ -212,9 +219,9 @@ def enter():
     stage5_background = Stage_Background.BackGround3()
 
     cloud = load_image('Map/cloud.png')
-    font = load_font('ENCR10B.TTF')
-    result_font = load_font('ENCR10B.TTF', 30)
-    time_font = load_font('ENCR10B.TTF', 30)
+    font = load_font('Font/ENCR10B.TTF')
+    result_font = load_font('Font/ENCR10B.TTF', 30)
+    time_font = load_font('Font/ENCR10B.TTF', 30)
     game_framework.reset_time()
 
 def exit():
@@ -250,8 +257,6 @@ class GameSound:
     bomb_sound = None
     goldup_sound = None
     meteor_sound = None
-    punch2_sound = None
-    slap_sound = None
     tornado_sound = None
     hero1_sound = None
     hero2_sound = None
@@ -264,19 +269,29 @@ class GameSound:
     hero9_sound = None
     victory_sound = None
     defeat_sound = None
-
+    enemy_pass_sound = None
+    hero_pass_sound = None
     def __init__(self):
+        self.sound_check = None
+        if GameSound.enemy_pass_sound == None:
+            GameSound.enemy_pass_sound = load_wav('Sound/enemy_pass.wav')
+            GameSound.enemy_pass_sound.set_volume(80)
+
+        if GameSound.hero_pass_sound == None:
+            GameSound.hero_pass_sound = load_wav('Sound/hero_pass.wav')
+            GameSound.hero_pass_sound.set_volume(80)
+
         if GameSound.victory_sound == None:
             GameSound.victory_sound = load_wav('Sound/Stage_Victory.wav')
-            GameSound.victory_sound.set_volume(80)
+            GameSound.victory_sound.set_volume(100)
 
         if GameSound.defeat_sound == None:
             GameSound.defeat_sound = load_wav('Sound/Stage_Defeat.wav')
-            GameSound.defeat_sound.set_volume(80)
+            GameSound.defeat_sound.set_volume(100)
 
         if GameSound.bomb_sound == None:
             GameSound.bomb_sound = load_wav('Sound/game_bomb.wav')
-            GameSound.bomb_sound.set_volume(100)
+            GameSound.bomb_sound.set_volume(64)
 
         if GameSound.goldup_sound == None:
             GameSound.goldup_sound = load_wav('Sound/game_goldup.wav')
@@ -286,53 +301,51 @@ class GameSound:
             GameSound.meteor_sound = load_wav('Sound/game_meteor.wav')
             GameSound.meteor_sound.set_volume(64)
 
-        if GameSound.punch2_sound == None:
-            GameSound.punch2_sound = load_wav('Sound/game_punch2.wav')
-            GameSound.punch2_sound.set_volume(5)
-
-        if GameSound.slap_sound == None:
-            GameSound.slap_sound = load_wav('Sound/game_slap.wav')
-            GameSound.slap_sound.set_volume(5)
-
         if GameSound.tornado_sound == None:
             GameSound.tornado_sound = load_wav('Sound/game_Tornado.wav')
             GameSound.tornado_sound.set_volume(64)
 
         if GameSound.hero1_sound == None:
             GameSound.hero1_sound = load_wav('Sound/game_hero1.wav')
-            GameSound.hero1_sound.set_volume(100)
+            GameSound.hero1_sound.set_volume(64)
 
         if GameSound.hero2_sound == None:
             GameSound.hero2_sound = load_wav('Sound/game_hero2.wav')
-            GameSound.hero2_sound.set_volume(100)
+            GameSound.hero2_sound.set_volume(64)
 
         if GameSound.hero3_sound == None:
             GameSound.hero3_sound = load_wav('Sound/game_hero3.wav')
-            GameSound.hero3_sound.set_volume(100)
+            GameSound.hero3_sound.set_volume(64)
 
         if GameSound.hero4_sound == None:
             GameSound.hero4_sound = load_wav('Sound/game_hero4.wav')
-            GameSound.hero4_sound.set_volume(100)
+            GameSound.hero4_sound.set_volume(64)
 
         if GameSound.hero5_sound == None:
             GameSound.hero5_sound = load_wav('Sound/game_hero5.wav')
-            GameSound.hero5_sound.set_volume(100)
+            GameSound.hero5_sound.set_volume(64)
 
         if GameSound.hero6_sound == None:
             GameSound.hero6_sound = load_wav('Sound/game_hero6.wav')
-            GameSound.hero6_sound.set_volume(100)
+            GameSound.hero6_sound.set_volume(64)
 
         if GameSound.hero7_sound == None:
             GameSound.hero7_sound = load_wav('Sound/game_hero7.wav')
-            GameSound.hero7_sound.set_volume(100)
+            GameSound.hero7_sound.set_volume(64)
 
         if GameSound.hero8_sound == None:
             GameSound.hero8_sound = load_wav('Sound/game_hero8.wav')
-            GameSound.hero8_sound.set_volume(100)
+            GameSound.hero8_sound.set_volume(64)
 
         if GameSound.hero9_sound == None:
             GameSound.hero9_sound = load_wav('Sound/game_hero9.wav')
-            GameSound.hero9_sound.set_volume(100)
+            GameSound.hero9_sound.set_volume(64)
+
+    def enemypass(self):
+        self.enemy_pass_sound.play()
+
+    def heropass(self):
+        self.hero_pass_sound.play()
 
     def bomb(self):
         self.bomb_sound.play()
@@ -342,12 +355,6 @@ class GameSound:
 
     def meteor(self):
         self.meteor_sound.play()
-
-    def punch2(self):
-        self.punch2_sound.play()
-
-    def slap(self):
-        self.slap_sound.play()
 
     def tornado(self):
         self.tornado_sound.play()
@@ -380,10 +387,13 @@ class GameSound:
         self.hero9_sound.play()
 
     def victory(self):
-        self.victory_sound.play()
+        if self.sound_check == True:
+            self.victory_sound.play()
+
 
     def defeat(self):
-        self.defeat_sound.play()
+        if self.sound_check == True:
+            self.defeat_sound.play()
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
@@ -505,36 +515,42 @@ def collide_enter(frame_time):
 
     for enemy_slime in enemy_group1:
         if collide(enemy_slime, user_castle) == True:
+            gamesound.enemypass()
             user_castle.user_hp -= 1
             user_castle.user_hpbar -= 1
             enemy_group1.remove(enemy_slime)
 
     for enemy_zombie in enemy_group2:
         if collide(enemy_zombie, user_castle) == True:
+            gamesound.enemypass()
             user_castle.user_hp -= 1
             user_castle.user_hpbar -= 1
             enemy_group2.remove(enemy_zombie)
 
     for enemy_golem in enemy_group3:
         if collide(enemy_golem, user_castle) == True:
+            gamesound.enemypass()
             user_castle.user_hp -= 1
             user_castle.user_hpbar -= 1
             enemy_group3.remove(enemy_golem)
 
     for enemy_pringer in enemy_group4:
         if collide(enemy_pringer, user_castle) == True:
+            gamesound.enemypass()
             user_castle.user_hp -= 1
             user_castle.user_hpbar -= 1
             enemy_group4.remove(enemy_pringer)
 
     for enemy_demon in enemy_group5:
         if collide(enemy_demon, user_castle) == True:
+            gamesound.enemypass()
             user_castle.user_hp -= 1
             user_castle.user_hpbar -= 1
             enemy_group5.remove(enemy_demon)
 
     for enemy_succubus in enemy_group6:
         if collide(enemy_succubus, user_castle) == True:
+            gamesound.enemypass()
             user_castle.user_hp -= 1
             user_castle.user_hpbar -= 1
             enemy_group6.remove(enemy_succubus)
@@ -542,6 +558,7 @@ def collide_enter(frame_time):
 
     for hero_adell in hero_group1:
         if collide(hero_adell, enemy_castle) == True:
+            gamesound.heropass()
             enemy_castle.enemy_hp -= 1
             enemy_castle.enemy_hpbar -= 1
             hero_group1.remove(hero_adell)
@@ -549,48 +566,56 @@ def collide_enter(frame_time):
 
     for hero_archer in hero_group2:
         if collide(hero_archer, enemy_castle) == True:
+            gamesound.heropass()
             enemy_castle.enemy_hp -= 1
             enemy_castle.enemy_hpbar -= 1
             hero_group2.remove(hero_archer)
 
     for hero_asuka in hero_group3:
         if collide(hero_asuka, enemy_castle) == True:
+            gamesound.heropass()
             enemy_castle.enemy_hp -= 1
             enemy_castle.enemy_hpbar -= 1
             hero_group3.remove(hero_asuka)
 
     for hero_axel in hero_group4:
         if collide(hero_axel, enemy_castle) == True:
+            gamesound.heropass()
             enemy_castle.enemy_hp -= 1
             enemy_castle.enemy_hpbar -= 1
             hero_group4.remove(hero_axel)
 
     for hero_gunner in hero_group5:
         if collide(hero_gunner, enemy_castle) == True:
+            gamesound.heropass()
             enemy_castle.enemy_hp -= 1
             enemy_castle.enemy_hpbar -= 1
             hero_group5.remove(hero_gunner)
 
     for hero_fenrich in hero_group6:
         if collide(hero_fenrich, enemy_castle) == True:
+            gamesound.heropass()
             enemy_castle.enemy_hp -= 1
             enemy_castle.enemy_hpbar -= 1
             hero_group6.remove(hero_fenrich)
 
     for hero_ninja in hero_group7:
         if collide(hero_ninja, enemy_castle) == True:
+            gamesound.heropass()
             enemy_castle.enemy_hp -= 1
             enemy_castle.enemy_hpbar -= 1
             hero_group7.remove(hero_ninja)
 
     for hero_pram in hero_group8:
         if collide(hero_pram, enemy_castle) == True:
+            gamesound.heropass()
             enemy_castle.enemy_hp -= 1
             enemy_castle.enemy_hpbar -= 1
             hero_group8.remove(hero_pram)
 
     for hero_prof in hero_group9:
         if collide(hero_prof, enemy_castle) == True:
+            gamesound.heropass()
             enemy_castle.enemy_hp -= 1
             enemy_castle.enemy_hpbar -= 1
             hero_group9.remove(hero_prof)
@@ -598,7 +623,6 @@ def collide_enter(frame_time):
     for enemy_slime in enemy_group1:
         for hero_adell in hero_group1:
             if collide(hero_adell, enemy_slime) == True:
-                gamesound.punch2()
                 enemy_slime.check = 1
                 hero_adell.check = 1
                 if hero_adell.die(enemy_slime, frame_time) == True:
@@ -614,7 +638,6 @@ def collide_enter(frame_time):
 
         for hero_archer in hero_group2:
             if collide(hero_archer, enemy_slime) == True:
-                gamesound.punch2()
                 enemy_slime.check += 1
                 hero_archer.check += 1
 
@@ -631,7 +654,6 @@ def collide_enter(frame_time):
 
         for hero_asuka in hero_group3:
             if collide(hero_asuka, enemy_slime) == True:
-                gamesound.punch2()
                 enemy_slime.check += 1
                 hero_asuka.check += 1
 
@@ -648,7 +670,6 @@ def collide_enter(frame_time):
 
         for hero_axel in hero_group4:
             if collide(hero_axel, enemy_slime) == True:
-                gamesound.punch2()
                 enemy_slime.check += 1
                 hero_axel.check += 1
 
@@ -665,7 +686,6 @@ def collide_enter(frame_time):
 
         for hero_gunner in hero_group5:
             if collide(hero_gunner, enemy_slime) == True:
-                gamesound.punch2()
                 enemy_slime.check += 1
                 hero_gunner.check += 1
 
@@ -682,7 +702,6 @@ def collide_enter(frame_time):
 
         for hero_fenrich in hero_group6:
             if collide(hero_fenrich, enemy_slime) == True:
-                gamesound.punch2()
                 enemy_slime.check += 1
                 hero_fenrich.check += 1
 
@@ -699,7 +718,6 @@ def collide_enter(frame_time):
 
         for hero_ninja in hero_group7:
             if collide(hero_ninja, enemy_slime) == True:
-                gamesound.punch2()
                 enemy_slime.check += 1
                 hero_ninja.check += 1
 
@@ -716,7 +734,6 @@ def collide_enter(frame_time):
 
         for hero_pram in hero_group8:
             if collide(hero_pram, enemy_slime) == True:
-                gamesound.punch2()
                 enemy_slime.check += 1
                 hero_pram.check += 1
 
@@ -733,7 +750,6 @@ def collide_enter(frame_time):
 
         for hero_prof in hero_group9:
             if collide(hero_prof, enemy_slime) == True:
-                gamesound.punch2()
                 enemy_slime.check += 1
                 hero_prof.check += 1
 
@@ -751,7 +767,6 @@ def collide_enter(frame_time):
     for enemy_zombie in enemy_group2:
         for hero_adell in hero_group1:
             if collide(hero_adell, enemy_zombie) == True:
-                gamesound.punch2()
                 enemy_zombie.check += 1
                 hero_adell.check += 1
 
@@ -768,7 +783,6 @@ def collide_enter(frame_time):
 
         for hero_archer in hero_group2:
             if collide(hero_archer, enemy_zombie) == True:
-                gamesound.punch2()
                 enemy_zombie.check += 1
                 hero_archer.check += 1
 
@@ -785,7 +799,6 @@ def collide_enter(frame_time):
 
         for hero_asuka in hero_group3:
             if collide(hero_asuka, enemy_zombie) == True:
-                gamesound.punch2()
                 enemy_zombie.check += 1
                 hero_asuka.check += 1
 
@@ -802,7 +815,6 @@ def collide_enter(frame_time):
 
         for hero_axel in hero_group4:
             if collide(hero_axel, enemy_zombie) == True:
-                gamesound.punch2()
                 enemy_zombie.check += 1
                 hero_axel.check += 1
 
@@ -819,7 +831,6 @@ def collide_enter(frame_time):
 
         for hero_gunner in hero_group5:
             if collide(hero_gunner, enemy_zombie) == True:
-                gamesound.punch2()
                 enemy_zombie.check += 1
                 hero_gunner.check += 1
 
@@ -836,7 +847,6 @@ def collide_enter(frame_time):
 
         for hero_fenrich in hero_group6:
             if collide(hero_fenrich, enemy_zombie) == True:
-                gamesound.punch2()
                 enemy_zombie.check += 1
                 hero_fenrich.check += 1
 
@@ -853,7 +863,6 @@ def collide_enter(frame_time):
 
         for hero_ninja in hero_group7:
             if collide(hero_ninja, enemy_zombie) == True:
-                gamesound.punch2()
                 enemy_zombie.check += 1
                 hero_ninja.check += 1
 
@@ -870,7 +879,6 @@ def collide_enter(frame_time):
 
         for hero_pram in hero_group8:
             if collide(hero_pram, enemy_zombie) == True:
-                gamesound.punch2()
                 enemy_zombie.check += 1
                 hero_pram.check += 1
 
@@ -887,7 +895,6 @@ def collide_enter(frame_time):
 
         for hero_prof in hero_group9:
             if collide(hero_prof, enemy_zombie) == True:
-                gamesound.punch2()
                 enemy_zombie.check += 1
                 hero_prof.check += 1
 
@@ -905,7 +912,6 @@ def collide_enter(frame_time):
     for enemy_golem in enemy_group3:
         for hero_adell in hero_group1:
             if collide(hero_adell, enemy_golem) == True:
-                gamesound.punch2()
                 enemy_golem.check += 1
                 hero_adell.check += 1
 
@@ -923,7 +929,6 @@ def collide_enter(frame_time):
 
         for hero_archer in hero_group2:
             if collide(hero_archer, enemy_golem) == True:
-                gamesound.punch2()
                 enemy_golem.check += 1
                 hero_archer.check += 1
 
@@ -940,7 +945,6 @@ def collide_enter(frame_time):
 
         for hero_asuka in hero_group3:
             if collide(hero_asuka, enemy_golem) == True:
-                gamesound.punch2()
                 enemy_golem.check += 1
                 hero_asuka.check += 1
 
@@ -957,7 +961,6 @@ def collide_enter(frame_time):
 
         for hero_axel in hero_group4:
             if collide(hero_axel, enemy_golem) == True:
-                gamesound.punch2()
                 enemy_golem.check += 1
                 hero_axel.check += 1
 
@@ -974,7 +977,6 @@ def collide_enter(frame_time):
 
         for hero_gunner in hero_group5:
             if collide(hero_gunner, enemy_golem) == True:
-                gamesound.punch2()
                 enemy_golem.check += 1
                 hero_gunner.check += 1
 
@@ -991,7 +993,6 @@ def collide_enter(frame_time):
 
         for hero_fenrich in hero_group6:
             if collide(hero_fenrich, enemy_golem) == True:
-                gamesound.punch2()
                 enemy_golem.check += 1
                 hero_fenrich.check += 1
 
@@ -1008,7 +1009,6 @@ def collide_enter(frame_time):
 
         for hero_ninja in hero_group7:
             if collide(hero_ninja, enemy_golem) == True:
-                gamesound.punch2()
                 enemy_golem.check += 1
                 hero_ninja.check += 1
 
@@ -1025,7 +1025,6 @@ def collide_enter(frame_time):
 
         for hero_pram in hero_group8:
             if collide(hero_pram, enemy_golem) == True:
-                gamesound.punch2()
                 enemy_golem.check += 1
                 hero_pram.check += 1
 
@@ -1042,7 +1041,6 @@ def collide_enter(frame_time):
 
         for hero_prof in hero_group9:
             if collide(hero_prof, enemy_golem) == True:
-                gamesound.punch2()
                 enemy_golem.check += 1
                 hero_prof.check += 1
 
@@ -1060,7 +1058,6 @@ def collide_enter(frame_time):
     for enemy_pringer in enemy_group4:
         for hero_adell in hero_group1:
             if collide(hero_adell, enemy_pringer) == True:
-                gamesound.punch2()
                 enemy_pringer.check += 1
                 hero_adell.check += 1
 
@@ -1078,7 +1075,6 @@ def collide_enter(frame_time):
 
         for hero_archer in hero_group2:
             if collide(hero_archer, enemy_pringer) == True:
-                gamesound.punch2()
                 enemy_pringer.check += 1
                 hero_archer.check += 1
 
@@ -1095,7 +1091,6 @@ def collide_enter(frame_time):
 
         for hero_asuka in hero_group3:
             if collide(hero_asuka, enemy_pringer) == True:
-                gamesound.punch2()
                 enemy_pringer.check += 1
                 hero_asuka.check += 1
 
@@ -1112,7 +1107,6 @@ def collide_enter(frame_time):
 
         for hero_axel in hero_group4:
             if collide(hero_axel, enemy_pringer) == True:
-                gamesound.punch2()
                 enemy_pringer.check += 1
                 hero_axel.check += 1
 
@@ -1129,7 +1123,6 @@ def collide_enter(frame_time):
 
         for hero_gunner in hero_group5:
             if collide(hero_gunner, enemy_pringer) == True:
-                gamesound.punch2()
                 enemy_pringer.check += 1
                 hero_gunner.check += 1
 
@@ -1146,7 +1139,6 @@ def collide_enter(frame_time):
 
         for hero_fenrich in hero_group6:
             if collide(hero_fenrich, enemy_pringer) == True:
-                gamesound.punch2()
                 enemy_pringer.check += 1
                 hero_fenrich.check += 1
 
@@ -1163,7 +1155,6 @@ def collide_enter(frame_time):
 
         for hero_ninja in hero_group7:
             if collide(hero_ninja, enemy_pringer) == True:
-                gamesound.punch2()
                 enemy_pringer.check += 1
                 hero_ninja.check += 1
 
@@ -1180,7 +1171,6 @@ def collide_enter(frame_time):
 
         for hero_pram in hero_group8:
             if collide(hero_pram, enemy_pringer) == True:
-                gamesound.punch2()
                 enemy_pringer.check += 1
                 hero_pram.check += 1
 
@@ -1197,7 +1187,6 @@ def collide_enter(frame_time):
 
         for hero_prof in hero_group9:
             if collide(hero_prof, enemy_pringer) == True:
-                gamesound.punch2()
                 enemy_pringer.check += 1
                 hero_prof.check += 1
 
@@ -1215,7 +1204,6 @@ def collide_enter(frame_time):
     for enemy_demon in enemy_group5:
         for hero_adell in hero_group1:
             if collide(hero_adell, enemy_demon) == True:
-                gamesound.punch2()
                 enemy_demon.check += 1
                 hero_adell.check += 1
 
@@ -1232,7 +1220,6 @@ def collide_enter(frame_time):
 
         for hero_archer in hero_group2:
             if collide(hero_archer, enemy_demon) == True:
-                gamesound.punch2()
                 enemy_demon.check += 1
                 hero_archer.check += 1
 
@@ -1249,7 +1236,6 @@ def collide_enter(frame_time):
 
         for hero_asuka in hero_group3:
             if collide(hero_asuka, enemy_demon) == True:
-                gamesound.punch2()
                 enemy_demon.check += 1
                 hero_asuka.check += 1
 
@@ -1266,7 +1252,6 @@ def collide_enter(frame_time):
 
         for hero_axel in hero_group4:
             if collide(hero_axel, enemy_demon) == True:
-                gamesound.punch2()
                 enemy_demon.check += 1
                 hero_axel.check += 1
 
@@ -1283,7 +1268,6 @@ def collide_enter(frame_time):
 
         for hero_gunner in hero_group5:
             if collide(hero_gunner, enemy_demon) == True:
-                gamesound.punch2()
                 enemy_demon.check += 1
                 hero_gunner.check += 1
 
@@ -1300,7 +1284,6 @@ def collide_enter(frame_time):
 
         for hero_fenrich in hero_group6:
             if collide(hero_fenrich, enemy_demon) == True:
-                gamesound.punch2()
                 enemy_demon.check += 1
                 hero_fenrich.check += 1
 
@@ -1317,7 +1300,6 @@ def collide_enter(frame_time):
 
         for hero_ninja in hero_group7:
             if collide(hero_ninja, enemy_demon) == True:
-                gamesound.punch2()
                 enemy_demon.check += 1
                 hero_ninja.check += 1
 
@@ -1334,7 +1316,6 @@ def collide_enter(frame_time):
 
         for hero_pram in hero_group8:
             if collide(hero_pram, enemy_demon) == True:
-                gamesound.punch2()
                 enemy_demon.check += 1
                 hero_pram.check += 1
 
@@ -1351,7 +1332,6 @@ def collide_enter(frame_time):
 
         for hero_prof in hero_group9:
             if collide(hero_prof, enemy_demon) == True:
-                gamesound.punch2()
                 enemy_demon.check += 1
                 hero_prof.check += 1
 
@@ -1369,7 +1349,6 @@ def collide_enter(frame_time):
     for enemy_succubus in enemy_group6:
         for hero_adell in hero_group1:
             if collide(hero_adell, enemy_succubus) == True:
-                gamesound.punch2()
                 enemy_succubus.check += 1
                 hero_adell.check += 1
 
@@ -1386,7 +1365,6 @@ def collide_enter(frame_time):
 
         for hero_archer in hero_group2:
             if collide(hero_archer, enemy_succubus) == True:
-                gamesound.punch2()
                 enemy_succubus.check += 1
                 hero_archer.check += 1
 
@@ -1403,7 +1381,6 @@ def collide_enter(frame_time):
 
         for hero_asuka in hero_group3:
             if collide(hero_asuka, enemy_succubus) == True:
-                gamesound.punch2()
                 enemy_succubus.check += 1
                 hero_asuka.check += 1
 
@@ -1420,7 +1397,6 @@ def collide_enter(frame_time):
 
         for hero_axel in hero_group4:
             if collide(hero_axel, enemy_succubus) == True:
-                gamesound.punch2()
                 enemy_succubus.check += 1
                 hero_axel.check += 1
 
@@ -1437,7 +1413,6 @@ def collide_enter(frame_time):
 
         for hero_gunner in hero_group5:
             if collide(hero_gunner, enemy_succubus) == True:
-                gamesound.punch2()
                 enemy_succubus.check += 1
                 hero_gunner.check += 1
 
@@ -1454,7 +1429,6 @@ def collide_enter(frame_time):
 
         for hero_fenrich in hero_group6:
             if collide(hero_fenrich, enemy_succubus) == True:
-                gamesound.punch2()
                 enemy_succubus.check += 1
                 hero_fenrich.check += 1
 
@@ -1471,7 +1445,6 @@ def collide_enter(frame_time):
 
         for hero_ninja in hero_group7:
             if collide(hero_ninja, enemy_succubus) == True:
-                gamesound.punch2()
                 enemy_succubus.check += 1
                 hero_ninja.check += 1
 
@@ -1488,7 +1461,6 @@ def collide_enter(frame_time):
 
         for hero_pram in hero_group8:
             if collide(hero_pram, enemy_succubus) == True:
-                gamesound.punch2()
                 enemy_succubus.check += 1
                 hero_pram.check += 1
 
@@ -1505,7 +1477,6 @@ def collide_enter(frame_time):
 
         for hero_prof in hero_group9:
             if collide(hero_prof, enemy_succubus) == True:
-                gamesound.punch2()
                 enemy_succubus.check += 1
                 hero_prof.check += 1
 
@@ -1560,7 +1531,7 @@ def button_click():
             gamesound.hero5()
             if len(hero_group5) < 5:
                 hero_group5.append(hero_gunner)
-    if Menu_Scene.hero6_buy == True:
+    if Menu_Scene.hero6_sell == True:
         if gold > 2000:
             if 699 < button_x < 820 and 85 < button_y < 210:
                 gold = gold - 2000
@@ -1568,7 +1539,7 @@ def button_click():
                 gamesound.hero6()
                 if len(hero_group6) < 5:
                     hero_group6.append(hero_fenrich)
-    if Menu_Scene.hero7_buy == True:
+    if Menu_Scene.hero7_sell == True:
         if gold > 3000:
             if 829 < button_x < 950 and 85 < button_y < 210:
                 gold = gold - 3000
@@ -1576,7 +1547,7 @@ def button_click():
                 gamesound.hero7()
                 if len(hero_group7) < 4:
                     hero_group7.append(hero_ninja)
-    if Menu_Scene.hero8_buy == True:
+    if Menu_Scene.hero8_sell == True:
         if gold > 5000:
             if 959 < button_x < 1080 and 85 < button_y < 210:
                 gold = gold - 5000
@@ -1584,7 +1555,7 @@ def button_click():
                 gamesound.hero8()
                 if len(hero_group8) < 3:
                     hero_group8.append(hero_pram)
-    if Menu_Scene.hero9_buy == True:
+    if Menu_Scene.hero9_sell == True:
         if gold > 7000:
             if 1089 < button_x < 1209 and 85 < button_y < 210:
                 gold = gold - 7000
@@ -1778,8 +1749,6 @@ def handle_events(frame_time):
             game_framework.quit()
         elif event.type == SDL_MOUSEMOTION:
             button_x, button_y = event.x, 720 - event.y
-        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
-            game_framework.change_state(Title_Scene)
         elif (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
             print(button_x, button_y)
             button_click()
@@ -2715,6 +2684,7 @@ def draw(frame_time):
 
     if user_castle.defeat == True:
         gamesound.defeat()
+        gamesound.sound_check = False
         ui_defeat.draw(640,360)
         if 579 < button_x < 623 and 199 < button_y < 245:
             ui_restart_over.draw(640,360)
@@ -2727,6 +2697,7 @@ def draw(frame_time):
 
     if enemy_castle.defeat == True:
         gamesound.victory()
+        gamesound.sound_check = False
         ui_victory.draw(640,360)
         if 728 < button_x < 775 and 199 < button_y < 245:
             ui_gotown_over.draw(640,360)

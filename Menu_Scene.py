@@ -9,7 +9,6 @@ level_normal = None
 level_easy = None
 setting_draw = None
 button_x, button_y = 0, 0
-diamond = 0
 name = "MenuScene"
 Title_bkg = None
 herobar = None
@@ -27,16 +26,6 @@ hero7_sell = None
 hero8_sell = None
 hero9_sell = None
 
-hero1_buy = None
-hero2_buy = None
-hero3_buy = None
-hero4_buy = None
-hero5_buy = None
-hero6_buy = None
-hero7_buy = None
-hero8_buy = None
-hero9_buy = None
-
 magic_upgrade = None
 hero_upgrade = None
 up_ask = None
@@ -53,18 +42,33 @@ hero_star_9 = None
 magic_star_1 = None
 magic_star_2 = None
 magic_star_3 = None
-hero1_up = 0
-hero2_up = 0
-hero3_up = 0
-hero4_up = 0
-hero5_up = 0
-hero6_up = 0
-hero7_up = 0
-hero8_up = 0
-hero9_up = 0
-magic1_up = 0
-magic2_up = 0
-magic3_up = 0
+
+
+upgrade_data_file = open('Json/upgrade_data.txt','r')
+upgrade_data = json.load(upgrade_data_file)
+upgrade_data_file.close()
+hero1_up = upgrade_data['Upgrade_Hero_1']['level']
+hero2_up = upgrade_data['Upgrade_Hero_2']['level']
+hero3_up = upgrade_data['Upgrade_Hero_3']['level']
+hero4_up = upgrade_data['Upgrade_Hero_4']['level']
+hero5_up = upgrade_data['Upgrade_Hero_5']['level']
+hero6_up = upgrade_data['Upgrade_Hero_6']['level']
+hero7_up = upgrade_data['Upgrade_Hero_7']['level']
+hero8_up = upgrade_data['Upgrade_Hero_8']['level']
+hero9_up = upgrade_data['Upgrade_Hero_9']['level']
+magic1_up = upgrade_data['Upgrade_Magic_1']['level']
+magic2_up = upgrade_data['Upgrade_Magic_2']['level']
+magic3_up = upgrade_data['Upgrade_Magic_3']['level']
+
+game_data_file = open('Json/game_data.txt','r')
+game_data = json.load(game_data_file)
+game_data_file.close()
+diamond = game_data['Game_Diamond']['diamond']
+
+hero6_buy = None
+hero7_buy = None
+hero8_buy = None
+hero9_buy = None
 
 class MenuBackGround:
     def __init__(self):
@@ -136,14 +140,28 @@ def enter():
     global store_main, store_upgrade_1, store_upgrade_2, store_hero1, store_hero1_over, store_hero1_sell, store_hero2, store_hero2_over, store_hero2_sell, store_hero3, store_hero3_over, store_hero3_sell
     global store_hero4, store_hero4_over, store_hero4_sell, store_hero5, store_hero5_over, store_hero5_sell, store_hero6, store_hero6_over, store_hero6_sell, store_hero7, store_hero7_over, store_hero7_sell
     global store_hero8, store_hero8_over, store_hero8_sell, store_hero9, store_hero9_over, store_hero9_sell, store_user_magic_1, store_user_magic_1_over, store_user_magic_2, store_user_magic_2_over, store_user_magic_3, store_user_magic_3_over
-    global hero_up_ask, magic_up_ask, upgradestar, star_group, diamond, font, bgm
+    global hero_up_ask, magic_up_ask, upgradestar, star_group, diamond, font, bgm, game_exit
+
 
     upgradestar = Upgrade_Manager.UpgradeStar()
-    diamond = 7777777
-    font = load_font('ENCR10B.TTF')
+    # Json Data Init
+    Upgrade_Manager.UpgradeManager.magic_1_star_level = magic1_up
+    Upgrade_Manager.UpgradeManager.magic_2_star_level = magic2_up
+    Upgrade_Manager.UpgradeManager.magic_3_star_level = magic3_up
+    Upgrade_Manager.UpgradeManager.hero_1_star_level = hero1_up
+    Upgrade_Manager.UpgradeManager.hero_2_star_level = hero2_up
+    Upgrade_Manager.UpgradeManager.hero_3_star_level = hero3_up
+    Upgrade_Manager.UpgradeManager.hero_4_star_level = hero4_up
+    Upgrade_Manager.UpgradeManager.hero_5_star_level = hero5_up
+    Upgrade_Manager.UpgradeManager.hero_6_star_level = hero6_up
+    Upgrade_Manager.UpgradeManager.hero_7_star_level = hero7_up
+    Upgrade_Manager.UpgradeManager.hero_8_star_level = hero8_up
+    Upgrade_Manager.UpgradeManager.hero_9_star_level = hero9_up
+
+
+
+    font = load_font('Font/ENCR10B.TTF')
     star_group = []
-
-
     MainMenu_bg = MenuBackGround()
     clicksound = MenuSound()
     Menu_1 = load_image('UI/Menu_1.png')
@@ -154,6 +172,8 @@ def enter():
     Menu_3_over = load_image('UI/Menu_3(over).png')
     Search = load_image('UI/Search.png')
     Search_over = load_image('UI/Search(over).png')
+
+    game_exit = load_image('UI/game_exit.png')
 
     Menu_buy_yes = load_image('UI/Buy_yes.png')
     Menu_buy_yes_over = load_image('UI/Buy_yes(over).png')
@@ -216,7 +236,7 @@ def handle_events(frame_time):
     global button_x, button_y, level_easy, level_normal, level_hard, setting_draw, clicksound, herobar, buy_ask, up_ask, up_ask2
     global hero1_sell, hero2_sell, hero3_sell, hero4_sell, hero5_sell, hero6_sell, hero7_sell, hero8_sell, hero9_sell
     global buy_yes, buy_no, hero_upgrade, magic_upgrade, diamond, magic_star_1, magic_star_2, magic_star_3, magic1_up, magic2_up, magic3_up
-    global hero1_buy, hero2_buy, hero3_buy, hero4_buy, hero5_buy, hero6_buy, hero7_buy, hero8_buy, hero9_buy
+    global hero6_buy, hero7_buy, hero8_buy, hero9_buy
     global hero1_up, hero2_up, hero3_up, hero4_up, hero5_up, hero6_up, hero7_up, hero8_up, hero9_up
     global hero_star_1, hero_star_2, hero_star_3, hero_star_4,hero_star_5, hero_star_6, hero_star_7, hero_star_8, hero_star_9
     for event in events:
@@ -225,10 +245,10 @@ def handle_events(frame_time):
         elif event.type == SDL_MOUSEMOTION:
             button_x, button_y = event.x, 720 - event.y
         else:
-            if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
-                game_framework.quit()
-            elif (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT ):
-                print(button_x, button_y)
+            if (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT ):
+                #print(button_x, button_y)
+                if 1213 < button_x < 1266 and 653 < button_y < 705:
+                    game_framework.quit()
                 if 135 < button_x < 566 and 575 < button_y < 670: #전투영웅
                     clicksound.click()
                     hero_upgrade = True
@@ -529,9 +549,11 @@ def handle_events(frame_time):
                                 hero6_sell = True
                                 diamond -= 2000
                                 Upgrade_Manager.HeroBuyManager.sell_6 = 2
+                                hero6_buy = False
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             buy_ask = False
+                            hero6_buy = False
 
                     if 535 < button_x < 622 and 280 < button_y < 365:
                         clicksound.click()
@@ -545,9 +567,11 @@ def handle_events(frame_time):
                                 hero7_sell = True
                                 diamond -= 3000
                                 Upgrade_Manager.HeroBuyManager.sell_7 = 2
+                                hero7_buy = False
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             buy_ask = False
+                            hero7_buy = False
 
                     if 642 < button_x < 724 and 280 < button_y < 365:
                         clicksound.click()
@@ -561,9 +585,11 @@ def handle_events(frame_time):
                                 hero8_sell = True
                                 diamond -= 5000
                                 Upgrade_Manager.HeroBuyManager.sell_8 = 2
+                                hero8_buy = False
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             buy_ask = False
+                            hero8_buy = False
 
                     if 747 < button_x < 835 and 280 < button_y < 365:
                         clicksound.click()
@@ -577,10 +603,11 @@ def handle_events(frame_time):
                                 diamond -= 7000
                                 hero9_sell = True
                                 Upgrade_Manager.HeroBuyManager.sell_9 = 2
+                                hero9_buy = False
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             buy_ask = False
-
+                            hero9_buy = False
                 if 458 < button_x < 820 and 40 < button_y < 193:
                     clicksound.search2()
                     setting_draw = True
@@ -1137,6 +1164,13 @@ def draw(frame_time):
             Menu_buy_no_over.draw(640,460)
         else:
             Menu_buy_no.draw(640,460)
+
+    if 1213 < button_x < 1266 and 653 < button_y < 705:
+        game_exit.opacify(0.5)
+        game_exit.draw(1240, 680)
+    else:
+        game_exit.opacify(1)
+        game_exit.draw(1240, 680)
 
     update_canvas()
 

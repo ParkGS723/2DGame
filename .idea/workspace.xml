@@ -2,29 +2,250 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="08290a05-00ac-4212-aaed-c3aec9b4f19c" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\Administrator\Documents\GitHub\2DGame\.idea\2D 박건수.iml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Administrator\Documents\GitHub\2DGame\Sound\Stage_Defeat.mp3" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Administrator\Documents\GitHub\2DGame\Sound\Stage_Victory.mp3" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Administrator\Documents\GitHub\2DGame\Sound\StartClick.wav" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Administrator\Documents\GitHub\2DGame\Sound\menu_SearchSound.mp3" afterPath="" />
-      <change type="MOVED" beforePath="C:\Users\Administrator\Documents\GitHub\2DGame\Sound\game_hero8.wav" afterPath="$PROJECT_DIR$/Sound/game_Hero8.wav" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Map/MyCastle.PNG" afterPath="$PROJECT_DIR$/Map/MyCastle.PNG" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sound/game_bgm.mp3" afterPath="$PROJECT_DIR$/Sound/game_bgm.mp3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sound/game_hero1.wav" afterPath="$PROJECT_DIR$/Sound/game_hero1.wav" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sound/game_hero2.wav" afterPath="$PROJECT_DIR$/Sound/game_hero2.wav" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sound/game_hero3.wav" afterPath="$PROJECT_DIR$/Sound/game_hero3.wav" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sound/game_hero4.wav" afterPath="$PROJECT_DIR$/Sound/game_hero4.wav" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sound/game_hero5.wav" afterPath="$PROJECT_DIR$/Sound/game_hero5.wav" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sound/game_hero6.wav" afterPath="$PROJECT_DIR$/Sound/game_hero6.wav" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sound/game_hero7.wav" afterPath="$PROJECT_DIR$/Sound/game_hero7.wav" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sound/game_hero9.wav" afterPath="$PROJECT_DIR$/Sound/game_hero9.wav" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="$PROJECT_DIR$/.idea/.name" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Hero/Adell_Sheet.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Hero/Archer_sheet.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Hero/Asuka_Sheet.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Hero/Axel_Sheet.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Buy_No.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Buy_Yes(over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Buy_Yes.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Buy_no(over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Monster/Demon_Sheet.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Font/ENCR10B.TTF" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Effect_Die.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Map/EnemyCastle.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Hero/Fenrich_Sheet.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/GameStart(Over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/GameStart.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/GameTitle.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/GameUI.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/GameUI_Hard_Set.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/GameUI_easy.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/GameUI_easy_set.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/GameUI_hard.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/GameUI_medium.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/GameUI_medium_set.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Hero/Gunner_Sheet.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Hero_Buy.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/Hero_buy.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/Level_Click.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Logo/Logo_kpu_credit.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Logo/Logo_kpu_credit_White.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Explosion_1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Explosion_10.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Explosion_11.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Explosion_12.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Explosion_13.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Explosion_14.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Explosion_15.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Explosion_16.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Explosion_17.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Explosion_18.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Explosion_19.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Explosion_2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Explosion_3.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Explosion_4.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Explosion_5.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Explosion_6.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Explosion_7.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Explosion_8.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Explosion_9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Meteor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Magic/Magic_Tornado.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/MainMenu.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Menu_0(over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Menu_0.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Menu_1(over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Menu_1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Menu_2(over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Menu_2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Menu_3(over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Menu_3.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Map/MyCastle.PNG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Hero/Ninja_Sheet.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Play(over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Play.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Hero/Pram_Sheet.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Monster/Pringer_Sheet.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Hero/Professor_Sheet.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/SDL2.dll" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/SDL2_image.dll" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/SDL2_mixer.dll" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/SDL2_ttf.dll" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Search(over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Search.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Monster/Slime_Sheet.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Somebody's Gate.exe" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Map/Stage2_bkg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Map/Stage3_bkg.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Map/Stage3_bkg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Map/Stage4_bkg.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Map/Stage4_bkg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Map/Stage5_bkg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/Stage_Defeat.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/Stage_Victory.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Map/Stage_bkg.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Map/Stage_bkg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/Start_Click.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero1_over.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero1_sell.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero2_over.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero2_sell.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero3.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero3_over.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero3_sell.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero4.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero4_over.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero4_sell.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero5.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero5_over.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero5_sell.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero6.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero6_over.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero6_sell.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero7.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero7_over.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero7_sell.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero8.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero8_over.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero8_sell.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero9_over.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Hero9_sell.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_Main.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_exit(over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_exit.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_upgrade1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_upgrade2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_user_magic_1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_user_magic_1_over.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_user_magic_2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_user_magic_2_over.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_user_magic_3.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Store_user_magic_3_over.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Monster/Succubus_Sheet.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Title_Play(over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Title_Play.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Adell(Over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Adell.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Archer(Over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Archer.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Asuka(Over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Asuka.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Axel(Over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Axel.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Explosion(Over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Explosion.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Fenrich(Over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Fenrich.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Goldup(Over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Goldup.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Gunner(Over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Gunner.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_HPBar.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_HPBar_Red.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Meteor(Over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Meteor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Ninja(Over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Ninja.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Pram(Over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Pram.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Prof(Over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Prof.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_ReStart.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_ScoreBar.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_ScoreBar_Blue.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Time.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Tornado(Over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Tornado.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_Victory.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_collchk(over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_collchk.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_defeat.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_gotown(over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_gotown.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_gotown2(over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_gotown2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/UI_restart(over).png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Upgrade_Hero1_1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Upgrade_Star.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/Upgrade_Star_Main.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Hero/User_Magician.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Hero/Valvatorez_Sheet.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Hero/Warrior_Sheet.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Monster/WoodGolem_Sheet.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Monster/Zombie_Sheet.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Map/cloud.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/enemy_pass.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/game_Hero8.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/game_Meteor.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/game_Slap.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/game_Tornado.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/game_bgm.mp3" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/game_bomb.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/game_exit.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/game_goldup.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/game_hero1.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/game_hero2.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/game_hero3.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/game_hero4.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/game_hero5.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/game_hero6.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/game_hero7.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/game_hero9.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/game_punch.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/game_punch2.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/hero_pass.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/hero_upgrade.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/level_settings.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/libFLAC-8.dll" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/libfreetype-6.dll" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/libjpeg-9.dll" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/libmikmod-2.dll" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/libmodplug-1.dll" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/libogg-0.dll" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/libpng16-16.dll" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/libtiff-5.dll" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/libvorbis-0.dll" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/libvorbisfile-3.dll" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/libwebp-4.dll" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/UI/magic_upgrade.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/menu_GameClick.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/menu_SearchClick.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/menu_SearchSound.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/menu_bgm.mp3" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/menu_upgrade.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/python34.dll" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/smpeg2.dll" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Sound/title_bgm.mp3" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/zlib1.dll" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.FLAC.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.freetype.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.jpeg.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.mikmod.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.modplug.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.ogg-vorbis.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.png.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.smpeg.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.tiff.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.webp.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/LICENSE.zlib.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/SDL2/x64/README.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Json/enemy_data.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Json/game_data.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Json/game_data.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Json/hero_data.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Json/upgrade_data.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/Json/upgrade_data.txt" />
+      <change type="MOVED" beforePath="C:\Users\Administrator\Documents\GitHub\2DGame\ENCR10B.TTF" afterPath="$PROJECT_DIR$/Font/ENCR10B.TTF" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sound/Hero_buy.wav" afterPath="$PROJECT_DIR$/Sound/Hero_buy.wav" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Main_Scene.py" afterPath="$PROJECT_DIR$/Main_Scene.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Menu_Scene.py" afterPath="$PROJECT_DIR$/Menu_Scene.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Start_Scene.py" afterPath="$PROJECT_DIR$/Start_Scene.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Object_Castle.py" afterPath="$PROJECT_DIR$/Object_Castle.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Title_Scene.py" afterPath="$PROJECT_DIR$/Title_Scene.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mygame.py" afterPath="$PROJECT_DIR$/mygame.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="2DGame.iws" />
@@ -49,14 +270,31 @@
       <file leaf-file-name="Main_Scene.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Main_Scene.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.4">
-              <caret line="89" column="21" selection-start-line="89" selection-start-column="21" selection-end-line="89" selection-end-column="21" />
+            <state vertical-scroll-proportion="-12.033334">
+              <caret line="250" column="8" selection-start-line="250" selection-start-column="8" selection-end-line="250" selection-end-column="8" />
               <folding>
-                <element signature="e#0#13#0" expanded="true" />
-                <element signature="e#8726#9361#0" expanded="false" />
-                <element signature="e#61988#63992#0" expanded="false" />
-                <element signature="e#67173#69197#0" expanded="false" />
+                <element signature="e#1048#8905#0" expanded="false" />
+                <element signature="e#8923#9558#0" expanded="false" />
+                <element signature="e#9628#13904#0" expanded="false" />
+                <element signature="e#13929#14198#0" expanded="false" />
+                <element signature="e#14235#56426#0" expanded="false" />
+                <element signature="e#56452#60923#0" expanded="false" />
+                <element signature="e#60959#62963#0" expanded="false" />
+                <element signature="e#63000#66107#0" expanded="false" />
+                <element signature="e#66144#68047#0" expanded="false" />
+                <element signature="e#68077#69533#0" expanded="false" />
+                <element signature="e#69561#100896#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pico2d.py" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Python34/Lib/site-packages/pico2d.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="378" column="0" selection-start-line="378" selection-start-column="0" selection-end-line="378" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -65,7 +303,7 @@
         <entry file="file://$PROJECT_DIR$/Object_Castle.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="62" column="30" selection-start-line="62" selection-start-column="30" selection-end-line="62" selection-end-column="30" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -73,31 +311,75 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyCastle.PNG" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Map/MyCastle.PNG">
-          <provider selected="true" editor-type-id="images">
-            <state />
+      <file leaf-file-name="setup.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/setup.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5143824">
+              <caret line="114" column="0" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="Menu_Scene.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Menu_Scene.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="523" column="32" selection-start-line="523" selection-start-column="23" selection-end-line="523" selection-end-column="32" />
+            <state vertical-scroll-proportion="553.2">
+              <caret line="167" column="13" selection-start-line="167" selection-start-column="12" selection-end-line="167" selection-end-column="13" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
-                <element signature="e#2896#7114#0" expanded="false" />
+                <element signature="e#1755#2035#0" expanded="false" />
+                <element signature="e#2059#3521#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mygame.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mygame.py">
+      <file leaf-file-name="hero_data.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Json/hero_data.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="enemy_data.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Json/enemy_data.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="7" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Python34/Lib/json/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="317" column="0" selection-start-line="317" selection-start-column="0" selection-end-line="317" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="decoder.py" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Python34/Lib/json/decoder.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="342" column="0" selection-start-line="342" selection-start-column="0" selection-end-line="342" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Title_Scene.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Title_Scene.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="51" column="17" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="17" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -113,6 +395,14 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/mygame.py" />
+        <option value="$PROJECT_DIR$/setup.py" />
+        <option value="$PROJECT_DIR$/Title_Scene.py" />
+        <option value="$PROJECT_DIR$/Json/game_data.txt" />
+        <option value="$PROJECT_DIR$/Json/data.txt" />
+        <option value="$PROJECT_DIR$/Json/buy_data.txt" />
+        <option value="$PROJECT_DIR$/Menu_Scene.py" />
+        <option value="$PROJECT_DIR$/Object_Castle.py" />
         <option value="$PROJECT_DIR$/Main_Scene.py" />
       </list>
     </option>
@@ -183,46 +473,46 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="2DGame" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="2DGame" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UI" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="2DGame" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="2DGame" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Map" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="recentsLimit" value="5" />
-    <property name="settings.editor.selected.configurable" value="File.Encoding" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="FullScreen" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/setup.py" />
+    <property name="restartRequiresConfirmation" value="true" />
   </component>
-  <component name="RunManager" selected="Python.mygame">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\Documents\GitHub\2DGame\Sound" />
+      <recent name="C:\Users\Administrator\Documents\GitHub\2DGame\Font" />
+      <recent name="C:\Users\Administrator\Documents\GitHub\2DGame" />
+      <recent name="C:\Users\Administrator\Documents\GitHub\2DGame\SDL" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.setup">
+    <configuration default="false" name="setup" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="2DGame" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/setup.py" />
+      <option name="PARAMETERS" value="py2exe" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
     <configuration default="false" name="Unittests in 2DGame" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -384,18 +674,23 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in 2DGame" />
-      <item index="1" class="java.lang.String" itemvalue="Python.mygame" />
+    <list size="3">
+      <item index="0" class="java.lang.String" itemvalue="Python.setup" />
+      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in 2DGame" />
+      <item index="2" class="java.lang.String" itemvalue="Python.mygame" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Python.mygame" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in 2DGame" />
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="Python.setup" />
+        <item index="1" class="java.lang.String" itemvalue="Python.mygame" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in 2DGame" />
       </list>
     </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="08290a05-00ac-4212-aaed-c3aec9b4f19c" name="Default" comment="" />
@@ -406,67 +701,63 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24973656" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32972974" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24973656" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="5" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/mygame.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Menu_Scene.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="523" column="32" selection-start-line="523" selection-start-column="23" selection-end-line="523" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-            <element signature="e#2896#7114#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Main_Scene.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.4">
+        <state vertical-scroll-proportion="0.0">
           <caret line="89" column="21" selection-start-line="89" selection-start-column="21" selection-end-line="89" selection-end-column="21" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
-            <element signature="e#8726#9361#0" expanded="false" />
-            <element signature="e#61988#63992#0" expanded="false" />
-            <element signature="e#67173#69197#0" expanded="false" />
+            <element signature="e#1048#8905#0" expanded="false" />
+            <element signature="e#8923#9558#0" expanded="false" />
+            <element signature="e#9628#13904#0" expanded="false" />
+            <element signature="e#13929#14198#0" expanded="false" />
+            <element signature="e#14235#56426#0" expanded="false" />
+            <element signature="e#56452#60923#0" expanded="false" />
+            <element signature="e#60959#62963#0" expanded="false" />
+            <element signature="e#63000#66107#0" expanded="false" />
+            <element signature="e#66144#68047#0" expanded="false" />
+            <element signature="e#68077#69533#0" expanded="false" />
+            <element signature="e#69561#100896#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -484,6 +775,215 @@
     <entry file="file://$PROJECT_DIR$/Map/MyCastle.PNG">
       <provider selected="true" editor-type-id="images">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Menu_Scene.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="514" column="35" selection-start-line="514" selection-start-column="35" selection-end-line="514" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#1755#2035#0" expanded="false" />
+            <element signature="e#2059#3521#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mygame.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#15#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Python34/Lib/site-packages/sdl2/dll.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="112" column="0" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Map/MyCastle.PNG">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://C:/Python34/Lib/site-packages/sdl2/dll.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="112" column="0" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/Loadof/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33256352">
+          <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="94" selection-end-column="5" />
+          <folding>
+            <element signature="e#105#120#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mygame.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#15#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Start_Scene.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="38" column="28" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#21#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Object_Hero.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Title_Scene.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="51" column="17" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Json/enemy_data.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="7" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Python34/Lib/json/decoder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="342" column="0" selection-start-line="342" selection-start-column="0" selection-end-line="342" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Python34/Lib/json/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="317" column="0" selection-start-line="317" selection-start-column="0" selection-end-line="317" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Json/upgrade_data.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Json/game_data.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/Loadof/main_money_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7072758">
+          <caret line="22" column="36" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#13#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Json/hero_data.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Menu_Scene.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="553.2">
+          <caret line="167" column="13" selection-start-line="167" selection-start-column="12" selection-end-line="167" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#1755#2035#0" expanded="false" />
+            <element signature="e#2059#3521#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Object_Castle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="62" column="30" selection-start-line="62" selection-start-column="30" selection-end-line="62" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Python34/Lib/site-packages/pico2d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="378" column="0" selection-start-line="378" selection-start-column="0" selection-end-line="378" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main_Scene.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.033334">
+          <caret line="250" column="8" selection-start-line="250" selection-start-column="8" selection-end-line="250" selection-end-column="8" />
+          <folding>
+            <element signature="e#1048#8905#0" expanded="false" />
+            <element signature="e#8923#9558#0" expanded="false" />
+            <element signature="e#9628#13904#0" expanded="false" />
+            <element signature="e#13929#14198#0" expanded="false" />
+            <element signature="e#14235#56426#0" expanded="false" />
+            <element signature="e#56452#60923#0" expanded="false" />
+            <element signature="e#60959#62963#0" expanded="false" />
+            <element signature="e#63000#66107#0" expanded="false" />
+            <element signature="e#66144#68047#0" expanded="false" />
+            <element signature="e#68077#69533#0" expanded="false" />
+            <element signature="e#69561#100896#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5143824">
+          <caret line="114" column="0" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>
