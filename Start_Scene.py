@@ -2,7 +2,7 @@ import game_framework
 from pico2d import *
 
 import Title_Scene
-
+#Start
 name = "StartScene"
 credit_w_image = None
 

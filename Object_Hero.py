@@ -9,7 +9,6 @@ import Main_Scene
 from pico2d import *
 
 
-
 class Hero_Adell:
     PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 30 cm
     RUN_SPEED_KMPH = 3.0                    # Km / Hour

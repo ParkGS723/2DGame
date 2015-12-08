@@ -68,7 +68,7 @@ def enter():
     global hero_adell, hero_archer, hero_axel, hero_asuka, hero_fenrich, hero_gunner, hero_ninja, hero_pram, hero_prof
     global m_Skeleton, enemy_castle, enemy_slime, enemy_zombie, enemy_golem, enemy_pringer, enemy_demon, enemy_succubus
     global user_valva, user_castle, random_stage
-    global stage_background, stage2_background, stage3_background, stage4_background, stage5_background, cloud, ui_button, gold, font, time_font, result_font
+    global stage_background, stage2_background, stage3_background, stage4_background, stage5_background, cloud, gold, font, time_font, result_font
     global gameUI_easy, gameUI_normal, gameUI_hard, score, star_bar, effect_die
     global hero_group1, hero_group2, hero_group3, hero_group4, hero_group5, hero_group6, hero_group7, hero_group8, hero_group9
     global enemy_group1, enemy_group2, enemy_group3, enemy_group4, enemy_group5, enemy_group6
@@ -141,7 +141,6 @@ def enter():
     enemy_demon = Object_Enemy.Enemy_Demon()
     enemy_succubus = Object_Enemy.Enemy_Succubus()
 
-    ui_button = load_image('UI/UI_Button.png')
     gameUI_easy = load_image('UI/GameUI_easy_set.png')
     gameUI_normal = load_image('UI/GameUI_medium_set.png')
     gameUI_hard = load_image('UI/GameUI_hard_set.png')
