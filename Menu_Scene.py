@@ -82,6 +82,10 @@ class MenuSound:
     button_sound = None
     search_sound = None
     upgrade_sound = None
+    ss_sound = None
+    buy_sound = None
+    level_sound = None
+
     def __init__(self):
         if MenuSound.button_sound == None:
             MenuSound.button_sound = load_wav('Sound/menu_GameClick.wav')
@@ -91,9 +95,30 @@ class MenuSound:
             MenuSound.search_sound = load_wav('Sound/menu_SearchClick.wav')
             MenuSound.search_sound.set_volume(64)
 
+        if MenuSound.ss_sound == None:
+            MenuSound.ss_sound = load_wav('Sound/menu_SearchSound.wav')
+            MenuSound.ss_sound.set_volume(64)
+
         if MenuSound.upgrade_sound == None:
             MenuSound.upgrade_sound = load_wav('Sound/menu_upgrade.wav')
             MenuSound.upgrade_sound.set_volume(64)
+
+        if MenuSound.buy_sound == None:
+            MenuSound.buy_sound = load_wav('Sound/Hero_buy.wav')
+            MenuSound.buy_sound.set_volume(64)
+
+        if MenuSound.level_sound == None:
+            MenuSound.level_sound = load_wav('Sound/Level_Click.wav')
+            MenuSound.level_sound.set_volume(64)
+
+    def buy(self):
+        self.buy_sound.play()
+
+    def level(self):
+        self.level_sound.play()
+
+    def search2(self):
+        self.ss_sound.play()
 
     def click(self):
         self.button_sound.play()
@@ -114,7 +139,7 @@ def enter():
     global hero_up_ask, magic_up_ask, upgradestar, star_group, diamond, font, bgm
 
     upgradestar = Upgrade_Manager.UpgradeStar()
-    diamond = 30000
+    diamond = 7777777
     font = load_font('ENCR10B.TTF')
     star_group = []
 
@@ -177,7 +202,6 @@ def enter():
     store_user_magic_3_over = load_image('UI/store_user_magic_3_over.png')
     level_setting = load_image('UI/level_settings.png')
 
-
 def exit():
     pass
 
@@ -226,17 +250,18 @@ def handle_events(frame_time):
                         up_ask2 = True
                         magic_star_1 = True
                     if magic_star_1 == True:
-                        if 566 < button_x < 601 and 360 < button_y < 400:
-                            clicksound.upgrade()
-                            up_ask2 = False
-                            diamond -= 100
-                            magic1_up += 1
-                            Upgrade_Manager.UpgradeManager.magic_1_star_level += 1
-                            if Upgrade_Manager.UpgradeManager.magic_1_star_level > 3:
-                                Upgrade_Manager.UpgradeManager.magic_1_star_level = 3
-                            if magic1_up > 3:
-                                magic1_up = 3
-                            magic_star_1 = False
+                        if diamond > 100:
+                            if 566 < button_x < 601 and 360 < button_y < 400:
+                                clicksound.upgrade()
+                                up_ask2 = False
+                                diamond -= 100
+                                magic1_up += 1
+                                Upgrade_Manager.UpgradeManager.magic_1_star_level += 1
+                                if Upgrade_Manager.UpgradeManager.magic_1_star_level > 3:
+                                    Upgrade_Manager.UpgradeManager.magic_1_star_level = 3
+                                if magic1_up > 3:
+                                    magic1_up = 3
+                                magic_star_1 = False
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             up_ask2 = False
@@ -246,17 +271,18 @@ def handle_events(frame_time):
                         up_ask2 = True
                         magic_star_2 = True
                     if magic_star_2 == True:
-                        if 566 < button_x < 601 and 360 < button_y < 400:
-                            clicksound.upgrade()
-                            up_ask2 = False
-                            magic2_up += 1
-                            diamond -= 500
-                            Upgrade_Manager.UpgradeManager.magic_2_star_level += 1
-                            if Upgrade_Manager.UpgradeManager.magic_2_star_level > 3:
-                                Upgrade_Manager.UpgradeManager.magic_2_star_level = 3
-                            if magic2_up > 3:
-                                magic2_up = 3
-                            magic_star_2 = False
+                        if diamond > 500:
+                            if 566 < button_x < 601 and 360 < button_y < 400:
+                                clicksound.upgrade()
+                                up_ask2 = False
+                                magic2_up += 1
+                                diamond -= 500
+                                Upgrade_Manager.UpgradeManager.magic_2_star_level += 1
+                                if Upgrade_Manager.UpgradeManager.magic_2_star_level > 3:
+                                    Upgrade_Manager.UpgradeManager.magic_2_star_level = 3
+                                if magic2_up > 3:
+                                    magic2_up = 3
+                                magic_star_2 = False
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             up_ask2 = False
@@ -266,17 +292,18 @@ def handle_events(frame_time):
                         up_ask2 = True
                         magic_star_3 = True
                     if magic_star_3 == True:
-                        if 566 < button_x < 601 and 360 < button_y < 400:
-                            clicksound.upgrade()
-                            up_ask2 = False
-                            magic3_up += 1
-                            diamond -= 1000
-                            Upgrade_Manager.UpgradeManager.magic_3_star_level += 1
-                            if Upgrade_Manager.UpgradeManager.magic_3_star_level > 3:
-                                Upgrade_Manager.UpgradeManager.magic_3_star_level = 3
-                            if magic3_up > 3:
-                                magic3_up = 3
-                            magic_star_3 = False
+                        if diamond > 1000:
+                            if 566 < button_x < 601 and 360 < button_y < 400:
+                                clicksound.upgrade()
+                                up_ask2 = False
+                                magic3_up += 1
+                                diamond -= 1000
+                                Upgrade_Manager.UpgradeManager.magic_3_star_level += 1
+                                if Upgrade_Manager.UpgradeManager.magic_3_star_level > 3:
+                                    Upgrade_Manager.UpgradeManager.magic_3_star_level = 3
+                                if magic3_up > 3:
+                                    magic3_up = 3
+                                magic_star_3 = False
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             up_ask2 = False
@@ -292,17 +319,18 @@ def handle_events(frame_time):
                         up_ask = True
                         hero_star_1 = True
                     if hero_star_1 == True:
-                        if 566 < button_x < 601 and 360 < button_y < 400:
-                            up_ask = False
-                            clicksound.upgrade()
-                            hero1_up += 1
-                            diamond -= 100
-                            Upgrade_Manager.UpgradeManager.hero_1_star_level += 1
-                            if Upgrade_Manager.UpgradeManager.hero_1_star_level > 7:
-                                Upgrade_Manager.UpgradeManager.hero_1_star_level = 7
-                            if hero1_up > 7:
-                                hero1_up = 7
-                            hero_star_1 = False
+                        if diamond > 100:
+                            if 566 < button_x < 601 and 360 < button_y < 400:
+                                up_ask = False
+                                clicksound.upgrade()
+                                hero1_up += 1
+                                diamond -= 100
+                                Upgrade_Manager.UpgradeManager.hero_1_star_level += 1
+                                if Upgrade_Manager.UpgradeManager.hero_1_star_level > 7:
+                                    Upgrade_Manager.UpgradeManager.hero_1_star_level = 7
+                                if hero1_up > 7:
+                                    hero1_up = 7
+                                hero_star_1 = False
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             up_ask = False
@@ -313,17 +341,18 @@ def handle_events(frame_time):
                         up_ask = True
                         hero_star_2 = True
                     if hero_star_2 == True:
-                        if 566 < button_x < 601 and 360 < button_y < 400:
-                            up_ask = False
-                            clicksound.upgrade()
-                            hero2_up += 1
-                            diamond -= 300
-                            Upgrade_Manager.UpgradeManager.hero_2_star_level += 1
-                            if Upgrade_Manager.UpgradeManager.hero_2_star_level > 7:
-                                Upgrade_Manager.UpgradeManager.hero_2_star_level = 7
-                            if hero2_up > 7:
-                                hero2_up = 7
-                            hero_star_2 = False
+                        if diamond > 300:
+                            if 566 < button_x < 601 and 360 < button_y < 400:
+                                up_ask = False
+                                clicksound.upgrade()
+                                hero2_up += 1
+                                diamond -= 300
+                                Upgrade_Manager.UpgradeManager.hero_2_star_level += 1
+                                if Upgrade_Manager.UpgradeManager.hero_2_star_level > 7:
+                                    Upgrade_Manager.UpgradeManager.hero_2_star_level = 7
+                                if hero2_up > 7:
+                                    hero2_up = 7
+                                hero_star_2 = False
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             up_ask = False
@@ -334,17 +363,18 @@ def handle_events(frame_time):
                         up_ask = True
                         hero_star_3 = True
                     if hero_star_3 == True:
-                        if 566 < button_x < 601 and 360 < button_y < 400:
-                            clicksound.upgrade()
-                            up_ask = False
-                            hero3_up += 1
-                            diamond -= 500
-                            Upgrade_Manager.UpgradeManager.hero_3_star_level += 1
-                            if Upgrade_Manager.UpgradeManager.hero_3_star_level > 7:
-                                Upgrade_Manager.UpgradeManager.hero_3_star_level = 7
-                            if hero3_up > 7:
-                                hero3_up = 7
-                            hero_star_3 = False
+                        if diamond > 500:
+                            if 566 < button_x < 601 and 360 < button_y < 400:
+                                clicksound.upgrade()
+                                up_ask = False
+                                hero3_up += 1
+                                diamond -= 500
+                                Upgrade_Manager.UpgradeManager.hero_3_star_level += 1
+                                if Upgrade_Manager.UpgradeManager.hero_3_star_level > 7:
+                                    Upgrade_Manager.UpgradeManager.hero_3_star_level = 7
+                                if hero3_up > 7:
+                                    hero3_up = 7
+                                hero_star_3 = False
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             up_ask = False
@@ -355,17 +385,18 @@ def handle_events(frame_time):
                         up_ask = True
                         hero_star_4 = True
                     if hero_star_4 == True:
-                        if 566 < button_x < 601 and 360 < button_y < 400:
-                            clicksound.upgrade()
-                            up_ask = False
-                            hero4_up += 1
-                            diamond -= 1000
-                            Upgrade_Manager.UpgradeManager.hero_4_star_level += 1
-                            if Upgrade_Manager.UpgradeManager.hero_4_star_level > 7:
-                                Upgrade_Manager.UpgradeManager.hero_4_star_level = 7
-                            if hero4_up > 7:
-                                hero4_up = 7
-                            hero_star_4 = False
+                        if diamond > 1000:
+                            if 566 < button_x < 601 and 360 < button_y < 400:
+                                clicksound.upgrade()
+                                up_ask = False
+                                hero4_up += 1
+                                diamond -= 1000
+                                Upgrade_Manager.UpgradeManager.hero_4_star_level += 1
+                                if Upgrade_Manager.UpgradeManager.hero_4_star_level > 7:
+                                    Upgrade_Manager.UpgradeManager.hero_4_star_level = 7
+                                if hero4_up > 7:
+                                    hero4_up = 7
+                                hero_star_4 = False
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             up_ask = False
@@ -376,17 +407,18 @@ def handle_events(frame_time):
                         up_ask = True
                         hero_star_5 = True
                     if hero_star_5 == True:
-                        if 566 < button_x < 601 and 360 < button_y < 400:
-                            clicksound.upgrade()
-                            up_ask = False
-                            hero5_up += 1
-                            diamond -= 1500
-                            Upgrade_Manager.UpgradeManager.hero_5_star_level += 1
-                            if Upgrade_Manager.UpgradeManager.hero_5_star_level > 7:
-                                Upgrade_Manager.UpgradeManager.hero_5_star_level = 7
-                            if hero5_up > 7:
-                                hero5_up = 7
-                            hero_star_5 = False
+                        if diamond > 1500:
+                            if 566 < button_x < 601 and 360 < button_y < 400:
+                                clicksound.upgrade()
+                                up_ask = False
+                                hero5_up += 1
+                                diamond -= 1500
+                                Upgrade_Manager.UpgradeManager.hero_5_star_level += 1
+                                if Upgrade_Manager.UpgradeManager.hero_5_star_level > 7:
+                                    Upgrade_Manager.UpgradeManager.hero_5_star_level = 7
+                                if hero5_up > 7:
+                                    hero5_up = 7
+                                hero_star_5 = False
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             up_ask = False
@@ -397,17 +429,18 @@ def handle_events(frame_time):
                         up_ask = True
                         hero_star_6 = True
                     if hero_star_6 == True:
-                        if 566 < button_x < 601 and 360 < button_y < 400:
-                            clicksound.upgrade()
-                            up_ask = False
-                            hero6_up += 1
-                            diamond -= 2000
-                            Upgrade_Manager.UpgradeManager.hero_6_star_level += 1
-                            if Upgrade_Manager.UpgradeManager.hero_6_star_level > 7:
-                                Upgrade_Manager.UpgradeManager.hero_6_star_level = 7
-                            if hero6_up > 7:
-                                hero6_up = 7
-                            hero_star_6 = False
+                        if diamond > 2000:
+                            if 566 < button_x < 601 and 360 < button_y < 400:
+                                clicksound.upgrade()
+                                up_ask = False
+                                hero6_up += 1
+                                diamond -= 2000
+                                Upgrade_Manager.UpgradeManager.hero_6_star_level += 1
+                                if Upgrade_Manager.UpgradeManager.hero_6_star_level > 7:
+                                    Upgrade_Manager.UpgradeManager.hero_6_star_level = 7
+                                if hero6_up > 7:
+                                    hero6_up = 7
+                                hero_star_6 = False
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             up_ask = False
@@ -418,17 +451,18 @@ def handle_events(frame_time):
                         up_ask = True
                         hero_star_7 = True
                     if hero_star_7 == True:
-                        if 566 < button_x < 601 and 360 < button_y < 400:
-                            clicksound.upgrade()
-                            up_ask = False
-                            hero7_up += 1
-                            diamond -= 3000
-                            Upgrade_Manager.UpgradeManager.hero_7_star_level += 1
-                            if Upgrade_Manager.UpgradeManager.hero_7_star_level > 7:
-                                Upgrade_Manager.UpgradeManager.hero_7_star_level = 7
-                            if hero7_up > 7:
-                                hero7_up = 7
-                            hero_star_7 = False
+                        if diamond > 3000:
+                            if 566 < button_x < 601 and 360 < button_y < 400:
+                                clicksound.upgrade()
+                                up_ask = False
+                                hero7_up += 1
+                                diamond -= 3000
+                                Upgrade_Manager.UpgradeManager.hero_7_star_level += 1
+                                if Upgrade_Manager.UpgradeManager.hero_7_star_level > 7:
+                                    Upgrade_Manager.UpgradeManager.hero_7_star_level = 7
+                                if hero7_up > 7:
+                                    hero7_up = 7
+                                hero_star_7 = False
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             up_ask = False
@@ -439,17 +473,18 @@ def handle_events(frame_time):
                         up_ask = True
                         hero_star_8 = True
                     if hero_star_8 == True:
-                        if 566 < button_x < 601 and 360 < button_y < 400:
-                            clicksound.upgrade()
-                            up_ask = False
-                            hero8_up += 1
-                            diamond -= 5000
-                            Upgrade_Manager.UpgradeManager.hero_8_star_level += 1
-                            if Upgrade_Manager.UpgradeManager.hero_8_star_level > 7:
-                                Upgrade_Manager.UpgradeManager.hero_8_star_level = 7
-                            if hero8_up > 7:
-                                hero8_up = 7
-                            hero_star_8 = False
+                        if diamond > 5000:
+                            if 566 < button_x < 601 and 360 < button_y < 400:
+                                clicksound.upgrade()
+                                up_ask = False
+                                hero8_up += 1
+                                diamond -= 5000
+                                Upgrade_Manager.UpgradeManager.hero_8_star_level += 1
+                                if Upgrade_Manager.UpgradeManager.hero_8_star_level > 7:
+                                    Upgrade_Manager.UpgradeManager.hero_8_star_level = 7
+                                if hero8_up > 7:
+                                    hero8_up = 7
+                                hero_star_8 = False
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             up_ask = False
@@ -460,17 +495,18 @@ def handle_events(frame_time):
                         up_ask = True
                         hero_star_9 = True
                     if hero_star_9 == True:
-                        if 566 < button_x < 601 and 360 < button_y < 400:
-                            clicksound.upgrade()
-                            up_ask = False
-                            hero9_up += 1
-                            diamond -= 7000
-                            Upgrade_Manager.UpgradeManager.hero_9_star_level += 1
-                            if Upgrade_Manager.UpgradeManager.hero_9_star_level > 7:
-                                Upgrade_Manager.UpgradeManager.hero_9_star_level = 7
-                            if hero9_up > 7:
-                                hero9_up = 7
-                            hero_star_9 = False
+                        if diamond > 7000:
+                            if 566 < button_x < 601 and 360 < button_y < 400:
+                                clicksound.upgrade()
+                                up_ask = False
+                                hero9_up += 1
+                                diamond -= 7000
+                                Upgrade_Manager.UpgradeManager.hero_9_star_level += 1
+                                if Upgrade_Manager.UpgradeManager.hero_9_star_level > 7:
+                                    Upgrade_Manager.UpgradeManager.hero_9_star_level = 7
+                                if hero9_up > 7:
+                                    hero9_up = 7
+                                hero_star_9 = False
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             up_ask = False
@@ -486,12 +522,13 @@ def handle_events(frame_time):
                         buy_ask = True
                         hero6_buy = True
                     if hero6_buy == True:
-                        if 566 < button_x < 601 and 360 < button_y < 400:
-                            clicksound.upgrade()
-                            buy_ask = False
-                            hero6_sell = True
-                            diamond -= 2000
-                            Upgrade_Manager.HeroBuyManager.sell_6 = 2
+                        if diamond > 2000:
+                            if 566 < button_x < 601 and 360 < button_y < 400:
+                                clicksound.buy()
+                                buy_ask = False
+                                hero6_sell = True
+                                diamond -= 2000
+                                Upgrade_Manager.HeroBuyManager.sell_6 = 2
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             buy_ask = False
@@ -501,12 +538,13 @@ def handle_events(frame_time):
                         buy_ask = True
                         hero7_buy = True
                     if hero7_buy == True:
-                        if 566 < button_x < 601 and 360 < button_y < 400:
-                            clicksound.upgrade()
-                            buy_ask = False
-                            hero7_sell = True
-                            diamond -= 3000
-                            Upgrade_Manager.HeroBuyManager.sell_7 = 2
+                        if diamond > 3000:
+                            if 566 < button_x < 601 and 360 < button_y < 400:
+                                clicksound.buy()
+                                buy_ask = False
+                                hero7_sell = True
+                                diamond -= 3000
+                                Upgrade_Manager.HeroBuyManager.sell_7 = 2
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             buy_ask = False
@@ -516,12 +554,13 @@ def handle_events(frame_time):
                         buy_ask = True
                         hero8_buy = True
                     if hero8_buy == True:
-                        if 566 < button_x < 601 and 360 < button_y < 400:
-                            clicksound.upgrade()
-                            buy_ask = False
-                            hero8_sell = True
-                            diamond -= 5000
-                            Upgrade_Manager.HeroBuyManager.sell_8 = 2
+                        if diamond > 5000:
+                            if 566 < button_x < 601 and 360 < button_y < 400:
+                                clicksound.buy()
+                                buy_ask = False
+                                hero8_sell = True
+                                diamond -= 5000
+                                Upgrade_Manager.HeroBuyManager.sell_8 = 2
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             buy_ask = False
@@ -531,18 +570,19 @@ def handle_events(frame_time):
                         buy_ask = True
                         hero9_buy = True
                     if hero9_buy == True:
-                        if 566 < button_x < 601 and 360 < button_y < 400:
-                            clicksound.upgrade()
-                            buy_ask = False
-                            diamond -= 7000
-                            hero9_sell = True
-                            Upgrade_Manager.HeroBuyManager.sell_9 = 2
+                        if diamond > 7000:
+                            if 566 < button_x < 601 and 360 < button_y < 400:
+                                clicksound.buy()
+                                buy_ask = False
+                                diamond -= 7000
+                                hero9_sell = True
+                                Upgrade_Manager.HeroBuyManager.sell_9 = 2
                         if 679 < button_x < 712 and 360 < button_y < 400:
                             clicksound.click()
                             buy_ask = False
 
                 if 458 < button_x < 820 and 40 < button_y < 193:
-                    clicksound.click()
+                    clicksound.search2()
                     setting_draw = True
                 if 575 < button_x < 605 and 288 < button_y < 320:
                     clicksound.click()
@@ -551,17 +591,17 @@ def handle_events(frame_time):
                 if setting_draw == True:
                     if 610 < button_x < 680 and 430 < button_y < 460:
                         level_easy = True
-                        clicksound.click()
+                        clicksound.level()
                         game_framework.change_state(Main_Scene)
                         setting_draw = False
                     if 610 < button_x < 690 and 390 < button_y < 420:
                         level_normal = True
-                        clicksound.click()
+                        clicksound.level()
                         game_framework.change_state(Main_Scene)
                         setting_draw = False
                     if 610 < button_x < 690 and 340 < button_y < 370:
                         level_hard = True
-                        clicksound.click()
+                        clicksound.level()
                         game_framework.change_state(Main_Scene)
                         setting_draw = False
 
@@ -605,7 +645,7 @@ def draw(frame_time):
 
     if magic_upgrade == True:
         store_upgrade_2.draw(640,360)
-        font.draw(440, 530, '%d' % diamond)
+        font.draw(420, 530, '%d' % diamond)
         if 855 < button_x < 905 and 529 < button_y < 570:
             store_exit_over.draw(640,360)
         else:
@@ -656,7 +696,7 @@ def draw(frame_time):
 
     if herobar == True:
         store_main.draw(640,360)
-        font.draw(440, 530, '%d' % diamond)
+        font.draw(420, 530, '%d' % diamond)
         if 855 < button_x < 905 and 529 < button_y < 570:
             store_exit_over.draw(640,360)
         else:
@@ -698,7 +738,7 @@ def draw(frame_time):
 
     if hero_upgrade == True:
         store_upgrade_1.draw(640, 360)
-        font.draw(440, 530, '%d' % diamond)
+        font.draw(420, 530, '%d' % diamond)
         if 855 < button_x < 905 and 529 < button_y < 570:
             store_exit_over.draw(640,360)
         else:

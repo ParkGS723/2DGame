@@ -13,7 +13,7 @@ def enter():
 
     open_canvas(1280, 720)
     if credit_w_image == None:
-        credit_w_image = load_image('Logo/Logo_kpu_credit_W.jpg')
+        credit_w_image = load_image('Logo/Logo_kpu_credit_White.jpg')
         credit_image = load_image('Logo/Logo_kpu_credit.png')
 
 

@@ -16,7 +16,7 @@ class TitleBackGround:
         self.x, self.y = 640, 360
         self.image = load_image('UI/GameTitle.png')
         if TitleBackGround.button_sound == None:
-            TitleBackGround.button_sound = load_wav('Sound/StartClick.wav')
+            TitleBackGround.button_sound = load_wav('Sound/Start_Click.wav')
             TitleBackGround.button_sound.set_volume(64)
 
 
