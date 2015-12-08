@@ -1,13 +1,13 @@
 {
    "Upgrade_Hero_1": {"level":0},
-   "Upgrade_Hero_2": {"level":0},
+   "Upgrade_Hero_2": {"level":1},
    "Upgrade_Hero_3": {"level":0},
    "Upgrade_Hero_4": {"level":0},
    "Upgrade_Hero_5": {"level":0},
    "Upgrade_Hero_6": {"level":0},
    "Upgrade_Hero_7": {"level":0},
-   "Upgrade_Hero_8": {"level":2},
-   "Upgrade_Hero_9": {"level":1},
+   "Upgrade_Hero_8": {"level":0},
+   "Upgrade_Hero_9": {"level":0},
    "Upgrade_Magic_1": {"level":0},
    "Upgrade_Magic_2": {"level":0},
    "Upgrade_Magic_3": {"level":0}	

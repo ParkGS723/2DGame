@@ -10,14 +10,11 @@ import Object_User
 import Object_Castle
 import Object_Magic
 import Object_Castle
+import Game_Sound
 import Upgrade_Manager
 import Stage_Background
 
 from pico2d import *
-
-
-#Main
-
 
 button_x, button_y = 0, 0
 name = "MainScene"
@@ -29,7 +26,6 @@ m_load_time = 0.0
 cool_time_1 = 0.0
 cool_time_2 = 0.0
 cool_time_3 = 0.0
-
 gold_manager = 1.0
 gold = 0
 score = 0
@@ -40,7 +36,6 @@ result_score = 0
 meteor_limit = 0
 tornado_limit = 0
 explosion_limit = 0
-
 result_font = None
 time_font = None
 font = None
@@ -72,19 +67,18 @@ m_exp_19 = None
 def enter():
     global hero_adell, hero_archer, hero_axel, hero_asuka, hero_fenrich, hero_gunner, hero_ninja, hero_pram, hero_prof
     global m_Skeleton, enemy_castle, enemy_slime, enemy_zombie, enemy_golem, enemy_pringer, enemy_demon, enemy_succubus
-    global user_valva, user_castle, random_stage
+    global user_valva, user_castle, random_stage, upgrade_manager, hero_buy_manager, upgradestar, bgm
     global stage_background, stage2_background, stage3_background, stage4_background, stage5_background, cloud, gold, font, time_font, result_font
     global gameUI_easy, gameUI_normal, gameUI_hard, score, star_bar, effect_die
     global hero_group1, hero_group2, hero_group3, hero_group4, hero_group5, hero_group6, hero_group7, hero_group8, hero_group9
     global enemy_group1, enemy_group2, enemy_group3, enemy_group4, enemy_group5, enemy_group6
-    global magic_group1, magic_group2, magic_group3, castle_group1, castle_group2, effect_group1
+    global magic_group1, magic_group2, magic_group3, castle_group1, castle_group2
     global magic_meteor, magic_tornado, magic_explosion, ui_timer, gamesound
     global magic_exp_image_1, magic_exp_image_2, magic_exp_image_3, magic_exp_image_4, magic_exp_image_5, magic_exp_image_6, magic_exp_image_7, magic_exp_image_8
     global magic_exp_image_9, magic_exp_image_10, magic_exp_image_11, magic_exp_image_12, magic_exp_image_13, magic_exp_image_14, magic_exp_image_15, magic_exp_image_16, magic_exp_image_17, magic_exp_image_18, magic_exp_image_19
     global ui_adell_pic, ui_adell_pic_over, ui_archer_pic, ui_archer_pic_over, ui_asuka_pic, ui_asuka_pic_over, ui_axel_pic, ui_axel_pic_over, ui_fenrich_pic, ui_fenrich_pic_over
     global ui_gunner_pic, ui_gunner_pic_over, ui_ninja_pic, ui_ninja_pic_over, ui_pram_pic, ui_pram_pic_over, ui_prof_pic, ui_prof_pic_over
     global ui_meteor_pic, ui_meteor_pic_over, ui_tornado_pic, ui_tornado_pic_over, ui_explosion_pic, ui_explosion_pic_over, ui_goldup, ui_goldup_over
-    global upgrade_manager, hero_buy_manager, upgradestar, bgm, team_data, team_data_txt
     global ui_victory, ui_defeat, ui_restart, ui_restart_over, ui_gotown, ui_gotown_over, ui_gotown2, ui_gotown2_over, ui_collchk, ui_collchk_over
 
     game_data_file = open('Json/game_data.txt','r')
@@ -98,7 +92,7 @@ def enter():
     score = 10000
     upgrade_manager = Upgrade_Manager.UpgradeStar_Main()
     random_stage = random.randint(1, 50)
-    gamesound = GameSound()
+    gamesound = Game_Sound.GameSound()
     gamesound.sound_check = True
     castle_group1 = []
     castle_group2 = []
@@ -252,148 +246,6 @@ def pause():
 
 def resume():
     pass
-
-class GameSound:
-    bomb_sound = None
-    goldup_sound = None
-    meteor_sound = None
-    tornado_sound = None
-    hero1_sound = None
-    hero2_sound = None
-    hero3_sound = None
-    hero4_sound = None
-    hero5_sound = None
-    hero6_sound = None
-    hero7_sound = None
-    hero8_sound = None
-    hero9_sound = None
-    victory_sound = None
-    defeat_sound = None
-    enemy_pass_sound = None
-    hero_pass_sound = None
-    def __init__(self):
-        self.sound_check = None
-        if GameSound.enemy_pass_sound == None:
-            GameSound.enemy_pass_sound = load_wav('Sound/enemy_pass.wav')
-            GameSound.enemy_pass_sound.set_volume(80)
-
-        if GameSound.hero_pass_sound == None:
-            GameSound.hero_pass_sound = load_wav('Sound/hero_pass.wav')
-            GameSound.hero_pass_sound.set_volume(80)
-
-        if GameSound.victory_sound == None:
-            GameSound.victory_sound = load_wav('Sound/Stage_Victory.wav')
-            GameSound.victory_sound.set_volume(100)
-
-        if GameSound.defeat_sound == None:
-            GameSound.defeat_sound = load_wav('Sound/Stage_Defeat.wav')
-            GameSound.defeat_sound.set_volume(100)
-
-        if GameSound.bomb_sound == None:
-            GameSound.bomb_sound = load_wav('Sound/game_bomb.wav')
-            GameSound.bomb_sound.set_volume(64)
-
-        if GameSound.goldup_sound == None:
-            GameSound.goldup_sound = load_wav('Sound/game_goldup.wav')
-            GameSound.goldup_sound.set_volume(64)
-
-        if GameSound.meteor_sound == None:
-            GameSound.meteor_sound = load_wav('Sound/game_meteor.wav')
-            GameSound.meteor_sound.set_volume(64)
-
-        if GameSound.tornado_sound == None:
-            GameSound.tornado_sound = load_wav('Sound/game_Tornado.wav')
-            GameSound.tornado_sound.set_volume(64)
-
-        if GameSound.hero1_sound == None:
-            GameSound.hero1_sound = load_wav('Sound/game_hero1.wav')
-            GameSound.hero1_sound.set_volume(64)
-
-        if GameSound.hero2_sound == None:
-            GameSound.hero2_sound = load_wav('Sound/game_hero2.wav')
-            GameSound.hero2_sound.set_volume(64)
-
-        if GameSound.hero3_sound == None:
-            GameSound.hero3_sound = load_wav('Sound/game_hero3.wav')
-            GameSound.hero3_sound.set_volume(64)
-
-        if GameSound.hero4_sound == None:
-            GameSound.hero4_sound = load_wav('Sound/game_hero4.wav')
-            GameSound.hero4_sound.set_volume(64)
-
-        if GameSound.hero5_sound == None:
-            GameSound.hero5_sound = load_wav('Sound/game_hero5.wav')
-            GameSound.hero5_sound.set_volume(64)
-
-        if GameSound.hero6_sound == None:
-            GameSound.hero6_sound = load_wav('Sound/game_hero6.wav')
-            GameSound.hero6_sound.set_volume(64)
-
-        if GameSound.hero7_sound == None:
-            GameSound.hero7_sound = load_wav('Sound/game_hero7.wav')
-            GameSound.hero7_sound.set_volume(64)
-
-        if GameSound.hero8_sound == None:
-            GameSound.hero8_sound = load_wav('Sound/game_hero8.wav')
-            GameSound.hero8_sound.set_volume(64)
-
-        if GameSound.hero9_sound == None:
-            GameSound.hero9_sound = load_wav('Sound/game_hero9.wav')
-            GameSound.hero9_sound.set_volume(64)
-
-    def enemypass(self):
-        self.enemy_pass_sound.play()
-
-    def heropass(self):
-        self.hero_pass_sound.play()
-
-    def bomb(self):
-        self.bomb_sound.play()
-
-    def goldup(self):
-        self.goldup_sound.play()
-
-    def meteor(self):
-        self.meteor_sound.play()
-
-    def tornado(self):
-        self.tornado_sound.play()
-
-    def hero1(self):
-        self.hero1_sound.play()
-
-    def hero2(self):
-        self.hero2_sound.play()
-
-    def hero3(self):
-        self.hero3_sound.play()
-
-    def hero4(self):
-        self.hero4_sound.play()
-
-    def hero5(self):
-        self.hero5_sound.play()
-
-    def hero6(self):
-        self.hero6_sound.play()
-
-    def hero7(self):
-        self.hero7_sound.play()
-
-    def hero8(self):
-        self.hero8_sound.play()
-
-    def hero9(self):
-        self.hero9_sound.play()
-
-    def victory(self):
-        if self.sound_check == True:
-            self.victory_sound.play()
-
-
-    def defeat(self):
-        if self.sound_check == True:
-            self.defeat_sound.play()
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
@@ -1823,6 +1675,7 @@ def update(frame_time):
         Gameobj_state(frame_time)
         collide_enter(frame_time)
         gold += (frame_time * 100 ) * gold_manager
+
         if timer == False:
             chk_time += frame_time
         if chk_time > 1.0:
@@ -1836,8 +1689,6 @@ def draw(frame_time):
     global button_x, button_y, hero_adell, hero_archer, hero_asuka, hero_axel, hero_fenrich, hero_gunner, hero_ninja, hero_pram, hero_prof
     global m_exp, m_exp_1, m_exp_2, m_exp_3, m_exp_4, m_exp_5, m_exp_6, m_exp_7, m_exp_8, m_exp_9, m_exp_10, m_exp_11, m_exp_12, m_exp_13, m_exp_14, m_exp_15, m_exp_16, m_exp_17, m_exp_18, m_exp_19
     clear_canvas()
-
-
     if 1 <= random_stage < 11:
         stage_background.draw()
     elif 11 <= random_stage < 21:
@@ -1848,93 +1699,73 @@ def draw(frame_time):
         stage4_background.draw()
     elif 41 <= random_stage < 51:
         stage5_background.draw()
-
     if Menu_Scene.level_easy == True:
         gameUI_easy.draw(640, 70)
-
     if Menu_Scene.level_normal == True:
         gameUI_normal.draw(640, 70)
-
     if Menu_Scene.level_hard == True:
         gameUI_hard.draw(640, 70)
-
     if 49 < button_x < 170 and 80 < button_y < 210:
         ui_adell_pic_over.draw(640, 70)
     else:
         ui_adell_pic.draw(640, 70)
-
     if 179 < button_x < 310 and 85 < button_y < 210:
         ui_archer_pic_over.draw(640, 70)
     else:
         ui_archer_pic.draw(640, 70)
-
     if 309 < button_x < 440 and 85 < button_y < 210:
         ui_asuka_pic_over.draw(640, 70)
     else:
         ui_asuka_pic.draw(640, 70)
-
     if 439 < button_x < 560 and 85 < button_y < 210:
         ui_axel_pic_over.draw(640, 70)
     else:
         ui_axel_pic.draw(640, 70)
-
     if 569 < button_x < 690 and 85 < button_y < 210:
         ui_gunner_pic_over.draw(640, 70)
     else:
         ui_gunner_pic.draw(640, 70)
-
-
     if Upgrade_Manager.HeroBuyManager.sell_6 > 1:
         if 699 < button_x < 820 and 85 < button_y < 210:
             ui_fenrich_pic_over.draw(640, 70)
         else:
             ui_fenrich_pic.draw(640, 70)
-
     if Upgrade_Manager.HeroBuyManager.sell_7 > 1:
         if 829 < button_x < 950 and 85 < button_y < 210:
             ui_ninja_pic_over.draw(640, 70)
         else:
             ui_ninja_pic.draw(640, 70)
-
-
     if Upgrade_Manager.HeroBuyManager.sell_8 > 1:
         if 959 < button_x < 1080 and 85 < button_y < 210:
             ui_pram_pic_over.draw(640, 70)
         else:
             ui_pram_pic.draw(640, 70)
-
     if Upgrade_Manager.HeroBuyManager.sell_9 > 1:
         if 1089 < button_x < 1209 and 85 < button_y < 210:
             ui_prof_pic_over.draw(640, 70)
         else:
             ui_prof_pic.draw(640, 70)
-
     if 699 < button_x < 775 and 5 < button_y < 78:
         ui_meteor_pic_over.draw(640, 70)
     else:
         ui_meteor_pic.draw(640, 70)
-
     if 831 < button_x < 910 and 5 < button_y < 78:
         ui_tornado_pic_over.draw(640, 70)
     else:
         ui_tornado_pic.draw(640, 70)
-
     if 961 < button_x < 1040 and 5 < button_y < 78:
         ui_explosion_pic_over.draw(640, 70)
     else:
         ui_explosion_pic.draw(640, 70)
-
     if 1071 < button_x < 1150 and 5 < button_y < 78:
         ui_goldup_over.draw(640, 70)
     else:
         ui_goldup.draw(640, 70)
-
     cloud.draw(90, 500)
     if 1075 < button_x < 1130 and 639 < button_y < 694:
         ui_collchk_over.draw(640, 360)
     else:
         ui_collchk.draw(640, 360)
-
     if 1190 < button_x < 1245 and 639 < button_y < 694:
         ui_gotown2_over.draw(640, 360)
     else:
@@ -1946,37 +1777,31 @@ def draw(frame_time):
         if coll_chk == True:
             user_castle.draw_bb()
             enemy_castle.draw_bb()
-
         for enemy_slime in enemy_group1:
             enemy_slime.update(frame_time)
             enemy_slime.draw()
             if coll_chk == True:
                 enemy_slime.draw_bb()
-
         for enemy_zombie in enemy_group2:
             enemy_zombie.update(frame_time)
             enemy_zombie.draw()
             if coll_chk == True:
                 enemy_zombie.draw_bb()
-
         for enemy_golem in enemy_group3:
             enemy_golem.update(frame_time)
             enemy_golem.draw()
             if coll_chk == True:
                 enemy_golem.draw_bb()
-
         for enemy_pringer in enemy_group4:
             enemy_pringer.update(frame_time)
             enemy_pringer.draw()
             if coll_chk == True:
                 enemy_pringer.draw_bb()
-
         for enemy_demon in enemy_group5:
             enemy_demon.update(frame_time)
             enemy_demon.draw()
             if coll_chk == True:
                 enemy_demon.draw_bb()
-
         for enemy_succubus in enemy_group6:
             enemy_succubus.update(frame_time)
             enemy_succubus.draw()
@@ -1987,60 +1812,50 @@ def draw(frame_time):
             hero_adell.draw()
             if coll_chk == True:
                 hero_adell.draw_bb()
-
         for hero_archer in hero_group2:
             hero_archer.update(frame_time)
             hero_archer.draw()
             if coll_chk == True:
                 hero_archer.draw_bb()
-
         for hero_asuka in hero_group3:
             hero_asuka.update(frame_time)
             hero_asuka.draw()
             if coll_chk == True:
                 hero_asuka.draw_bb()
-
         for hero_axel in hero_group4:
             hero_axel.update(frame_time)
             hero_axel.draw()
             if coll_chk == True:
                 hero_axel.draw_bb()
-
         for hero_fenrich in hero_group5:
             hero_fenrich.update(frame_time)
             hero_fenrich.draw()
             if coll_chk == True:
                 hero_fenrich.draw_bb()
-
         for hero_gunner in hero_group6:
             hero_gunner.update(frame_time)
             hero_gunner.draw()
             if coll_chk == True:
                 hero_gunner.draw_bb()
-
         for hero_ninja in hero_group7:
             hero_ninja.update(frame_time)
             hero_ninja.draw()
             if coll_chk == True:
                 hero_ninja.draw_bb()
-
         for hero_pram in hero_group8:
             hero_pram.update(frame_time)
             hero_pram.draw()
             if coll_chk == True:
                 hero_pram.draw_bb()
-
         for hero_prof in hero_group9:
             hero_prof.update(frame_time)
             hero_prof.draw()
             if coll_chk == True:
                 hero_prof.draw_bb()
-
     font.draw(500, 55, '%1.f' % gold)
     font.draw(767, 12, '%d' % meteor_limit)
     font.draw(900, 12, '%d' % tornado_limit)
     font.draw(1030, 12, '%d' % explosion_limit)
-
     # hero_1
     if Upgrade_Manager.UpgradeManager.hero_1_star_level == 1:
         upgrade_manager.draw(640, 75)
@@ -2091,7 +1906,6 @@ def draw(frame_time):
         upgrade_manager.draw(730, 75)
         hero_adell.atk = 50
         hero_adell.hp = 500
-
     # hero_2
     if Upgrade_Manager.UpgradeManager.hero_2_star_level == 1:
         upgrade_manager.draw(770, 75)
@@ -2142,7 +1956,6 @@ def draw(frame_time):
         upgrade_manager.draw(860, 75)
         hero_archer.atk = 70
         hero_archer.hp = 700
-
     # hero_3
     if Upgrade_Manager.UpgradeManager.hero_3_star_level == 1:
         upgrade_manager.draw(900, 75)
@@ -2193,7 +2006,6 @@ def draw(frame_time):
         upgrade_manager.draw(990, 75)
         hero_asuka.atk = 80
         hero_asuka.hp = 1000
-
     # hero_4
     if Upgrade_Manager.UpgradeManager.hero_4_star_level == 1:
         upgrade_manager.draw(1030, 75)
@@ -2244,7 +2056,6 @@ def draw(frame_time):
         upgrade_manager.draw(1120, 75)
         hero_axel.atk = 50
         hero_axel.hp = 2500
-
     # hero_5
     if Upgrade_Manager.UpgradeManager.hero_5_star_level == 1:
         upgrade_manager.draw(1160, 75)
@@ -2295,7 +2106,6 @@ def draw(frame_time):
         upgrade_manager.draw(1250, 75)
         hero_fenrich.atk = 150
         hero_fenrich.hp = 1000
-
     # hero_6
     if Upgrade_Manager.UpgradeManager.hero_6_star_level == 1:
         upgrade_manager.draw(1290, 75)
@@ -2346,7 +2156,6 @@ def draw(frame_time):
         upgrade_manager.draw(1380, 75)
         hero_gunner.atk = 50
         hero_gunner.hp = 3500
-
     # hero_7
     if Upgrade_Manager.UpgradeManager.hero_7_star_level == 1:
         upgrade_manager.draw(1420, 75)
@@ -2397,7 +2206,6 @@ def draw(frame_time):
         upgrade_manager.draw(1510, 75)
         hero_ninja.atk = 150
         hero_ninja.hp = 1500
-
     # hero_8
     if Upgrade_Manager.UpgradeManager.hero_8_star_level == 1:
         upgrade_manager.draw(1550, 75)
@@ -2448,7 +2256,6 @@ def draw(frame_time):
         upgrade_manager.draw(1640, 75)
         hero_pram.atk = 250
         hero_pram.hp = 2500
-
     # hero_9
     if Upgrade_Manager.UpgradeManager.hero_9_star_level == 1:
         upgrade_manager.draw(1680, 75)
@@ -2499,7 +2306,6 @@ def draw(frame_time):
         upgrade_manager.draw(1770, 75)
         hero_pram.atk = 2200
         hero_pram.hp = 3500
-
     # magic_1
     if Upgrade_Manager.UpgradeManager.magic_1_star_level == 1:
         upgrade_manager.draw(1290, -55)
@@ -2513,7 +2319,6 @@ def draw(frame_time):
         upgrade_manager.draw(1315, -55)
         upgrade_manager.draw(1340, -55)
         meteor_numb = 9
-
     # magic_2
     if Upgrade_Manager.UpgradeManager.magic_2_star_level == 1:
         upgrade_manager.draw(1420, -55)
@@ -2527,7 +2332,6 @@ def draw(frame_time):
         upgrade_manager.draw(1445, -55)
         upgrade_manager.draw(1470, -55)
         tornado_numb = 7
-
     # magic_3
     if Upgrade_Manager.UpgradeManager.magic_3_star_level == 1:
         upgrade_manager.draw(1550, -55)
@@ -2541,28 +2345,23 @@ def draw(frame_time):
         upgrade_manager.draw(1575, -55)
         upgrade_manager.draw(1600, -55)
         explosion_numb = 5
-
     user_valva.draw()
     for magic_meteor in magic_group1:
         magic_meteor.update(frame_time)
         magic_meteor.draw()
         if coll_chk == True:
             magic_meteor.draw_bb()
-
     for magic_tornado in magic_group2:
         magic_tornado.update(frame_time)
         magic_tornado.draw()
         if coll_chk == True:
             magic_tornado.draw_bb()
-
     for magic_explosion in magic_group3:
         magic_explosion.update()
         magic_explosion.draw()
         if coll_chk == True:
             magic_explosion.draw_bb()
-
     star_bar.draw()
-
     if coll_chk == True:
         user_valva.draw_bb()
     if m_exp == True:
@@ -2681,7 +2480,6 @@ def draw(frame_time):
                 magic_group3.remove(magic_explosion)
                 m_exp_19 = False
                 m_exp_1 = False
-
     if user_castle.defeat == True:
         gamesound.defeat()
         gamesound.sound_check = False
@@ -2694,7 +2492,6 @@ def draw(frame_time):
             ui_gotown_over.draw(640,360)
         else:
             ui_gotown.draw(640,360)
-
     if enemy_castle.defeat == True:
         gamesound.victory()
         gamesound.sound_check = False
@@ -2703,14 +2500,12 @@ def draw(frame_time):
             ui_gotown_over.draw(640,360)
         else:
             ui_gotown.draw(640,360)
-
     ui_timer.draw(635, 690)
     time_font.draw(635, 687, '%0.1f' % play_time)
     if user_castle.defeat == True or enemy_castle.defeat == True:
         result_font.draw(730, 475, '%1.f' % ((result_score * play_time) / 50))
         result_font.draw(730, 387, '%1.f' % play_time)
         result_font.draw(730, 302, '%1.f' % (Menu_Scene.diamond + (play_time * 10.0)))
-
     update_canvas()
 
 
