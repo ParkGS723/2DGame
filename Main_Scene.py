@@ -15,6 +15,9 @@ import Stage_Background
 
 from pico2d import *
 
+
+#Main
+
 result_font = None
 time_font = None
 font = None
